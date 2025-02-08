@@ -13,6 +13,7 @@
   "author": "sofia",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
@@ -26,5 +27,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
+=======
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+>>>>>>> 661ebe6dd7a0ef5404e31f1b8191371cee2e2f54
   }
 }
