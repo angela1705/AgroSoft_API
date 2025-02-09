@@ -4,7 +4,7 @@ const pool = new Pool({
   user: 'root',
   host: 'localhost',
   database: 'dbagro',
-  password: '',
+  password: 'adso2024',
   port: 5432,
 });
 export const listarPermisos = async (req, res) => {
