@@ -2,8 +2,8 @@ import pool from '../database/Conexion.js';
 
 export const listarRoles = async (req, res) => {
   try {
-    const [result] = await pool.query('SELECT * FROM roles');
-    res.status(200).json(result);
+    const result = await pool.query('SELECT * FROM roles');
+    res.status(200).json(result.rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error al listar roles' });
@@ -20,11 +20,11 @@ export const RegistrarRoles = async (req, res) => {
 
     const sql = `
       INSERT INTO roles (nombre_rol, fecha_creacion, ultima_actualizacion)
-      VALUES (?, NOW(), NOW())
+      VALUES ($1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     `;
-    const [result] = await pool.query(sql, [nombre_rol]);
+    const result = await pool.query(sql, [nombre_rol]);
 
-    result.affectedRows > 0 
+    result.rowCount > 0 
       ? res.status(201).json({ message: 'Rol creado' })
       : res.status(400).json({ message: 'Error al crear rol' });
   } catch (error) {
@@ -40,13 +40,13 @@ export const ActualizarRoles = async (req, res) => {
 
     const sql = `
       UPDATE roles SET 
-      nombre_rol = ?, 
-      ultima_actualizacion = NOW()
-      WHERE id = ?
+      nombre_rol = $1, 
+      ultima_actualizacion = CURRENT_TIMESTAMP
+      WHERE id = $2
     `;
-    const [result] = await pool.query(sql, [nombre_rol, id]);
+    const result = await pool.query(sql, [nombre_rol, id]);
 
-    result.affectedRows > 0 
+    result.rowCount > 0 
       ? res.status(200).json({ message: 'Rol actualizado' })
       : res.status(404).json({ message: 'Rol no encontrado' });
   } catch (error) {
@@ -58,9 +58,9 @@ export const ActualizarRoles = async (req, res) => {
 export const EliminarRoles = async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query('DELETE FROM roles WHERE id = ?', [id]);
+    const result = await pool.query('DELETE FROM roles WHERE id = $1', [id]);
 
-    result.affectedRows > 0 
+    result.rowCount > 0 
       ? res.status(200).json({ message: 'Rol eliminado' })
       : res.status(404).json({ message: 'Rol no encontrado' });
   } catch (error) {
