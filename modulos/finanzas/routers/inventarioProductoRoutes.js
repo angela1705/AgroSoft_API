@@ -1,18 +1,18 @@
 import { Router } from "express";
 import {
-    registrarProducto,
-    listarProductos,
-    actualizarProducto,
-    eliminarProducto,
+    registrarInventarioProducto,
+    listarInventarioProducto,
+    actualizarInventarioProducto,
+    eliminarInventarioProducto,
 } from "../controllers/inventarioProductoController.js";
 
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 
 const rutaInventario = Router();
 
-rutaInventario.get("/inventario", verificarToken, listarProductos);
-rutaInventario.post("/inventario", verificarToken, registrarProducto);
-rutaInventario.put("/inventario/:id_producto", verificarToken, actualizarProducto);
-rutaInventario.delete("/inventario/:id_producto", verificarToken, eliminarProducto);
+rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
+rutaInventario.post("/inventario", verificarToken, registrarInventarioProducto);
+rutaInventario.put("/inventario/:id_producto", verificarToken, actualizarInventarioProducto);
+rutaInventario.delete("/inventario/:id_producto", verificarToken, eliminarInventarioProducto);
 
 export default rutaInventario;
