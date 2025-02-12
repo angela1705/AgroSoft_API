@@ -3,9 +3,9 @@ import { Router } from "express";
 import { postTareas, getTareas, getIdTareas, updateTareas } from "../controller/controller.tareas.js";
 const RouterTareas = Router();
 
-RouterTareas.post("/tareas", postTareas);
-RouterTareas.get("/tareas", getTareas);
-RouterTareas.get("/tareas/:id", getIdTareas);
-RouterTareas.put("/tareas/:id", updateTareas);
+RouterTareas.post(verificarToken, "/tareas", postTareas);
+RouterTareas.get(verificarToken, "/tareas", getTareas);
+RouterTareas.get(verificarToken, "/tareas/:id", getIdTareas);
+RouterTareas.put(verificarToken, "/tareas/:id", updateTareas);
 
 export default RouterTareas;

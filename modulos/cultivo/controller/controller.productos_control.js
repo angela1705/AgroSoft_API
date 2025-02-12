@@ -2,7 +2,7 @@ import { pool } from "../../../database/conexion.js";
 
 export const postProductos_control = async (req, res) => {
     try {
-        const id = req.body;
+        const { id: newId } = req.body;
         const sql = "INSERT INTO productos_control (id) VALUES ($1)";
         const result = await pool.query(sql, [id]);
         if (result.rowCount > 0) {
@@ -49,9 +49,9 @@ export const getIdProductos_control = async (req, res) => {
 export const updateProductos_control = async (req, res) => {
     try {
         const { id } = req.params;
-        const id = req.body;
-        const sql = "UPDATE productos_control SET id = $1 WHERE id = $1";
-        const result = await pool.query(sql, [id, id]);
+        const { id: newId } = req.body;
+        const sql = "UPDATE productos_control SET id = $1 WHERE id = $2";
+        const result = await pool.query(sql, [newId, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Productos_control actualizado correctamente" });
         }
