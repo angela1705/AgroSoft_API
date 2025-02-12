@@ -2,31 +2,33 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postTipos_control = async (req, res) => {
     try {
-        const { id: newId } = req.body;
-        const sql = "INSERT INTO tipos_control (id) VALUES ($1)";
-        const result = await pool.query(sql, [id]);
-        if (result.rowCount > 0) {
-            return res.status(200).json({ "message": "Tipos_control registrado correctamente" });
+        const { nombre, descripcion } = req.body;
+        if (!nombre) {
+            return res.status(400).json({ "message": "El nombre es un campo requerido" });
         }
-        return res.status(404).json({ "message": "No se pudo registrar tipos_control" });
+        const sql = "INSERT INTO tipos_control (nombre, descripcion) VALUES ($1, $2) RETURNING id";
+        const result = await pool.query(sql, [nombre, descripcion]);
+        if (result.rows.length > 0) {
+            return res.status(201).json({ 
+                "message": "Tipo de control registrado correctamente",
+                "id": result.rows[0].id
+            });
+        }
+        return res.status(400).json({ "message": "No se pudo registrar el tipo de control" });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ "message": "Error en el servidor" });
+        console.error('Error en postTipos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
     }
 };
 
 export const getTipos_control = async (req, res) => {
     try {
-        const sql = "SELECT * FROM tipos_control";
+        const sql = "SELECT * FROM tipos_control ORDER BY nombre";
         const result = await pool.query(sql);
-        if (result.rows.length > 0) {
-            res.status(200).json(result.rows);
-        } else {
-            res.status(404).json({ msg: "No hay registros de tipos_control" });
-        }
+        return res.status(200).json(result.rows);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ msg: "Error en el servidor" });
+        console.error('Error en getTipos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
     }
 };
 
@@ -36,28 +38,46 @@ export const getIdTipos_control = async (req, res) => {
         const sql = "SELECT * FROM tipos_control WHERE id = $1";
         const result = await pool.query(sql, [id]);
         if (result.rows.length > 0) {
-            res.status(200).json(result.rows[0]);
+            return res.status(200).json(result.rows[0]);
         } else {
-            res.status(404).json({ msg: "Tipos_control no encontrado" });
+            return res.status(404).json({ "message": "Tipo de control no encontrado" });
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ msg: "Error en el servidor" });
+        console.error('Error en getIdTipos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
     }
 };
 
 export const updateTipos_control = async (req, res) => {
     try {
         const { id } = req.params;
-        const { id: newId } = req.body;
-        const sql = "UPDATE tipos_control SET id = $1 WHERE id = $2";
-        const result = await pool.query(sql, [newId, id]);
-        if (result.rowCount > 0) {
-            return res.status(200).json({ "message": "Tipos_control actualizado correctamente" });
+        const { nombre, descripcion } = req.body;
+        if (!nombre) {
+            return res.status(400).json({ "message": "El nombre es un campo requerido" });
         }
-        return res.status(404).json({ "message": "No se pudo actualizar tipos_control" });
+        const sql = "UPDATE tipos_control SET nombre = $1, descripcion = $2 WHERE id = $3";
+        const result = await pool.query(sql, [nombre, descripcion, id]);
+        if (result.rowCount > 0) {
+            return res.status(200).json({ "message": "Tipo de control actualizado correctamente" });
+        }
+        return res.status(404).json({ "message": "No se pudo actualizar el tipo de control" });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ "message": "Error en el servidor" });
+        console.error('Error en updateTipos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
+    }
+};
+
+export const deleteTipos_control = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const sql = "DELETE FROM tipos_control WHERE id = $1";
+        const result = await pool.query(sql, [id]);
+        if (result.rowCount > 0) {
+            return res.status(200).json({ "message": "Tipo de control eliminado correctamente" });
+        }
+        return res.status(404).json({ "message": "No se pudo eliminar el tipo de control" });
+    } catch (error) {
+        console.error('Error en deleteTipos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
     }
 };
