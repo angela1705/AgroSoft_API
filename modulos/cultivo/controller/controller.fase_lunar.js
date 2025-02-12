@@ -1,4 +1,4 @@
-import { pool } from "../../../database/conexion.js";
+import pool from "../../usuarios/database/Conexion.js";
 
 export const postFase_lunar = async (req, res) => {
     try {

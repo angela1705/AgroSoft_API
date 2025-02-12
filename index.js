@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
-import bancal from "./modulos/cultivo/router/router.fase_lunar.js";
+import fase_lunar from "./modulos/cultivo/router/router.fase_lunar.js";
 import cultivoLuna from "./modulos/cultivo/router/router.cultivo_luna.js";
 import plantaciones from "./modulos/cultivo/router/router.plantaciones.js";
 import tipoPlaga from "./modulos/cultivo/router/router.tipo_plaga.js";
@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
-app.use('/api/cultivo', bancal);
+app.use('/api/cultivo', fase_lunar);
 app.use('/api/cultivo', cultivoLuna);
 app.use('/api/cultivo', plantaciones);
 app.use('/api/cultivo', tipoPlaga);
