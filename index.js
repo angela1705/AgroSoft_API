@@ -5,6 +5,7 @@ import morgan from 'morgan';
 /* Rutas del modulo IOT */
 import bancal from "./modulos/IoT/router/router.bancal.js";
 import configuracion from "./modulos/IoT/router/router.configuracion.js";
+import datosMeteorologicos from "./modulos/IoT/router/router.datos_meteorologicos.js";
 
 const app= express();
 app.use(express.static('./public'));
@@ -15,6 +16,8 @@ app.use(morgan('dev'));
 /* Uso de las rutas IOT */
 app.use(bancal);
 app.use(configuracion);
+app.use(datosMeteorologicos);
+
 
 app.listen(3000, ()=>{
     console.log('Servidor corriendo en el puerto 3000');
