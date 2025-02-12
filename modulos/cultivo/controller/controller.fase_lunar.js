@@ -2,12 +2,12 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postFase_lunar = async (req, res) => {
     try {
-        const { nombre, descripcion, fecha_inicio, fecha_fin } = req.body;
-        if (!nombre || !fecha_inicio || !fecha_fin) {
+        const { nombre, descripcion, fecha} = req.body;
+        if (!nombre || !fecha) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
-        const sql = "INSERT INTO fase_lunar (nombre, descripcion, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id";
-        const result = await pool.query(sql, [nombre, descripcion, fecha_inicio, fecha_fin]);
+        const sql = "INSERT INTO fase_lunar (nombre, descripcion, fecha) VALUES ($1, $2, $3) RETURNING id";
+        const result = await pool.query(sql, [nombre, descripcion, fecha]);
         if (result.rows.length > 0) {
             return res.status(201).json({ 
                 "message": "Fase lunar registrada correctamente",
@@ -51,12 +51,12 @@ export const getIdFase_lunar = async (req, res) => {
 export const updateFase_lunar = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, fecha_inicio, fecha_fin } = req.body;
-        if (!nombre || !fecha_inicio || !fecha_fin) {
+        const { nombre, descripcion, fecha} = req.body;
+        if (!nombre || !fecha) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
-        const sql = "UPDATE fase_lunar SET nombre = $1, descripcion = $2, fecha_inicio = $3, fecha_fin = $4 WHERE id = $5";
-        const result = await pool.query(sql, [nombre, descripcion, fecha_inicio, fecha_fin, id]);
+        const sql = "UPDATE fase_lunar SET nombre = $1, descripcion = $2, fecha = $3, WHERE id = $4";
+        const result = await pool.query(sql, [nombre, descripcion, fecha, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Fase lunar actualizada correctamente" });
         }
