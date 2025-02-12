@@ -12,12 +12,12 @@ import Autenticacion from './modulos/usuarios/routers/Autenticacion.router.js';
 
 // Rutas del módulo Inventario
 import Bodega from './modulos/inventario/routers/Bodega.Router.js';
-import BodegaHerramienta from './modulos/inventario/routers/BodegaHerramienta.Router.js';
-import BodegaInsumo from './modulos/inventario/routers/BodegaInsumo.Router.js';
-import Herramienta from './modulos/inventario/routers/Herramientas.Router.js';
+import Bodega_Herramienta from './modulos/inventario/routers/BodegaHerramienta.Router.js';
+import Bodega_Insumo from './modulos/inventario/routers/BodegaInsumo.Router.js';
+import Herramientas from './modulos/inventario/routers/Herramientas.Router.js';
 import Insumos from './modulos/inventario/routers/Insumos.Router.js';
-import Semillero from './modulos/inventario/routers/Semillero.Router.js';
-import SemilleroInsumo from './modulos/inventario/routers/SemilleroInsumo.Router.js';
+import Semilleros from './modulos/inventario/routers/Semillero.Router.js';
+import Semillero_Insumo from './modulos/inventario/routers/SemilleroInsumo.Router.js';
 
 // Rutas del módulo IoT
 import bancal from "./modulos/IoT/router/router.bancal.js";
@@ -44,13 +44,13 @@ app.use('/api', UsuarioRol);
 app.use('/api', Autenticacion);
 
 // Uso de las rutas Inventario
-app.use('/api', Bodega);
-app.use('/api', BodegaHerramienta);
-app.use('/api', BodegaInsumo);
-app.use('/api', Herramienta);
-app.use('/api', Insumos);
-app.use('/api', Semillero);
-app.use('/api', SemilleroInsumo);
+app.use('/api/inv', Bodega);
+app.use('/api/inv', Bodega_Herramienta);
+app.use('/api/inv', Bodega_Insumo);
+app.use('/api/inv', Herramientas);
+app.use('/api/inv', Insumos);
+app.use('/api/inv', Semilleros);
+app.use('/api/inv', Semillero_Insumo);
 
 // Uso de las rutas IoT
 app.use('/api/iot', bancal);

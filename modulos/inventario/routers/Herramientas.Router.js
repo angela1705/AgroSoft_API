@@ -10,9 +10,9 @@ import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 
 const rutaHerramienta = Router()
 
-rutaHerramienta.get("/bodega_herramienta", verificarToken, listarHerramientas)
-rutaHerramienta.post("/bodega_herramienta", verificarToken, registrarHerramienta)
-rutaHerramienta.put("/bodega_herramienta/:id_bodegaHerramienta", verificarToken, actualizarHerramienta)
-rutaHerramienta.delete("/bodega_herramienta/:id_bodegaHerramienta", verificarToken, eliminarHerramienta)
+rutaHerramienta.get("/herramientas", verificarToken, listarHerramientas)
+rutaHerramienta.post("/herramientas", verificarToken, registrarHerramienta)
+rutaHerramienta.put("/herramientas/:id", verificarToken, actualizarHerramienta)
+rutaHerramienta.delete("/herramientas/:id", verificarToken, eliminarHerramienta)
 
-export default rutaHerramienta
+export default rutaHerramienta;

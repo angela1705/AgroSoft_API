@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { postConfiguracion, getConfiguracion, IdConfiguracion, actualizarConfiguracion  } from "../controller/controller.configuraciones.js";
+import { postConfiguracion, getConfiguracion, IdConfiguracion, actualizarConfiguracion  } from "../controller/controller.configuracion.js";
 const RouterConfiguracion = Router();
 
 RouterConfiguracion.post("/configuracion",postConfiguracion);
