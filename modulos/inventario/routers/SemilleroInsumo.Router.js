@@ -1,4 +1,4 @@
-import { Router } from "express"
+import { Router } from "express";
 import {
     registrarSemilleroInsumo,
     listarSemilleroInsumo,
@@ -6,12 +6,13 @@ import {
     eliminarSemilleroInsumo,
 } from "../controllers/SemilleroInsumo.js"
 import verificarToken from "../../usuarios/middlewares/verificarToken.js"
+import pool from "../../usuarios/database/Conexion.js"
 
 const rutaSemilleroInsumo = Router()
 
-rutaSemilleroInsumo.get("/bodega_herramienta", verificarToken, listarSemilleroInsumo)
-rutaSemilleroInsumo.post("/bodega_herramienta", verificarToken, registrarSemilleroInsumo)
-rutaSemilleroInsumo.put("/bodega_herramienta/:id_bodegaHerramienta", verificarToken, actualizarSemilleroInsumo)
-rutaSemilleroInsumo.delete("/bodega_herramienta/:id_bodegaHerramienta", verificarToken, eliminarSemilleroInsumo)
+rutaSemilleroInsumo.get("/semillero_insumo", verificarToken, listarSemilleroInsumo)
+rutaSemilleroInsumo.post("/semillero_insumo", verificarToken, registrarSemilleroInsumo)
+rutaSemilleroInsumo.put("/semillero_insumo/:id", verificarToken, actualizarSemilleroInsumo)
+rutaSemilleroInsumo.delete("/semillero_insumo/:id", verificarToken, eliminarSemilleroInsumo)
 
 export default rutaSemilleroInsumo

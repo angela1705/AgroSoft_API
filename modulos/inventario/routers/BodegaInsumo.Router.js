@@ -8,11 +8,11 @@ import {
 
 import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 
-const rutaBodegaInsumo = Router()
+const rutaBodegaInsumo = Router()   
 
 rutaBodegaInsumo.get("/bodega_insumo", verificarToken, listarBodegaInsumo)
 rutaBodegaInsumo.post("/bodega_insumo", verificarToken, registrarBodegaInsumo)
-rutaBodegaInsumo.put("/bodega_insumo/:id_bodegaInsumo", verificarToken, actualizarBodegaInsumo)
-rutaBodegaInsumo.delete("/bodega_insumo/:id_bodegaInsumo", verificarToken, eliminarBodegaInsumo)
+rutaBodegaInsumo.put("/bodega_insumo/:id", verificarToken, actualizarBodegaInsumo)
+rutaBodegaInsumo.delete("/bodega_insumo/:id", verificarToken, eliminarBodegaInsumo)
 
 export default rutaBodegaInsumo

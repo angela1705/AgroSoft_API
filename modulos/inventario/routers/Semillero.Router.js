@@ -10,9 +10,9 @@ import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 
 const rutaSemillero = Router()
 
-rutaSemillero.get("/bodega_herramienta", verificarToken, listarSemilleros)
-rutaSemillero.post("/bodega_herramienta", verificarToken, registrarSemillero)
-rutaSemillero.put("/bodega_herramienta/:id_bodegaHerramienta", verificarToken, actualizarSemillero)
-rutaSemillero.delete("/bodega_herramienta/:id_bodegaHerramienta", verificarToken, eliminarSemillero)
+rutaSemillero.get("/semilleros", verificarToken, listarSemilleros)
+rutaSemillero.post("/semilleros", verificarToken, registrarSemillero)
+rutaSemillero.put("/semilleros/:id", verificarToken, actualizarSemillero)
+rutaSemillero.delete("/semilleros/:id", verificarToken, eliminarSemillero)
 
-export default rutaSemillero;
+export default rutaSemillero
