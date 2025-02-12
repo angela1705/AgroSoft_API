@@ -3,9 +3,9 @@ import { Router } from "express";
 import { postPlantaciones, getPlantaciones, getIdPlantaciones, updatePlantaciones } from "../controller/controller.plantaciones.js";
 const RouterPlantaciones = Router();
 
-RouterPlantaciones.post("/plantaciones", postPlantaciones);
-RouterPlantaciones.get("/plantaciones", getPlantaciones);
-RouterPlantaciones.get("/plantaciones/:id", getIdPlantaciones);
-RouterPlantaciones.put("/plantaciones/:id", updatePlantaciones);
+RouterPlantaciones.post(verificarToken, "/plantaciones", postPlantaciones);
+RouterPlantaciones.get(verificarToken, "/plantaciones", getPlantaciones);
+RouterPlantaciones.get(verificarToken, "/plantaciones/:id", getIdPlantaciones);
+RouterPlantaciones.put(verificarToken, "/plantaciones/:id", updatePlantaciones);
 
 export default RouterPlantaciones;

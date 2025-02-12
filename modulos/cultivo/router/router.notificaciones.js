@@ -3,9 +3,9 @@ import { Router } from "express";
 import { postNotificaciones, getNotificaciones, getIdNotificaciones, updateNotificaciones } from "../controller/controller.notificaciones.js";
 const RouterNotificaciones = Router();
 
-RouterNotificaciones.post("/notificaciones", postNotificaciones);
-RouterNotificaciones.get("/notificaciones", getNotificaciones);
-RouterNotificaciones.get("/notificaciones/:id", getIdNotificaciones);
-RouterNotificaciones.put("/notificaciones/:id", updateNotificaciones);
+RouterNotificaciones.post(verificarToken, "/notificaciones", postNotificaciones);
+RouterNotificaciones.get(verificarToken, "/notificaciones", getNotificaciones);
+RouterNotificaciones.get(verificarToken, "/notificaciones/:id", getIdNotificaciones);
+RouterNotificaciones.put(verificarToken, "/notificaciones/:id", updateNotificaciones);
 
 export default RouterNotificaciones;

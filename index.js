@@ -27,7 +27,28 @@ import lotes from "./modulos/IoT/router/router.lotes.js";
 import sensores from "./modulos/IoT/router/router.sensores.js";
 import sensor_bancal from "./modulos/IoT/router/router.sensor_bancal.js";
 
-//Rutas del modulo de Finanzas
+// Rutas del módulo Cultivo 
+import cultivoLuna from "./modulos/cultivo/routers/cultivoLuna.router.js";
+import plantaciones from "./modulos/cultivo/routers/plantaciones.router.js";
+import tipoPlaga from "./modulos/cultivo/routers/tipoPlaga.router.js";
+import plagas from "./modulos/cultivo/routers/plagas.router.js";
+import afecciones from "./modulos/cultivo/routers/afecciones.router.js";
+import productosControl from "./modulos/cultivo/routers/productosControl.router.js";
+import tiposControl from "./modulos/cultivo/routers/tiposControl.router.js";
+import controles from "./modulos/cultivo/routers/controles.router.js";
+import tareas from "./modulos/cultivo/routers/tareas.router.js";
+import programacion from "./modulos/cultivo/routers/programacion.router.js";
+import notificaciones from "./modulos/cultivo/routers/notificaciones.router.js";
+import tipoActividad from "./modulos/cultivo/routers/tipoActividad.router.js";
+import actividades from "./modulos/cultivo/routers/actividades.router.js";
+import cosechas from "./modulos/cultivo/routers/cosechas.router.js";
+import tiposResiduo from "./modulos/cultivo/routers/tiposResiduo.router.js";
+import residuos from "./modulos/cultivo/routers/residuos.router.js";
+import tipoEspecie from "./modulos/cultivo/routers/tipoEspecie.router.js";
+import especies from "./modulos/cultivo/routers/especies.router.js";
+import cultivos from "./modulos/cultivo/routers/cultivos.router.js";
+
+// Rutas del módulo Finanzas
 import salario_minimo from "./modulos/finanzas/routers/salarioMinimoRoutes.js";
 import Pago_trabajador from "./modulos/finanzas/routers/pagoTrabajadorRoutes.js";
 import Egresos from "./modulos/finanzas/routers/egresosRoutes.js";
@@ -43,7 +64,28 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
-// Uso de las rutas Usuarios
+// Rutas del módulo Cultivo
+app.use('/api/cultivo', cultivoLuna);
+app.use('/api/cultivo', plantaciones);
+app.use('/api/cultivo', tipoPlaga);
+app.use('/api/cultivo', plagas);
+app.use('/api/cultivo', afecciones);
+app.use('/api/cultivo', productosControl);
+app.use('/api/cultivo', tiposControl);
+app.use('/api/cultivo', controles);
+app.use('/api/cultivo', tareas);
+app.use('/api/cultivo', programacion);
+app.use('/api/cultivo', notificaciones);
+app.use('/api/cultivo', tipoActividad);
+app.use('/api/cultivo', actividades);
+app.use('/api/cultivo', cosechas);
+app.use('/api/cultivo', tiposResiduo);
+app.use('/api/cultivo', residuos);
+app.use('/api/cultivo', tipoEspecie);
+app.use('/api/cultivo', especies);
+app.use('/api/cultivo', cultivos);
+
+// Rutas del módulo Usuarios
 app.use('/api', Usuarios);
 app.use('/api', Permisos);
 app.use('/api', RolPermiso);
@@ -51,7 +93,7 @@ app.use('/api', Roles);
 app.use('/api', UsuarioRol);
 app.use('/api', Autenticacion);
 
-// Uso de las rutas Inventario
+// Rutas del módulo Inventario
 app.use('/api/inv', Bodega);
 app.use('/api/inv', Bodega_Herramienta);
 app.use('/api/inv', Bodega_Insumo);
@@ -60,7 +102,7 @@ app.use('/api/inv', Insumos);
 app.use('/api/inv', Semilleros);
 app.use('/api/inv', Semillero_Insumo);
 
-// Uso de las rutas IoT
+// Rutas del módulo IoT
 app.use('/api/iot', bancal);
 app.use('/api/iot', configuracion);
 app.use('/api/iot', datosMeteorologicos);
@@ -68,12 +110,12 @@ app.use('/api/iot', lotes);
 app.use('/api/iot', sensores);
 app.use('/api/iot', sensor_bancal);
 
-//uso de las rutas Finanzas 
+// Rutas del módulo Finanzas
 app.use('/api/fin', salario_minimo);
 app.use('/api/fin', Pago_trabajador);
 app.use('/api/fin', Egresos);
 app.use('/api/fin', Rentabilidad);
-app.use('/api/fin', Registro_venta );
+app.use('/api/fin', Registro_venta);
 app.use('/api/fin', Inventario_producto);
 
 // Configuración del motor de plantilla EJS
@@ -86,5 +128,6 @@ app.get('/documents', (req, resp) => {
 
 // Iniciar el servidor
 app.listen(3000, () => {
-    console.log('Servidor iniciado en el puerto 3000');
+    console.log('✅ Servidor iniciado en el puerto 3000');
 });
+
