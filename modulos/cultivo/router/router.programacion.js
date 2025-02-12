@@ -1,3 +1,4 @@
+import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 import { postProgramacion, getProgramacion, getIdProgramacion, updateProgramacion } from "../controller/controller.programacion.js";
 const RouterProgramacion = Router();

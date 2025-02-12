@@ -1,3 +1,4 @@
+import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 import { postTipo_plaga, getTipo_plaga, getIdTipo_plaga, updateTipo_plaga } from "../controller/controller.tipo_plaga.js";
 const RouterTipo_plaga = Router();
