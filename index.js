@@ -27,6 +27,14 @@ import lotes from "./modulos/IoT/router/router.lotes.js";
 import sensores from "./modulos/IoT/router/router.sensores.js";
 import sensor_bancal from "./modulos/IoT/router/router.sensor_bancal.js";
 
+//Rutas del modulo de Finanzas
+import salario_minimo from "./modulos/finanzas/routers/salarioMinimoRoutes.js";
+import Pago_trabajador from "./modulos/finanzas/routers/pagoTrabajadorRoutes.js";
+import Egresos from "./modulos/finanzas/routers/egresosRoutes.js";
+import Rentabilidad from "./modulos/finanzas/routers/rentabilidadRoutes.js";
+import Registro_venta from "./modulos/finanzas/routers/registroVentaRoutes.js";
+import Inventario_producto from "./modulos/finanzas/routers/inventarioProductoRoutes.js";
+
 const app = express();
 
 // Configuración de middleware
@@ -59,6 +67,14 @@ app.use('/api/iot', datosMeteorologicos);
 app.use('/api/iot', lotes);
 app.use('/api/iot', sensores);
 app.use('/api/iot', sensor_bancal);
+
+//uso de las rutas Finanzas 
+app.use('/api/fin', salario_minimo);
+app.use('/api/fin', Pago_trabajador);
+app.use('/api/fin', Egresos);
+app.use('/api/fin', Rentabilidad);
+app.use('/api/fin', Registro_venta );
+app.use('/api/fin', Inventario_producto);
 
 // Configuración del motor de plantilla EJS
 app.set('views', './src/views');
