@@ -1,3 +1,4 @@
+import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 import { postCultivos, getCultivos, getIdCultivos, updateCultivos } from "../controller/controller.cultivos.js";
 const RouterCultivos = Router();

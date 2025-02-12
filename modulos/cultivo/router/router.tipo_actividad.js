@@ -1,3 +1,4 @@
+import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 import { postTipo_actividad, getTipo_actividad, getIdTipo_actividad, updateTipo_actividad } from "../controller/controller.tipo_actividad.js";
 const RouterTipo_actividad = Router();
