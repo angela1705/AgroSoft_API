@@ -2,6 +2,28 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
+// Rutas del módulo Cultivo
+import fase_lunar from "./modulos/cultivo/router/router.fase_lunar.js";
+import cultivoLuna from "./modulos/cultivo/router/router.cultivo_luna.js";
+import plantaciones from "./modulos/cultivo/router/router.plantaciones.js";
+import tipoPlaga from "./modulos/cultivo/router/router.tipo_plaga.js";
+import plagas from "./modulos/cultivo/router/router.plagas.js";
+import afecciones from "./modulos/cultivo/router/router.afecciones.js";
+import productosControl from "./modulos/cultivo/router/router.productos_control.js";
+import tiposControl from "./modulos/cultivo/router/router.tipos_control.js";
+import controles from "./modulos/cultivo/router/router.controles.js";
+import tareas from "./modulos/cultivo/router/router.tareas.js";
+import programacion from "./modulos/cultivo/router/router.programacion.js";
+import notificaciones from "./modulos/cultivo/router/router.notificaciones.js";
+import tipoActividad from "./modulos/cultivo/router/router.tipo_actividad.js";
+import actividades from "./modulos/cultivo/router/router.actividades.js";
+import cosechas from "./modulos/cultivo/router/router.cosechas.js";
+import tiposResiduo from "./modulos/cultivo/router/router.tipos_residuo.js";
+import residuos from "./modulos/cultivo/router/router.residuos.js";
+import tipoEspecie from "./modulos/cultivo/router/router.tipo_especie.js";
+import especies from "./modulos/cultivo/router/router.especies.js";
+import cultivos from "./modulos/cultivo/router/router.cultivos.js";
+
 // Rutas del módulo Usuarios
 import Usuarios from './modulos/usuarios/routers/Usuariso.router.js';
 import Permisos from './modulos/usuarios/routers/Permisos.routes.js';
@@ -27,27 +49,6 @@ import lotes from "./modulos/IoT/router/router.lotes.js";
 import sensores from "./modulos/IoT/router/router.sensores.js";
 import sensor_bancal from "./modulos/IoT/router/router.sensor_bancal.js";
 
-// Rutas del módulo Cultivo 
-import cultivoLuna from "./modulos/cultivo/routers/cultivoLuna.router.js";
-import plantaciones from "./modulos/cultivo/routers/plantaciones.router.js";
-import tipoPlaga from "./modulos/cultivo/routers/tipoPlaga.router.js";
-import plagas from "./modulos/cultivo/routers/plagas.router.js";
-import afecciones from "./modulos/cultivo/routers/afecciones.router.js";
-import productosControl from "./modulos/cultivo/routers/productosControl.router.js";
-import tiposControl from "./modulos/cultivo/routers/tiposControl.router.js";
-import controles from "./modulos/cultivo/routers/controles.router.js";
-import tareas from "./modulos/cultivo/routers/tareas.router.js";
-import programacion from "./modulos/cultivo/routers/programacion.router.js";
-import notificaciones from "./modulos/cultivo/routers/notificaciones.router.js";
-import tipoActividad from "./modulos/cultivo/routers/tipoActividad.router.js";
-import actividades from "./modulos/cultivo/routers/actividades.router.js";
-import cosechas from "./modulos/cultivo/routers/cosechas.router.js";
-import tiposResiduo from "./modulos/cultivo/routers/tiposResiduo.router.js";
-import residuos from "./modulos/cultivo/routers/residuos.router.js";
-import tipoEspecie from "./modulos/cultivo/routers/tipoEspecie.router.js";
-import especies from "./modulos/cultivo/routers/especies.router.js";
-import cultivos from "./modulos/cultivo/routers/cultivos.router.js";
-
 // Rutas del módulo Finanzas
 import salario_minimo from "./modulos/finanzas/routers/salarioMinimoRoutes.js";
 import Pago_trabajador from "./modulos/finanzas/routers/pagoTrabajadorRoutes.js";
@@ -65,6 +66,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 // Rutas del módulo Cultivo
+app.use('/api/cultivo', fase_lunar);
 app.use('/api/cultivo', cultivoLuna);
 app.use('/api/cultivo', plantaciones);
 app.use('/api/cultivo', tipoPlaga);
@@ -130,4 +132,3 @@ app.get('/documents', (req, resp) => {
 app.listen(3000, () => {
     console.log('✅ Servidor iniciado en el puerto 3000');
 });
-
