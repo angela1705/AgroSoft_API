@@ -7,6 +7,7 @@ import bancal from "./modulos/IoT/router/router.bancal.js";
 import configuracion from "./modulos/IoT/router/router.configuracion.js";
 import datosMeteorologicos from "./modulos/IoT/router/router.datos_meteorologicos.js";
 import lotes from "./modulos/IoT/router/router.lotes.js";
+import sensores from "./modulos/IoT/router/router.sensores.js";
 
 const app= express();
 app.use(express.static('./public'));
@@ -19,6 +20,7 @@ app.use(bancal);
 app.use(configuracion);
 app.use(datosMeteorologicos);
 app.use(lotes);
+app.use(sensores);
 
 
 app.listen(3000, ()=>{
