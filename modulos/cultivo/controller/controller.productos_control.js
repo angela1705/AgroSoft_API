@@ -2,16 +2,22 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postProductos_control = async (req, res) => {
     try {
-        
-        const sql = "INSERT INTO productos_control (id) VALUES (DEFAULT)";
-        const result = await pool.query(sql, []);
-        if (result.rowCount > 0) {
-            return res.status(200).json({ "message": "Productos_control registrado correctamente" });
+        const { nombre, tipo, descripcion, dosis_recomendada } = req.body;
+        if (!nombre || !tipo) {
+            return res.status(400).json({ "message": "Nombre y tipo son campos requeridos" });
         }
-        return res.status(404).json({ "message": "No se pudo registrar productos_control" });
+        const sql = "INSERT INTO productos_control (nombre, tipo, descripcion, dosis_recomendada) VALUES ($1, $2, $3, $4) RETURNING id";
+        const result = await pool.query(sql, [nombre, tipo, descripcion, dosis_recomendada]);
+        if (result.rows.length > 0) {
+            return res.status(201).json({ 
+                "message": "Producto de control registrado correctamente",
+                "id": result.rows[0].id
+            });
+        }
+        return res.status(400).json({ "message": "No se pudo registrar el producto de control" });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ "message": "Error en el servidor" });
+        console.error('Error en postProductos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
     }
 };
 
@@ -19,14 +25,10 @@ export const getProductos_control = async (req, res) => {
     try {
         const sql = "SELECT * FROM productos_control";
         const result = await pool.query(sql);
-        if (result.rows.length > 0) {
-            res.status(200).json(result.rows);
-        } else {
-            res.status(404).json({ msg: "No hay registros de productos_control" });
-        }
+        return res.status(200).json(result.rows);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ msg: "Error en el servidor" });
+        console.error('Error en getProductos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
     }
 };
 
@@ -34,30 +36,48 @@ export const getIdProductos_control = async (req, res) => {
     try {
         const { id } = req.params;
         const sql = "SELECT * FROM productos_control WHERE id = $1";
-        const result = await pool.query(sql, []);
+        const result = await pool.query(sql, [id]);
         if (result.rows.length > 0) {
-            res.status(200).json(result.rows[0]);
+            return res.status(200).json(result.rows[0]);
         } else {
-            res.status(404).json({ msg: "Productos_control no encontrado" });
+            return res.status(404).json({ "message": "Producto de control no encontrado" });
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ msg: "Error en el servidor" });
+        console.error('Error en getIdProductos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
     }
 };
 
 export const updateProductos_control = async (req, res) => {
     try {
         const { id } = req.params;
-        
-        const sql = "UPDATE productos_control SET id = $1 WHERE id = $2";
-        const result = await pool.query(sql, [newId, id]);
-        if (result.rowCount > 0) {
-            return res.status(200).json({ "message": "Productos_control actualizado correctamente" });
+        const { nombre, tipo, descripcion, dosis_recomendada } = req.body;
+        if (!nombre || !tipo) {
+            return res.status(400).json({ "message": "Nombre y tipo son campos requeridos" });
         }
-        return res.status(404).json({ "message": "No se pudo actualizar productos_control" });
+        const sql = "UPDATE productos_control SET nombre = $1, tipo = $2, descripcion = $3, dosis_recomendada = $4 WHERE id = $5";
+        const result = await pool.query(sql, [nombre, tipo, descripcion, dosis_recomendada, id]);
+        if (result.rowCount > 0) {
+            return res.status(200).json({ "message": "Producto de control actualizado correctamente" });
+        }
+        return res.status(404).json({ "message": "No se pudo actualizar el producto de control" });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ "message": "Error en el servidor" });
+        console.error('Error en updateProductos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
+    }
+};
+
+export const deleteProductos_control = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const sql = "DELETE FROM productos_control WHERE id = $1";
+        const result = await pool.query(sql, [id]);
+        if (result.rowCount > 0) {
+            return res.status(200).json({ "message": "Producto de control eliminado correctamente" });
+        }
+        return res.status(404).json({ "message": "No se pudo eliminar el producto de control" });
+    } catch (error) {
+        console.error('Error en deleteProductos_control:', error);
+        return res.status(500).json({ "message": "Error en el servidor", "error": error.message });
     }
 };
