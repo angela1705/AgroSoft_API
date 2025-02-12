@@ -1,3 +1,4 @@
+import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 import { Router } from "express";
 import { postProductos_control, getProductos_control, getIdProductos_control, updateProductos_control } from "../controller/controller.productos_control.js";
 const RouterProductos_control = Router();

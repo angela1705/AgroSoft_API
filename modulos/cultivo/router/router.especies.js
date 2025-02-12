@@ -1,3 +1,4 @@
+import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 import { Router } from "express";
 import { postEspecies, getEspecies, getIdEspecies, updateEspecies } from "../controller/controller.especies.js";
 const RouterEspecies = Router();

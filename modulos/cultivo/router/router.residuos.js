@@ -1,3 +1,4 @@
+import verificarToken from "../../usuarios/middlewares/verificarToken.js"
 import { Router } from "express";
 import { postResiduos, getResiduos, getIdResiduos, updateResiduos } from "../controller/controller.residuos.js";
 const RouterResiduos = Router();
