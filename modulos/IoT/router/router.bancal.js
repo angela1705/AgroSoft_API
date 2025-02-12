@@ -1,3 +1,4 @@
+import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 import { Router } from "express";
 import { postBancal, getBancal, IdBancal, actualizarBancal } from "../controller/controller.bancal.js";
 const RouterBancal = Router();

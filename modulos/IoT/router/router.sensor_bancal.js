@@ -1,3 +1,4 @@
+import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 import { Router } from "express";
 import { postSensorBancal, getSensorBancal, IdSensorBancal, actualizarSensorBancal  } from "../controller/controller.sensor_bancal.js"; 
 const RouterSensorBancal = Router();
