@@ -98,3 +98,22 @@ export const IdLote = async (req, res) => {
         res.status(500).json({ "message": "Error en el servidor." });
     }
 };
+
+export const actualizarLote = async (req, res) => {
+    try{
+        const { nombre, descripcion, tamx, tamy, estado, posx, posy } = req.body;
+        const id = req.params.id;
+        const sql = `UPDATE lotes SET nombre = $1, descripcion = $2, tamx = $3, tamy = $4, estado = $5, posx = $6, posy = $7 WHERE id = $8`;
+        const { rowCount } = await pool.query(sql, [nombre, descripcion, tamx, tamy, estado, posx, posy, id]);
+        
+        if (rowCount > 0) {
+            return res.status(200).json({ "message": "Lote editado correctamente." });
+        } else {
+            return res.status(404).json({ "message": "No se pudo editar el lote." });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ "message": "Error en el servidor." });
+    }
+    
+};
