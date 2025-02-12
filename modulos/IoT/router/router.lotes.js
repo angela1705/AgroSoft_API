@@ -1,3 +1,4 @@
+import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 import { Router } from "express";
 import { postLote, getLote, IdLote, actualizarLote  } from "../controller/controller.lotes.js";
 const RouterLote = Router();
