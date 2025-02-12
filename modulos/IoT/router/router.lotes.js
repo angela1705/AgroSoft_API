@@ -7,5 +7,4 @@ RouterLote.post("/lotes",verificarToken, postLote);
 RouterLote.get("/lotes",verificarToken, getLote);
 RouterLote.get("/lotes/:id",verificarToken, IdLote);
 
-
 export default RouterLote;

@@ -7,5 +7,4 @@ RouterSensorBancal.post("/sensorbancal",verificarToken,postSensorBancal);
 RouterSensorBancal.get("/sensorbancal",verificarToken, getSensorBancal);
 RouterSensorBancal.get("/sensorbancal/:id",verificarToken, IdSensorBancal); 
 RouterSensorBancal.put("/sensorbancal/:id",verificarToken, actualizarSensorBancal);
-
 export default RouterSensorBancal;

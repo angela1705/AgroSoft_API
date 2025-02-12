@@ -7,5 +7,4 @@ RouterConfiguracion.post("/configuracion",verificarToken, postConfiguracion);
 RouterConfiguracion.get("/configuracion",verificarToken, getConfiguracion);
 RouterConfiguracion.get("/configuracion/:id",verificarToken, IdConfiguracion);
 RouterConfiguracion.put("/configuracion/:id",verificarToken, actualizarConfiguracion);
-
 export default RouterConfiguracion;

@@ -7,6 +7,5 @@ RouterDatosMeteorologicos.post("/datosmeteorologicos",verificarToken, postDatoMe
 RouterDatosMeteorologicos.get("/datosmeteorologicos",verificarToken, getDatosMeteorologicos);
 RouterDatosMeteorologicos.get("/datosmeteorologicos/:id_dato_meteorologico",verificarToken, IdDatoMeteorologico);
 RouterDatosMeteorologicos.put("/datosmeteorologicos/:id_dato_meteorologico",verificarToken, actualizarDatoMeteorologico);
-
 export default RouterDatosMeteorologicos;
 
