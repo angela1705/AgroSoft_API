@@ -25,7 +25,7 @@ import especies from "./modulos/cultivo/router/router.especies.js";
 import cultivos from "./modulos/cultivo/router/router.cultivos.js";
 
 // Rutas del módulo Usuarios
-import Usuarios from './modulos/usuarios/routers/Usuariso.router.js';
+import Usuarios from './modulos/usuarios/routers/Usuarios.router.js';
 import Permisos from './modulos/usuarios/routers/Permisos.routes.js';
 import RolPermiso from './modulos/usuarios/routers/Rol-permiso.routes.js';  
 import Roles from './modulos/usuarios/routers/Roles.routes.js';  
@@ -132,3 +132,4 @@ app.get('/documents', (req, resp) => {
 app.listen(3000, () => {
     console.log('✅ Servidor iniciado en el puerto 3000');
 });
+
