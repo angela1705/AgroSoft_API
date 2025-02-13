@@ -53,8 +53,9 @@ export const eliminarSalario = async (req, res) => {
 export const actualizarSalario = async (req, res) => {
   try {
     const { valor, fecha_aplicacion } = req.body;
-    const id = req.params.id_salario;
-    const sql = `UPDATE salario_minimo SET valor = $1, fecha_aplicacion = $2 WHERE id = $3`;
+    const { id } = req.params; 
+
+    const sql = 'UPDATE salario_minimo SET valor = $1, fecha_aplicacion = $2 WHERE id = $3';
     const { rowCount } = await pool.query(sql, [valor, fecha_aplicacion, id]);
 
     if (rowCount > 0) {

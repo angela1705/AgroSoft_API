@@ -10,9 +10,9 @@ import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 
 const rutaVenta = Router();
 
-rutaVenta.get("/ventas", verificarToken, listarVentas);
-rutaVenta.post("/ventas", verificarToken, registrarVenta);
-rutaVenta.put("/ventas/:id", verificarToken, actualizarVenta);
-rutaVenta.delete("/ventas/:id", verificarToken, eliminarVenta);
+rutaVenta.get("/ventas", listarVentas);
+rutaVenta.post("/ventas",  registrarVenta);
+rutaVenta.put("/ventas/:id",  actualizarVenta);
+rutaVenta.delete("/ventas/:id",  eliminarVenta);
 
 export default rutaVenta;
