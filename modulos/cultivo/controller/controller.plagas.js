@@ -2,12 +2,12 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postPlagas = async (req, res) => {
     try {
-        const { nombre, descripcion, tratamiento } = req.body;
+        const { nombre, descripcion, img, fk_tipo_plaga } = req.body;
         if (!nombre) {
             return res.status(400).json({ "message": "El nombre de la plaga es requerido" });
         }
-        const sql = "INSERT INTO plagas (nombre, descripcion, tratamiento) VALUES ($1, $2, $3) RETURNING id";
-        const result = await pool.query(sql, [nombre, descripcion, tratamiento]);
+        const sql = "INSERT INTO plagas (nombre, descripcion, img, fk_tipo_plaga) VALUES ($1, $2, $3, $4) RETURNING id";
+        const result = await pool.query(sql, [nombre, descripcion, img, fk_tipo_plaga]);
         if (result.rows.length > 0) {
             return res.status(201).json({ 
                 "message": "Plaga registrada correctamente",
@@ -51,12 +51,12 @@ export const getIdPlagas = async (req, res) => {
 export const updatePlagas = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, tratamiento } = req.body;
+        const { nombre, descripcion, img, fk_tipo_plaga } = req.body;
         if (!nombre) {
             return res.status(400).json({ "message": "El nombre de la plaga es requerido" });
         }
-        const sql = "UPDATE plagas SET nombre = $1, descripcion = $2, tratamiento = $3 WHERE id = $4";
-        const result = await pool.query(sql, [nombre, descripcion, tratamiento, id]);
+        const sql = "UPDATE plagas SET nombre = $1, descripcion = $2, img = $3, fk_tipo_plaga = $4 WHERE id = $5";
+        const result = await pool.query(sql, [nombre, descripcion, img, fk_tipo_plaga, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Plaga actualizada correctamente" });
         }

@@ -2,12 +2,12 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postCultivo_luna = async (req, res) => {
     try {
-        const { id_cultivo, fase_lunar, fecha_inicio, fecha_fin } = req.body;
-        if (!id_cultivo || !fase_lunar || !fecha_inicio || !fecha_fin) {
+        const { fk_cultivo, fk_fase_lunar } = req.body;
+        if (!fk_cultivo || !fk_fase_lunar) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
-        const sql = "INSERT INTO cultivo_luna (id_cultivo, fase_lunar, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id";
-        const result = await pool.query(sql, [id_cultivo, fase_lunar, fecha_inicio, fecha_fin]);
+        const sql = "INSERT INTO cultivo_luna (fk_cultivo, fk_fase_lunar) VALUES ($1, $2) RETURNING id";
+        const result = await pool.query(sql, [fk_cultivo, fk_fase_lunar]);
         if (result.rows.length > 0) {
             return res.status(201).json({ "message": "Cultivo_luna registrado correctamente", "id": result.rows[0].id });
         }
@@ -48,12 +48,12 @@ export const getIdCultivo_luna = async (req, res) => {
 export const updateCultivo_luna = async (req, res) => {
     try {
         const { id } = req.params;
-        const { id_cultivo, fase_lunar, fecha_inicio, fecha_fin } = req.body;
-        if (!id_cultivo || !fase_lunar || !fecha_inicio || !fecha_fin) {
+        const { fk_cultivo, fk_fase_lunar } = req.body;
+        if (!fk_cultivo || !fk_fase_lunar) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
-        const sql = "UPDATE cultivo_luna SET id_cultivo = $1, fase_lunar = $2, fecha_inicio = $3, fecha_fin = $4 WHERE id = $5";
-        const result = await pool.query(sql, [id_cultivo, fase_lunar, fecha_inicio, fecha_fin, id]);
+        const sql = "UPDATE cultivo_luna SET fk_cultivo = $1, fk_fase_lunar = $2 WHERE id = $3";
+        const result = await pool.query(sql, [fk_cultivo, fk_fase_lunar, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Cultivo_luna actualizado correctamente" });
         }
