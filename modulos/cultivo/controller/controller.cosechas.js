@@ -2,9 +2,9 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postCosechas = async (req, res) => {
     try {
-        const { fecha, cantidad, unidad_medida, id_cultivo } = req.body;
-        const sql = "INSERT INTO cosechas (fecha, cantidad, unidad_medida, id_cultivo) VALUES ($1, $2, $3, $4) RETURNING id";
-        const result = await pool.query(sql, [fecha, cantidad, unidad_medida, id_cultivo]);
+        const { fecha, unidades_medida, fk_cultivo } = req.body;
+        const sql = "INSERT INTO cosechas (fecha, unidades_medida, fk_cultivo) VALUES ($1, $2, $3) RETURNING id";
+        const result = await pool.query(sql, [fecha, unidades_medida, fk_cultivo]);
         
         if (result.rows.length > 0) {
             return res.status(201).json({ 
@@ -55,9 +55,9 @@ export const getIdCosechas = async (req, res) => {
 export const updateCosechas = async (req, res) => {
     try {
         const { id } = req.params;
-        const { fecha, cantidad, unidad_medida, id_cultivo } = req.body;
-        const sql = "UPDATE cosechas SET fecha = $1, cantidad = $2, unidad_medida = $3, id_cultivo = $4 WHERE id = $5";
-        const result = await pool.query(sql, [fecha, cantidad, unidad_medida, id_cultivo, id]);
+        const { fecha, unidades_medida, fk_cultivo } = req.body;
+        const sql = "UPDATE cosechas SET fecha = $1, unidades_medida = $2, fk_cultivo = $3 WHERE id = $4";
+        const result = await pool.query(sql, [fecha, unidades_medida, fk_cultivo, id]);
         
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Cosecha actualizada correctamente" });

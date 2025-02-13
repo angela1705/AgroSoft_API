@@ -2,7 +2,7 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postFase_lunar = async (req, res) => {
     try {
-        const { nombre, descripcion, fecha} = req.body;
+        const { nombre, descripcion, fecha } = req.body;
         if (!nombre || !fecha) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
@@ -51,11 +51,11 @@ export const getIdFase_lunar = async (req, res) => {
 export const updateFase_lunar = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, fecha} = req.body;
+        const { nombre, descripcion, fecha } = req.body;
         if (!nombre || !fecha) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
-        const sql = "UPDATE fase_lunar SET nombre = $1, descripcion = $2, fecha = $3, WHERE id = $4";
+        const sql = "UPDATE fase_lunar SET nombre = $1, descripcion = $2, fecha = $3 WHERE id = $4";
         const result = await pool.query(sql, [nombre, descripcion, fecha, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Fase lunar actualizada correctamente" });

@@ -2,12 +2,12 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postPlantaciones = async (req, res) => {
     try {
-        const { id_cultivo, id_especie, fecha_plantacion, cantidad, area } = req.body;
-        if (!id_cultivo || !id_especie || !fecha_plantacion || !cantidad || !area) {
+        const { fk_cultivo, fk_bancal } = req.body;
+        if (!fk_cultivo || !fk_bancal) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
-        const sql = "INSERT INTO plantaciones (id_cultivo, id_especie, fecha_plantacion, cantidad, area) VALUES ($1, $2, $3, $4, $5) RETURNING id";
-        const result = await pool.query(sql, [id_cultivo, id_especie, fecha_plantacion, cantidad, area]);
+        const sql = "INSERT INTO plantaciones (fk_cultivo, fk_bancal) VALUES ($1, $2) RETURNING id";
+        const result = await pool.query(sql, [fk_cultivo, fk_bancal]);
         if (result.rows.length > 0) {
             return res.status(201).json({ 
                 "message": "Plantación registrada correctamente",
@@ -51,12 +51,12 @@ export const getIdPlantaciones = async (req, res) => {
 export const updatePlantaciones = async (req, res) => {
     try {
         const { id } = req.params;
-        const { id_cultivo, id_especie, fecha_plantacion, cantidad, area } = req.body;
-        if (!id_cultivo || !id_especie || !fecha_plantacion || !cantidad || !area) {
+        const { fk_cultivo, fk_bancal } = req.body;
+        if (!fk_cultivo || !fk_bancal) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
-        const sql = "UPDATE plantaciones SET id_cultivo = $1, id_especie = $2, fecha_plantacion = $3, cantidad = $4, area = $5 WHERE id = $6";
-        const result = await pool.query(sql, [id_cultivo, id_especie, fecha_plantacion, cantidad, area, id]);
+        const sql = "UPDATE plantaciones SET fk_cultivo = $1, fk_bancal = $2 WHERE id = $3";
+        const result = await pool.query(sql, [fk_cultivo, fk_bancal, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Plantación actualizada correctamente" });
         }

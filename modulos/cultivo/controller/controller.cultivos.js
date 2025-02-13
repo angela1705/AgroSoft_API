@@ -2,12 +2,12 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postCultivos = async (req, res) => {
     try {
-        const { nombre, fecha_siembra, fecha_cosecha, id_usuario } = req.body;
-        if (!nombre || !fecha_siembra || !fecha_cosecha || !id_usuario) {
+        const { nombre, unidad_de_medida, estado, fecha_siembra, fk_especie } = req.body;
+        if (!nombre || !unidad_de_medida || !estado || !fecha_siembra || !fk_especie) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
-        const sql = "INSERT INTO cultivos (nombre, fecha_siembra, fecha_cosecha, id_usuario) VALUES ($1, $2, $3, $4) RETURNING id";
-        const result = await pool.query(sql, [nombre, fecha_siembra, fecha_cosecha, id_usuario]);
+        const sql = "INSERT INTO cultivos (nombre, unidad_de_medida, estado, fecha_siembra, fk_especie) VALUES ($1, $2, $3, $4, $5) RETURNING id";
+        const result = await pool.query(sql, [nombre, unidad_de_medida, estado, fecha_siembra, fk_especie]);
         if (result.rows.length > 0) {
             return res.status(201).json({ 
                 "message": "Cultivo registrado correctamente",
@@ -51,12 +51,12 @@ export const getIdCultivos = async (req, res) => {
 export const updateCultivos = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, fecha_siembra, fecha_cosecha, id_usuario } = req.body;
-        if (!nombre || !fecha_siembra || !fecha_cosecha || !id_usuario) {
+        const { nombre, unidad_de_medida, estado, fecha_siembra, fk_especie } = req.body;
+        if (!nombre || !unidad_de_medida || !estado || !fecha_siembra || !fk_especie) {
             return res.status(400).json({ "message": "Faltan campos requeridos" });
         }
-        const sql = "UPDATE cultivos SET nombre = $1, fecha_siembra = $2, fecha_cosecha = $3, id_usuario = $4 WHERE id = $5";
-        const result = await pool.query(sql, [nombre, fecha_siembra, fecha_cosecha, id_usuario, id]);
+        const sql = "UPDATE cultivos SET nombre = $1, unidad_de_medida = $2, estado = $3, fecha_siembra = $4, fk_especie = $5 WHERE id = $6";
+        const result = await pool.query(sql, [nombre, unidad_de_medida, estado, fecha_siembra, fk_especie, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Cultivo actualizado correctamente" });
         }
