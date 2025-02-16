@@ -1,4 +1,4 @@
-import {pool} from "../../../database/conexion.js";
+import pool from "../../usuarios/database/Conexion.js";
 
 export const postConfiguracion  = async (req, res) => {
     try {
@@ -26,7 +26,7 @@ export const getConfiguracion = async (req, res) => {
                         c.fk_sensores, 
                         s.id_sensor, 
                         s.nombre AS nombre_sensor, 
-                        s.tipo_sensor, 
+                        s.fk_tipo_sensor, 
                         s.unidad_medida, 
                         s.medida_min, 
                         s.medida_max
@@ -43,7 +43,7 @@ export const getConfiguracion = async (req, res) => {
                     ? {
                         id_sensor: config.id_sensor,
                         nombre: config.nombre_sensor,
-                        tipo_sensor: config.tipo_sensor,
+                        fk_tipo_sensor: config.fk_tipo_sensor,
                         unidad_medida: config.unidad_medida,
                         medida_min: config.medida_min,
                         medida_max: config.medida_max
@@ -70,7 +70,7 @@ export const IdConfiguracion = async (req, res) => {
                         c.fk_sensores, 
                         s.id_sensor, 
                         s.nombre AS nombre_sensor, 
-                        s.tipo_sensor, 
+                        s.fk_tipo_sensor, 
                         s.unidad_medida, 
                         s.medida_min, 
                         s.medida_max
@@ -88,7 +88,7 @@ export const IdConfiguracion = async (req, res) => {
                     ? {
                         id_sensor: config.id_sensor,
                         nombre: config.nombre_sensor,
-                        tipo_sensor: config.tipo_sensor,
+                        fk_tipo_sensor: config.fk_tipo_sensor,
                         unidad_medida: config.unidad_medida,
                         medida_min: config.medida_min,
                         medida_max: config.medida_max
