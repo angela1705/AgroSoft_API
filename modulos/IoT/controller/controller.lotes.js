@@ -1,5 +1,6 @@
 import pool from "../../usuarios/database/Conexion.js";
 
+
 export const postLote = async (req, res) => {
     try {
         const { nombre, descripcion, tamx, tamy, estado, posx, posy } = req.body;

@@ -1,5 +1,6 @@
 import pool from "../../usuarios/database/Conexion.js";
 
+
 export const postSensores = async (req, res) => {
     try {
         const { nombre, tipo_sensor, unidad_medida, medida_min, medida_max } = req.body;

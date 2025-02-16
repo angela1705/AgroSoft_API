@@ -1,8 +1,8 @@
-import {Router} from "express";
+import { Router } from 'express';
 import CrearToken from '../controllers/Autenticacion.controller.js';
 
-const ruta =Router();
+const router = Router();
 
-ruta.post('/login',CrearToken);
+router.post('/login', CrearToken);
 
-export default ruta;
+export default router;

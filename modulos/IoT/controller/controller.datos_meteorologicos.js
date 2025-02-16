@@ -1,5 +1,6 @@
 import pool from "../../usuarios/database/Conexion.js";
 
+
 export const postDatoMeteorologico = async (req, res) => {
     try {
         const { fecha_hora, tipo_dato, valor, fk_sensor_bancal } = req.body;

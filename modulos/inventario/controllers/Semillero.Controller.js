@@ -1,4 +1,4 @@
-import pool from "../../usuarios/database/Conexion"
+import pool from "../../usuarios/database/Conexion.js"
 
 export const registrarSemillero = async (req, res) => {
     try {
