@@ -1,4 +1,5 @@
-import pool from "../../usuarios/database/Conexion.js"
+import pool from "../../usuarios/database/Conexion.js";
+
 
 export const postLote = async (req, res) => {
     try {

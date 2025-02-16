@@ -1,4 +1,4 @@
-import pool from "../../usuarios/database/Conexion.js"
+import pool from "../../usuarios/database/Conexion.js";
 
 export const postBancal = async (req,res) =>{
     try{
