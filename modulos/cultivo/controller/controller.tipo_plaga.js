@@ -1,4 +1,4 @@
-import { pool } from "../../../database/conexion.js";
+import pool from "../../usuarios/database/Conexion.js";
 
 export const postTipo_plaga = async (req, res) => {
     try {

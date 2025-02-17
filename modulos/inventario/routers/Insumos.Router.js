@@ -6,7 +6,7 @@ const rutaInsumos = Router()
 
 rutaInsumos.get("/insumos", verificarToken, listarInsumos)
 rutaInsumos.post("/insumos", verificarToken, registrarInsumo)
-rutaInsumos.put("/insumos/:id_insumo", verificarToken, actualizarInsumo)
-rutaInsumos.delete("/insumos/:id_insumo", verificarToken, eliminarInsumo)
+rutaInsumos.put("/insumos/:id", verificarToken, actualizarInsumo)
+rutaInsumos.delete("/insumos/:id", verificarToken, eliminarInsumo)
 
 export default rutaInsumos
