@@ -12,7 +12,7 @@ const rutaSalario = Router();
 
 rutaSalario.get("/salarios", verificarToken, listarSalarios);
 rutaSalario.post("/salarios", verificarToken, registrarSalario);
-rutaSalario.put("/salarios/:id_salario", verificarToken, actualizarSalario);
-rutaSalario.delete("/salarios/:id_salario", verificarToken, eliminarSalario);
+rutaSalario.put("/salarios/:id", verificarToken, actualizarSalario);
+rutaSalario.delete("/salarios/:id", verificarToken, eliminarSalario);
 
 export default rutaSalario;

@@ -36,7 +36,7 @@ export const listarSalarios = async (req, res) => {
 export const eliminarSalario = async (req, res) => {
   try {
     const id = req.params.id_salario;
-    const sql = 'DELETE FROM salario_minimo WHERE id_salario = $1';
+    const sql = 'DELETE FROM salario_minimo WHERE id = $1';
     const { rowCount } = await pool.query(sql, [id]);
 
     if (rowCount > 0) {
@@ -54,7 +54,7 @@ export const actualizarSalario = async (req, res) => {
   try {
     const { valor, fecha_aplicacion } = req.body;
     const id = req.params.id_salario;
-    const sql = `UPDATE salario_minimo SET valor = $1, fecha_aplicacion = $2 WHERE id_salario = $3`;
+    const sql = `UPDATE salario_minimo SET valor = $1, fecha_aplicacion = $2 WHERE id = $3`;
     const { rowCount } = await pool.query(sql, [valor, fecha_aplicacion, id]);
 
     if (rowCount > 0) {

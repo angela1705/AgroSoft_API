@@ -2,8 +2,30 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
+// Rutas del módulo Cultivo
+import fase_lunar from "./modulos/cultivo/router/router.fase_lunar.js";
+import cultivoLuna from "./modulos/cultivo/router/router.cultivo_luna.js";
+import plantaciones from "./modulos/cultivo/router/router.plantaciones.js";
+import tipoPlaga from "./modulos/cultivo/router/router.tipo_plaga.js";
+import plagas from "./modulos/cultivo/router/router.plagas.js";
+import afecciones from "./modulos/cultivo/router/router.afecciones.js";
+import productosControl from "./modulos/cultivo/router/router.productos_control.js";
+import tiposControl from "./modulos/cultivo/router/router.tipos_control.js";
+import controles from "./modulos/cultivo/router/router.controles.js";
+import tareas from "./modulos/cultivo/router/router.tareas.js";
+import programacion from "./modulos/cultivo/router/router.programacion.js";
+import notificaciones from "./modulos/cultivo/router/router.notificaciones.js";
+import tipoActividad from "./modulos/cultivo/router/router.tipo_actividad.js";
+import actividades from "./modulos/cultivo/router/router.actividades.js";
+import cosechas from "./modulos/cultivo/router/router.cosechas.js";
+import tiposResiduo from "./modulos/cultivo/router/router.tipos_residuo.js";
+import residuos from "./modulos/cultivo/router/router.residuos.js";
+import tipoEspecie from "./modulos/cultivo/router/router.tipo_especie.js";
+import especies from "./modulos/cultivo/router/router.especies.js";
+import cultivos from "./modulos/cultivo/router/router.cultivos.js";
+
 // Rutas del módulo Usuarios
-import Usuarios from './modulos/usuarios/routers/Usuariso.router.js';
+import Usuarios from './modulos/usuarios/routers/Usuarios.router.js';
 import Permisos from './modulos/usuarios/routers/Permisos.routes.js';
 import RolPermiso from './modulos/usuarios/routers/Rol-permiso.routes.js';  
 import Roles from './modulos/usuarios/routers/Roles.routes.js';  
@@ -26,18 +48,13 @@ import datosMeteorologicos from "./modulos/IoT/router/router.datos_meteorologico
 import lotes from "./modulos/IoT/router/router.lotes.js";
 import sensores from "./modulos/IoT/router/router.sensores.js";
 import sensor_bancal from "./modulos/IoT/router/router.sensor_bancal.js";
-
-// Rutas del módulo Cultivo 
-
-
+import tipo_sensor from "./modulos/IoT/router/router.tipo_sensor.js";  // Agregado de la rama dev
 
 // Rutas del módulo Finanzas
 import salario_minimo from "./modulos/finanzas/routers/salarioMinimoRoutes.js";
-import Pago_trabajador from "./modulos/finanzas/routers/pagoTrabajadorRoutes.js";
-import Egresos from "./modulos/finanzas/routers/egresosRoutes.js";
-import Rentabilidad from "./modulos/finanzas/routers/rentabilidadRoutes.js";
 import Registro_venta from "./modulos/finanzas/routers/registroVentaRoutes.js";
 import Inventario_producto from "./modulos/finanzas/routers/inventarioProductoRoutes.js";
+import Venta from "./modulos/finanzas/routers/ventaRoutes.js";
 
 const app = express();
 
@@ -48,7 +65,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 // Rutas del módulo Cultivo
-
+app.use('/api/cultivo', fase_lunar);
+app.use('/api/cultivo', cultivoLuna);
+app.use('/api/cultivo', plantaciones);
+app.use('/api/cultivo', tipoPlaga);
+app.use('/api/cultivo', plagas);
+app.use('/api/cultivo', afecciones);
+app.use('/api/cultivo', productosControl);
+app.use('/api/cultivo', tiposControl);
+app.use('/api/cultivo', controles);
+app.use('/api/cultivo', tareas);
+app.use('/api/cultivo', programacion);
+app.use('/api/cultivo', notificaciones);
+app.use('/api/cultivo', tipoActividad);
+app.use('/api/cultivo', actividades);
+app.use('/api/cultivo', cosechas);
+app.use('/api/cultivo', tiposResiduo);
+app.use('/api/cultivo', residuos);
+app.use('/api/cultivo', tipoEspecie);
+app.use('/api/cultivo', especies);
+app.use('/api/cultivo', cultivos);
 
 // Rutas del módulo Usuarios
 app.use('/api', Usuarios);
@@ -74,14 +110,13 @@ app.use('/api/iot', datosMeteorologicos);
 app.use('/api/iot', lotes);
 app.use('/api/iot', sensores);
 app.use('/api/iot', sensor_bancal);
+app.use('/api/iot', tipo_sensor);
 
 // Rutas del módulo Finanzas
 app.use('/api/fin', salario_minimo);
-app.use('/api/fin', Pago_trabajador);
-app.use('/api/fin', Egresos);
-app.use('/api/fin', Rentabilidad);
 app.use('/api/fin', Registro_venta);
 app.use('/api/fin', Inventario_producto);
+app.use('/api/fin', Venta);
 
 // Configuración del motor de plantilla EJS
 app.set('views', './src/views');
