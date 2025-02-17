@@ -120,6 +120,8 @@ app.use('/api/fin', Registro_venta);
 app.use('/api/fin', Inventario_producto);
 app.use('/api/fin', Venta);
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // Configuración del motor de plantilla EJS
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
