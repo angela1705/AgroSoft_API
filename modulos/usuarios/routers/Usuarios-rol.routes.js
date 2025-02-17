@@ -1,15 +1,14 @@
-import { Router } from 'express';
-import {
-  listarRolesUsuario,
-  AsignarRolUsuario,
-  EliminarRolUsuario
+import express from 'express';
+import { 
+  listarRolesUsuario, 
+  AsignarRolUsuario, 
+  EliminarRolUsuario 
 } from '../controllers/UsuarioRol.controllers.js';
-import verificarToken from '../middlewares/verificarToken.js';
 
-const router = Router();
+const router = express.Router();
 
-router.get('/usuario-roles', listarRolesUsuario);
-router.post('/usuario-roles', verificarToken, AsignarRolUsuario);
-router.delete('/usuario-roles/:id', verificarToken, EliminarRolUsuario);
+router.get('/usuario-rol', listarRolesUsuario);
+router.post('/usuario-rol', AsignarRolUsuario);
+router.delete('/usuario-rol/:fk_usuario/:fk_rol', EliminarRolUsuario);
 
 export default router;

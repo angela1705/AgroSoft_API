@@ -1,4 +1,5 @@
-import pool from "../../usuarios/database/Conexion.js"
+import pool from "../../usuarios/database/Conexion.js";
+
 
 export const postDatoMeteorologico = async (req, res) => {
     try {
