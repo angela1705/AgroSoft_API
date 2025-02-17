@@ -1,9 +1,9 @@
-import pool from "../../usuarios/database/Conexion.js"
+import pool from "../../usuarios/database/Conexion.js";
 
 export const postSensores = async (req, res) => {
     try {
         const { nombre, tipo_sensor, unidad_medida, medida_min, medida_max } = req.body;
-        const sql = "INSERT INTO Sensores(nombre, tipo_sensor, unidad_medida, medida_min, medida_max) VALUES($1, $2, $3, $4, $5)";
+        const sql = "INSERT INTO sensores(nombre, fk_tipo_sensor, unidad_medida, medida_min, medida_max) VALUES($1, $2, $3, $4, $5)";
         const rows = await pool.query(sql, [nombre, tipo_sensor, unidad_medida, medida_min, medida_max]);
 
         if (rows.rowCount > 0) {
@@ -22,7 +22,7 @@ export const getSensores = async (req, res) => {
         const sql = `SELECT 
                     id_sensor, 
                     nombre, 
-                    tipo_sensor,
+                    fk_tipo_sensor,
                     unidad_medida,
                     medida_min,
                     medida_max
@@ -34,7 +34,7 @@ export const getSensores = async (req, res) => {
             const sensores = result.rows.map(s => ({
                 id_sensor: s.id_sensor,
                 nombre: s.nombre,
-                tipo_sensor: s.tipo_sensor,
+                fk_tipo_sensor: s.fk_tipo_sensor,
                 unidad_medida: s.unidad_medida,
                 medida_min: s.medida_min,
                 medida_max: s.medida_max
@@ -56,7 +56,7 @@ export const IdSensor = async (req, res) => {
         const sql = `SELECT 
                     id_sensor, 
                     nombre, 
-                    tipo_sensor,
+                    fk_tipo_sensor,
                     unidad_medida,
                     medida_min,
                     medida_max
@@ -69,7 +69,7 @@ export const IdSensor = async (req, res) => {
             const sensores = result.rows.map(s => ({
                 id_sensor: s.id_sensor,
                 nombre: s.nombre,
-                tipo_sensor: s.tipo_sensor,
+                fk_tipo_sensor: s.fk_tipo_sensor,
                 unidad_medida: s.unidad_medida,
                 medida_min: s.medida_min,
                 medida_max: s.medida_max
@@ -90,7 +90,7 @@ export const actualizarSensor = async (req, res) => {
         const { nombre, tipo_sensor, unidad_medida, medida_min, medida_max } = req.body;
         const id = req.params.id_sensor;
 
-        const sql = `UPDATE sensores SET nombre=$1, tipo_sensor=$2, unidad_medida=$3, medida_min=$4, medida_max=$5  WHERE id_sensor=$6`;
+        const sql = `UPDATE sensores SET nombre=$1, fk_tipo_sensor=$2, unidad_medida=$3, medida_min=$4, medida_max=$5  WHERE id_sensor=$6`;
 
         const { rowCount } = await pool.query(sql, [ nombre, tipo_sensor, unidad_medida, medida_min, medida_max, id]);
 

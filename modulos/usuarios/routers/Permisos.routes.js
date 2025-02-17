@@ -1,11 +1,11 @@
-import { Router } from 'express';
+import { Router } from "express";
 import {
   listarPermisos,
   RegistrarPermisos,
   ActualizarPermisos,
   EliminarPermisos
-} from '../controllers/Permisos.controllers.js';
-import verificarToken from '../middlewares/verificarToken.js';
+} from "../controllers/Permisos.controllers.js";
+import verificarToken from "../middlewares/verificarToken.js";
 
 const router = Router();
 
