@@ -48,7 +48,7 @@ import datosMeteorologicos from "./modulos/IoT/router/router.datos_meteorologico
 import lotes from "./modulos/IoT/router/router.lotes.js";
 import sensores from "./modulos/IoT/router/router.sensores.js";
 import sensor_bancal from "./modulos/IoT/router/router.sensor_bancal.js";
-import tipo_sensor from "./modulos/IoT/router/router.tipo_sensor.js"
+import tipo_sensor from "./modulos/IoT/router/router.tipo_sensor.js";  // Agregado de la rama dev
 
 // Rutas del módulo Finanzas
 import salario_minimo from "./modulos/finanzas/routers/salarioMinimoRoutes.js";
@@ -110,13 +110,13 @@ app.use('/api/iot', datosMeteorologicos);
 app.use('/api/iot', lotes);
 app.use('/api/iot', sensores);
 app.use('/api/iot', sensor_bancal);
-app.use('/api/iot', tipo_sensor)
+app.use('/api/iot', tipo_sensor);
 
 // Rutas del módulo Finanzas
 app.use('/api/fin', salario_minimo);
 app.use('/api/fin', Registro_venta);
 app.use('/api/fin', Inventario_producto);
-app.use('/api/fin',Venta)
+app.use('/api/fin', Venta);
 
 // Configuración del motor de plantilla EJS
 app.set('views', './src/views');
