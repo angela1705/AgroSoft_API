@@ -35,7 +35,7 @@ export const listarBodegaHerramienta = async (req, res) => {
       FROM bodega_herramienta bh
       JOIN bodega b ON bh.id_bodega = b.id_bodega
       JOIN herramientas h ON bh.id_herramienta = h.id
-      WHERE b.tipo_bodega = 'Herramientas'
+      WHERE b.tipo_bodega = Herramientas  
       ORDER BY b.nombre, h.nombre;
     `;
 
