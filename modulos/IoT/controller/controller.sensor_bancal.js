@@ -1,6 +1,5 @@
 import pool from "../../usuarios/database/Conexion.js";
 
-
 export const postSensorBancal = async (req, res) => {
     try {
         const { fk_sensor, fk_bancal } = req.body;

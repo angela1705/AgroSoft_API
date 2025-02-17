@@ -1,5 +1,4 @@
-import pool from "../../usuarios/database/Conexion.js";
-
+import pool from "../../usuarios/database/Conexion.js"
 
 export const postLote = async (req, res) => {
     try {
@@ -116,5 +115,4 @@ export const actualizarLote = async (req, res) => {
         console.error(error);
         return res.status(500).json({ "message": "Error en el servidor." });
     }
-    
 };
