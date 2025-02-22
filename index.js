@@ -50,7 +50,7 @@ import datosMeteorologicos from "./modulos/IoT/routers/router.datos_meteorologic
 import lotes from "./modulos/IoT/routers/router.lotes.js";
 import sensores from "./modulos/IoT/routers/router.sensores.js";
 import sensor_bancal from "./modulos/IoT/routers/router.sensor_bancal.js";
-import tipo_sensor from "./modulos/IoT/routers/router.tipo_sensor.js";  // Agregado de la rama dev
+import tipo_sensor from "./modulos/IoT/router/router.tipo_sensor.js";
 
 // Rutas del módulo Finanzas
 import salario_minimo from "./modulos/finanzas/routers/salarioMinimoRoutes.js";
