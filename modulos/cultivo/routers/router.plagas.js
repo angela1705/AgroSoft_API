@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postPlagas, getPlagas, getIdPlagas, updatePlagas } from "../controller/controller.plagas.js";
+import { postPlagas, getPlagas, getIdPlagas, updatePlagas, deletePlagas } from "../controller/controller.plagas.js";
 
 const RouterPlagas = Router();
 
@@ -30,6 +30,10 @@ const RouterPlagas = Router();
  *                 type: string
  *               descripcion:
  *                 type: string
+ *               img:
+ *                 type: string
+ *               fk_tipo_plaga:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Plaga creada con éxito
@@ -101,6 +105,10 @@ RouterPlagas.get("/plagas/:id", verificarToken, getIdPlagas);
  *                 type: string
  *               descripcion:
  *                 type: string
+ *               img:
+ *                 type: string
+ *               fk_tipo_plaga:
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Plaga actualizada con éxito
@@ -108,5 +116,27 @@ RouterPlagas.get("/plagas/:id", verificarToken, getIdPlagas);
  *         description: Error en la solicitud
  */
 RouterPlagas.put("/plagas/:id", verificarToken, updatePlagas);
+
+/**
+ * @swagger
+ * /plagas/{id}:
+ *   delete:
+ *     summary: Elimina una plaga por ID
+ *     tags: [Plagas]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Plaga eliminada con éxito
+ *       404:
+ *         description: No se pudo eliminar la plaga
+ */
+RouterPlagas.delete("/plagas/:id", verificarToken, deletePlagas);
 
 export default RouterPlagas;

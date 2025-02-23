@@ -4,7 +4,8 @@ import {
     postProductos_control, 
     getProductos_control, 
     getIdProductos_control, 
-    updateProductos_control 
+    updateProductos_control, 
+    deleteProductos_control 
 } from "../controller/controller.productos_control.js";
 
 const RouterProductos_control = Router();
@@ -34,12 +35,21 @@ const RouterProductos_control = Router();
  *               nombre:
  *                 type: string
  *                 description: Nombre del producto
- *               tipo:
+ *               precio:
+ *                 type: number
+ *                 description: Precio del producto
+ *               ficha_tecnica:
  *                 type: string
- *                 description: Tipo de producto (químico, biológico, etc.)
- *               descripcion:
+ *                 description: URL de la ficha técnica
+ *               contenido:
+ *                 type: number
+ *                 description: Cantidad de contenido
+ *               tipo_contenido:
  *                 type: string
- *                 description: Descripción del producto
+ *                 description: Tipo de contenido (ml, g, etc.)
+ *               unidades:
+ *                 type: integer
+ *                 description: Número de unidades disponibles
  *     responses:
  *       201:
  *         description: Producto de control creado con éxito
@@ -112,12 +122,21 @@ RouterProductos_control.get("/productos_control/:id", verificarToken, getIdProdu
  *               nombre:
  *                 type: string
  *                 description: Nombre actualizado del producto
- *               tipo:
+ *               precio:
+ *                 type: number
+ *                 description: Precio actualizado del producto
+ *               ficha_tecnica:
  *                 type: string
- *                 description: Tipo actualizado del producto
- *               descripcion:
+ *                 description: URL actualizada de la ficha técnica
+ *               contenido:
+ *                 type: number
+ *                 description: Cantidad de contenido actualizado
+ *               tipo_contenido:
  *                 type: string
- *                 description: Descripción actualizada del producto
+ *                 description: Tipo de contenido actualizado (ml, g, etc.)
+ *               unidades:
+ *                 type: integer
+ *                 description: Número de unidades actualizado
  *     responses:
  *       200:
  *         description: Producto de control actualizado con éxito
@@ -127,5 +146,28 @@ RouterProductos_control.get("/productos_control/:id", verificarToken, getIdProdu
  *         description: Producto no encontrado
  */
 RouterProductos_control.put("/productos_control/:id", verificarToken, updateProductos_control);
+
+/**
+ * @swagger
+ * /productos_control/{id}:
+ *   delete:
+ *     summary: Elimina un producto de control por ID
+ *     tags: [Productos de Control]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del producto de control a eliminar
+ *     responses:
+ *       200:
+ *         description: Producto de control eliminado con éxito
+ *       404:
+ *         description: Producto no encontrado
+ */
+RouterProductos_control.delete("/productos_control/:id", verificarToken, deleteProductos_control);
 
 export default RouterProductos_control;

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postNotificaciones, getNotificaciones, getIdNotificaciones, updateNotificaciones } from "../controller/controller.notificaciones.js";
+import { postNotificaciones, getNotificaciones, getIdNotificaciones, updateNotificaciones, deleteNotificaciones } from "../controller/controller.notificaciones.js";
 
 const RouterNotificaciones = Router();
 
@@ -26,12 +26,15 @@ const RouterNotificaciones = Router();
  *           schema:
  *             type: object
  *             properties:
- *               titulo:
+ *               nombre:
  *                 type: string
- *               mensaje:
+ *               descripcion:
  *                 type: string
- *               usuario_id:
+ *               fecha_hora:
  *                 type: string
+ *                 format: date-time
+ *               fk_actividad:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Notificación creada con éxito
@@ -69,7 +72,7 @@ RouterNotificaciones.get("/notificaciones", verificarToken, getNotificaciones);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     responses:
  *       200:
  *         description: Datos de la notificación
@@ -91,7 +94,7 @@ RouterNotificaciones.get("/notificaciones/:id", verificarToken, getIdNotificacio
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -99,10 +102,15 @@ RouterNotificaciones.get("/notificaciones/:id", verificarToken, getIdNotificacio
  *           schema:
  *             type: object
  *             properties:
- *               titulo:
+ *               nombre:
  *                 type: string
- *               mensaje:
+ *               descripcion:
  *                 type: string
+ *               fecha_hora:
+ *                 type: string
+ *                 format: date-time
+ *               fk_actividad:
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Notificación actualizada correctamente
@@ -110,5 +118,27 @@ RouterNotificaciones.get("/notificaciones/:id", verificarToken, getIdNotificacio
  *         description: Error en la solicitud
  */
 RouterNotificaciones.put("/notificaciones/:id", verificarToken, updateNotificaciones);
+
+/**
+ * @swagger
+ * /notificaciones/{id}:
+ *   delete:
+ *     summary: Elimina una notificación por ID
+ *     tags: [Notificaciones]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Notificación eliminada correctamente
+ *       404:
+ *         description: No se pudo eliminar la notificación
+ */
+RouterNotificaciones.delete("/notificaciones/:id", verificarToken, deleteNotificaciones);
 
 export default RouterNotificaciones;

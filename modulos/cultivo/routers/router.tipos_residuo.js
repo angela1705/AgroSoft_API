@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postTipos_residuo, getTipos_residuo, getIdTipos_residuo, updateTipos_residuo } from "../controller/controller.tipos_residuo.js";
+import { postTipos_residuo, getTipos_residuo, getIdTipos_residuo, updateTipos_residuo, deleteTipos_residuo } from "../controller/controller.tipos_residuo.js";
 
 const RouterTipos_residuo = Router();
 
@@ -29,6 +29,9 @@ const RouterTipos_residuo = Router();
  *               nombre:
  *                 type: string
  *                 example: Residuos orgánicos
+ *               descripcion:
+ *                 type: string
+ *                 example: Descripción del residuo
  *     responses:
  *       201:
  *         description: Tipo de residuo creado exitosamente
@@ -101,6 +104,9 @@ RouterTipos_residuo.get("/tipos_residuo/:id", verificarToken, getIdTipos_residuo
  *               nombre:
  *                 type: string
  *                 example: Residuos inorgánicos
+ *               descripcion:
+ *                 type: string
+ *                 example: Nueva descripción del residuo
  *     responses:
  *       200:
  *         description: Tipo de residuo actualizado con éxito
@@ -108,5 +114,28 @@ RouterTipos_residuo.get("/tipos_residuo/:id", verificarToken, getIdTipos_residuo
  *         description: Error en la solicitud
  */
 RouterTipos_residuo.put("/tipos_residuo/:id", verificarToken, updateTipos_residuo);
+
+/**
+ * @swagger
+ * /tipos_residuo/{id}:
+ *   delete:
+ *     summary: Eliminar un tipo de residuo por ID
+ *     tags: [TiposResiduo]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del tipo de residuo a eliminar
+ *     responses:
+ *       200:
+ *         description: Tipo de residuo eliminado con éxito
+ *       404:
+ *         description: Tipo de residuo no encontrado
+ */
+RouterTipos_residuo.delete("/tipos_residuo/:id", verificarToken, deleteTipos_residuo);
 
 export default RouterTipos_residuo;

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postCultivos, getCultivos, getIdCultivos, updateCultivos } from "../controller/controller.cultivos.js";
+import { postCultivos, getCultivos, getIdCultivos, updateCultivos, deleteCultivos } from "../controller/controller.cultivos.js";
 
 const RouterCultivos = Router();
 
@@ -28,11 +28,15 @@ const RouterCultivos = Router();
  *             properties:
  *               nombre:
  *                 type: string
- *               tipo:
+ *               unidad_de_medida:
+ *                 type: string
+ *               estado:
  *                 type: string
  *               fecha_siembra:
  *                 type: string
  *                 format: date
+ *               fk_especie:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Cultivo registrado correctamente
@@ -70,7 +74,7 @@ RouterCultivos.get("/cultivos", verificarToken, getCultivos);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     responses:
  *       200:
  *         description: Datos del cultivo
@@ -92,7 +96,7 @@ RouterCultivos.get("/cultivos/:id", verificarToken, getIdCultivos);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -102,11 +106,15 @@ RouterCultivos.get("/cultivos/:id", verificarToken, getIdCultivos);
  *             properties:
  *               nombre:
  *                 type: string
- *               tipo:
+ *               unidad_de_medida:
+ *                 type: string
+ *               estado:
  *                 type: string
  *               fecha_siembra:
  *                 type: string
  *                 format: date
+ *               fk_especie:
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Cultivo actualizado correctamente
@@ -114,5 +122,27 @@ RouterCultivos.get("/cultivos/:id", verificarToken, getIdCultivos);
  *         description: Error en la solicitud
  */
 RouterCultivos.put("/cultivos/:id", verificarToken, updateCultivos);
+
+/**
+ * @swagger
+ * /cultivos/{id}:
+ *   delete:
+ *     summary: Elimina un cultivo por ID
+ *     tags: [Cultivos]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Cultivo eliminado correctamente
+ *       404:
+ *         description: No se pudo eliminar el cultivo
+ */
+RouterCultivos.delete("/cultivos/:id", verificarToken, deleteCultivos);
 
 export default RouterCultivos;

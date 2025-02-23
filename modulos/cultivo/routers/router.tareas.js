@@ -4,7 +4,8 @@ import {
     postTareas, 
     getTareas, 
     getIdTareas, 
-    updateTareas 
+    updateTareas, 
+    deleteTareas 
 } from "../controller/controller.tareas.js";
 
 const RouterTareas = Router();
@@ -37,10 +38,27 @@ const RouterTareas = Router();
  *               descripcion:
  *                 type: string
  *                 description: Descripción de la tarea
+ *               fecha_inicio:
+ *                 type: string
+ *                 format: date
+ *                 description: Fecha de inicio de la tarea
+ *               fecha_limite:
+ *                 type: string
+ *                 format: date
+ *                 description: Fecha límite de la tarea
  *               estado:
  *                 type: string
  *                 enum: [pendiente, en_progreso, completada]
  *                 description: Estado de la tarea
+ *               nombre:
+ *                 type: string
+ *                 description: Nombre de la tarea
+ *               fk_usuario:
+ *                 type: integer
+ *                 description: ID del usuario asignado
+ *               fk_cultivo:
+ *                 type: integer
+ *                 description: ID del cultivo relacionado
  *     responses:
  *       201:
  *         description: Tarea creada con éxito
@@ -78,7 +96,7 @@ RouterTareas.get("/tareas", verificarToken, getTareas);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: ID de la tarea a buscar
  *     responses:
  *       200:
@@ -101,7 +119,7 @@ RouterTareas.get("/tareas/:id", verificarToken, getIdTareas);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: ID de la tarea a actualizar
  *     requestBody:
  *       required: true
@@ -116,10 +134,27 @@ RouterTareas.get("/tareas/:id", verificarToken, getIdTareas);
  *               descripcion:
  *                 type: string
  *                 description: Nueva descripción de la tarea
+ *               fecha_inicio:
+ *                 type: string
+ *                 format: date
+ *                 description: Nueva fecha de inicio
+ *               fecha_limite:
+ *                 type: string
+ *                 format: date
+ *                 description: Nueva fecha límite
  *               estado:
  *                 type: string
  *                 enum: [pendiente, en_progreso, completada]
  *                 description: Estado actualizado de la tarea
+ *               nombre:
+ *                 type: string
+ *                 description: Nuevo nombre de la tarea
+ *               fk_usuario:
+ *                 type: integer
+ *                 description: Nuevo ID del usuario asignado
+ *               fk_cultivo:
+ *                 type: integer
+ *                 description: Nuevo ID del cultivo relacionado
  *     responses:
  *       200:
  *         description: Tarea actualizada con éxito
@@ -129,5 +164,28 @@ RouterTareas.get("/tareas/:id", verificarToken, getIdTareas);
  *         description: Tarea no encontrada
  */
 RouterTareas.put("/tareas/:id", verificarToken, updateTareas);
+
+/**
+ * @swagger
+ * /tareas/{id}:
+ *   delete:
+ *     summary: Elimina una tarea por ID
+ *     tags: [Tareas]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la tarea a eliminar
+ *     responses:
+ *       200:
+ *         description: Tarea eliminada con éxito
+ *       404:
+ *         description: Tarea no encontrada
+ */
+RouterTareas.delete("/tareas/:id", verificarToken, deleteTareas);
 
 export default RouterTareas;

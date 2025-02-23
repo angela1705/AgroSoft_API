@@ -1,6 +1,12 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postTipos_control, getTipos_control, getIdTipos_control, updateTipos_control } from "../controller/controller.tipos_control.js";
+import { 
+    postTipos_control, 
+    getTipos_control, 
+    getIdTipos_control, 
+    updateTipos_control, 
+    deleteTipos_control 
+} from "../controller/controller.tipos_control.js";
 
 const RouterTipos_control = Router();
 
@@ -28,7 +34,10 @@ const RouterTipos_control = Router();
  *             properties:
  *               nombre:
  *                 type: string
- *                 example: Control biológico
+ *                 description: Nombre del tipo de control
+ *               descripcion:
+ *                 type: string
+ *                 description: Descripción del tipo de control
  *     responses:
  *       201:
  *         description: Tipo de control creado exitosamente
@@ -66,7 +75,7 @@ RouterTipos_control.get("/tipos_control", verificarToken, getTipos_control);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: ID del tipo de control
  *     responses:
  *       200:
@@ -89,7 +98,7 @@ RouterTipos_control.get("/tipos_control/:id", verificarToken, getIdTipos_control
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: ID del tipo de control a actualizar
  *     requestBody:
  *       required: true
@@ -100,13 +109,41 @@ RouterTipos_control.get("/tipos_control/:id", verificarToken, getIdTipos_control
  *             properties:
  *               nombre:
  *                 type: string
- *                 example: Control químico
+ *                 description: Nuevo nombre del tipo de control
+ *               descripcion:
+ *                 type: string
+ *                 description: Nueva descripción del tipo de control
  *     responses:
  *       200:
  *         description: Tipo de control actualizado con éxito
  *       400:
  *         description: Error en la solicitud
+ *       404:
+ *         description: Tipo de control no encontrado
  */
 RouterTipos_control.put("/tipos_control/:id", verificarToken, updateTipos_control);
+
+/**
+ * @swagger
+ * /tipos_control/{id}:
+ *   delete:
+ *     summary: Eliminar un tipo de control por ID
+ *     tags: [TiposControl]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del tipo de control a eliminar
+ *     responses:
+ *       200:
+ *         description: Tipo de control eliminado con éxito
+ *       404:
+ *         description: Tipo de control no encontrado
+ */
+RouterTipos_control.delete("/tipos_control/:id", verificarToken, deleteTipos_control);
 
 export default RouterTipos_control;
