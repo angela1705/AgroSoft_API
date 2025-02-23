@@ -1,10 +1,10 @@
-import pool from "../../usuarios/database/Conexion.js"
+import pool from "../../usuarios/database/Conexion.js";
 
-export const postConfiguracion  = async (req, res) => {
+export const postConfiguracion = async (req, res) => {
     try {
-        const {parametros,fk_sensores}= req.body;
-        const sql = "INSERT INTO configuraciones (parametros,fk_sensores) VALUES ($1,$2)";
-        const rows = await pool.query(sql, [parametros,fk_sensores]);
+        const { parametros, fk_sensores } = req.body;
+        const sql = "INSERT INTO configuraciones (parametros, fk_sensores) VALUES ($1, $2)";
+        const rows = await pool.query(sql, [parametros, fk_sensores]);
         
         if (rows.rowCount > 0) {
             return res.status(200).json({ "message": "configuracion registrado correctamente" });
@@ -19,7 +19,6 @@ export const postConfiguracion  = async (req, res) => {
 
 export const getConfiguracion = async (req, res) => {
     try {
-
         const sql = `SELECT 
                         c.id, 
                         c.parametros, 
@@ -56,7 +55,7 @@ export const getConfiguracion = async (req, res) => {
             return res.status(404).json({ msg: "No hay configuraciones registradas" });
         }
     } catch (error) {
-        console.error( error);
+        console.error(error);
         return res.status(500).json({ msg: "Error en el servidor" });
     }
 };
@@ -101,7 +100,7 @@ export const IdConfiguracion = async (req, res) => {
             return res.status(404).json({ msg: "No se encontró la configuración" });
         }
     } catch (error) {
-        console.error( error);
+        console.error(error);
         return res.status(500).json({ message: "Error en el servidor." });
     }
 };
@@ -120,7 +119,7 @@ export const actualizarConfiguracion = async (req, res) => {
             return res.status(404).json({ message: "No se pudo editar la configuración." });
         }
     } catch (error) {
-        console.error( error);
+        console.error(error);
         return res.status(500).json({ message: "Error en el servidor." });
     }
 };

@@ -2,9 +2,9 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postAfecciones = async (req, res) => {
     try {
-        const { nombre, descripcion, id_cultivo } = req.body;
-        const sql = "INSERT INTO afecciones (nombre, descripcion, id_cultivo) VALUES ($1, $2, $3) RETURNING id";
-        const result = await pool.query(sql, [nombre, descripcion, id_cultivo]);
+        const { prioridad, fecha_encuentro, fk_plantacion, fk_plaga } = req.body;
+        const sql = "INSERT INTO afecciones (prioridad, fecha_encuentro, fk_plantacion, fk_plaga) VALUES ($1, $2, $3, $4) RETURNING id";
+        const result = await pool.query(sql, [prioridad, fecha_encuentro, fk_plantacion, fk_plaga]);
         
         if (result.rows.length > 0) {
             return res.status(201).json({ 
@@ -55,9 +55,9 @@ export const getIdAfecciones = async (req, res) => {
 export const updateAfecciones = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, id_cultivo } = req.body;
-        const sql = "UPDATE afecciones SET nombre = $1, descripcion = $2, id_cultivo = $3 WHERE id = $4";
-        const result = await pool.query(sql, [nombre, descripcion, id_cultivo, id]);
+        const { prioridad, fecha_encuentro, fk_plantacion, fk_plaga } = req.body;
+        const sql = "UPDATE afecciones SET prioridad = $1, fecha_encuentro = $2, fk_plantacion = $3, fk_plaga = $4 WHERE id = $5";
+        const result = await pool.query(sql, [prioridad, fecha_encuentro, fk_plantacion, fk_plaga, id]);
         
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Afección actualizada correctamente" });

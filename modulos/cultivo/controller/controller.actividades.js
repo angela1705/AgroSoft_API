@@ -2,9 +2,9 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postActividades = async (req, res) => {
     try {
-        const { nombre, descripcion, fecha_inicio, fecha_fin, id_cultivo } = req.body;
-        const sql = "INSERT INTO actividades (nombre, descripcion, fecha_inicio, fecha_fin, id_cultivo) VALUES ($1, $2, $3, $4, $5) RETURNING id";
-        const result = await pool.query(sql, [nombre, descripcion, fecha_inicio, fecha_fin, id_cultivo]);
+        const { fk_cultivo, fk_usuario, fk_insumo, fk_programacion, fk_tipo_actividad, titulo, descripcion, fecha, cantidad_producto } = req.body;
+        const sql = "INSERT INTO actividades (fk_cultivo, fk_usuario, fk_insumo, fk_programacion, fk_tipo_actividad, titulo, descripcion, fecha, cantidad_producto) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id";
+        const result = await pool.query(sql, [fk_cultivo, fk_usuario, fk_insumo, fk_programacion, fk_tipo_actividad, titulo, descripcion, fecha, cantidad_producto]);
         
         if (result.rows.length > 0) {
             return res.status(201).json({ 
@@ -55,9 +55,9 @@ export const getIdActividades = async (req, res) => {
 export const updateActividades = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, fecha_inicio, fecha_fin, id_cultivo } = req.body;
-        const sql = "UPDATE actividades SET nombre = $1, descripcion = $2, fecha_inicio = $3, fecha_fin = $4, id_cultivo = $5 WHERE id = $6";
-        const result = await pool.query(sql, [nombre, descripcion, fecha_inicio, fecha_fin, id_cultivo, id]);
+        const { fk_cultivo, fk_usuario, fk_insumo, fk_programacion, fk_tipo_actividad, titulo, descripcion, fecha, cantidad_producto } = req.body;
+        const sql = "UPDATE actividades SET fk_cultivo = $1, fk_usuario = $2, fk_insumo = $3, fk_programacion = $4, fk_tipo_actividad = $5, titulo = $6, descripcion = $7, fecha = $8, cantidad_producto = $9 WHERE id = $10";
+        const result = await pool.query(sql, [fk_cultivo, fk_usuario, fk_insumo, fk_programacion, fk_tipo_actividad, titulo, descripcion, fecha, cantidad_producto, id]);
         
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Actividad actualizada correctamente" });

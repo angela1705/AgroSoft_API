@@ -2,9 +2,9 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postControles = async (req, res) => {
     try {
-        const { nombre, descripcion, fecha, id_cultivo } = req.body;
-        const sql = "INSERT INTO controles (nombre, descripcion, fecha, id_cultivo) VALUES ($1, $2, $3, $4) RETURNING id";
-        const result = await pool.query(sql, [nombre, descripcion, fecha, id_cultivo]);
+        const { descripcion, fecha_control, cantidad_producto, fk_afecciones, fk_tipo_control, fk_productos_control } = req.body;
+        const sql = "INSERT INTO controles (descripcion, fecha_control, cantidad_producto, fk_afecciones, fk_tipo_control, fk_productos_control) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id";
+        const result = await pool.query(sql, [descripcion, fecha_control, cantidad_producto, fk_afecciones, fk_tipo_control, fk_productos_control]);
         
         if (result.rows.length > 0) {
             return res.status(201).json({ 
@@ -55,9 +55,9 @@ export const getIdControles = async (req, res) => {
 export const updateControles = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, fecha, id_cultivo } = req.body;
-        const sql = "UPDATE controles SET nombre = $1, descripcion = $2, fecha = $3, id_cultivo = $4 WHERE id = $5";
-        const result = await pool.query(sql, [nombre, descripcion, fecha, id_cultivo, id]);
+        const { descripcion, fecha_control, cantidad_producto, fk_afecciones, fk_tipo_control, fk_productos_control } = req.body;
+        const sql = "UPDATE controles SET descripcion = $1, fecha_control = $2, cantidad_producto = $3, fk_afecciones = $4, fk_tipo_control = $5, fk_productos_control = $6 WHERE id = $7";
+        const result = await pool.query(sql, [descripcion, fecha_control, cantidad_producto, fk_afecciones, fk_tipo_control, fk_productos_control, id]);
         
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Control actualizado correctamente" });

@@ -2,12 +2,12 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postResiduos = async (req, res) => {
     try {
-        const { id_cultivo, tipo, cantidad, fecha_generacion, metodo_disposicion } = req.body;
-        if (!id_cultivo || !tipo || !cantidad || !fecha_generacion) {
-            return res.status(400).json({ "message": "id_cultivo, tipo, cantidad y fecha_generacion son campos requeridos" });
+        const { fk_cultivo, fk_tipo, nombre, descripcion, fecha, tipo, cantidad } = req.body;
+        if (!fk_cultivo || !fk_tipo || !tipo || !cantidad || !fecha) {
+            return res.status(400).json({ "message": "fk_cultivo, fk_tipo, tipo, cantidad y fecha son campos requeridos" });
         }
-        const sql = "INSERT INTO residuos (id_cultivo, tipo, cantidad, fecha_generacion, metodo_disposicion) VALUES ($1, $2, $3, $4, $5) RETURNING id";
-        const result = await pool.query(sql, [id_cultivo, tipo, cantidad, fecha_generacion, metodo_disposicion]);
+        const sql = "INSERT INTO residuos (fk_cultivo, fk_tipo, nombre, descripcion, fecha, tipo, cantidad) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id";
+        const result = await pool.query(sql, [fk_cultivo, fk_tipo, nombre, descripcion, fecha, tipo, cantidad]);
         if (result.rows.length > 0) {
             return res.status(201).json({ 
                 "message": "Residuo registrado correctamente",
@@ -23,7 +23,7 @@ export const postResiduos = async (req, res) => {
 
 export const getResiduos = async (req, res) => {
     try {
-        const sql = "SELECT * FROM residuos ORDER BY fecha_generacion DESC";
+        const sql = "SELECT * FROM residuos ORDER BY fecha DESC";
         const result = await pool.query(sql);
         return res.status(200).json(result.rows);
     } catch (error) {
@@ -51,12 +51,12 @@ export const getIdResiduos = async (req, res) => {
 export const updateResiduos = async (req, res) => {
     try {
         const { id } = req.params;
-        const { id_cultivo, tipo, cantidad, fecha_generacion, metodo_disposicion } = req.body;
-        if (!id_cultivo || !tipo || !cantidad || !fecha_generacion) {
-            return res.status(400).json({ "message": "id_cultivo, tipo, cantidad y fecha_generacion son campos requeridos" });
+        const { fk_cultivo, fk_tipo, nombre, descripcion, fecha, tipo, cantidad } = req.body;
+        if (!fk_cultivo || !fk_tipo || !tipo || !cantidad || !fecha) {
+            return res.status(400).json({ "message": "fk_cultivo, fk_tipo, tipo, cantidad y fecha son campos requeridos" });
         }
-        const sql = "UPDATE residuos SET id_cultivo = $1, tipo = $2, cantidad = $3, fecha_generacion = $4, metodo_disposicion = $5 WHERE id = $6";
-        const result = await pool.query(sql, [id_cultivo, tipo, cantidad, fecha_generacion, metodo_disposicion, id]);
+        const sql = "UPDATE residuos SET fk_cultivo = $1, fk_tipo = $2, nombre = $3, descripcion = $4, fecha = $5, tipo = $6, cantidad = $7 WHERE id = $8";
+        const result = await pool.query(sql, [fk_cultivo, fk_tipo, nombre, descripcion, fecha, tipo, cantidad, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Residuo actualizado correctamente" });
         }

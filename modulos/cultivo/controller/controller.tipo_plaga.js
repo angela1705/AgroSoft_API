@@ -2,12 +2,12 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postTipo_plaga = async (req, res) => {
     try {
-        const { nombre, descripcion } = req.body;
+        const { nombre, descripcion, img } = req.body;
         if (!nombre) {
             return res.status(400).json({ "message": "El nombre es un campo requerido" });
         }
-        const sql = "INSERT INTO tipo_plaga (nombre, descripcion) VALUES ($1, $2) RETURNING id";
-        const result = await pool.query(sql, [nombre, descripcion]);
+        const sql = "INSERT INTO tipo_plaga (nombre, descripcion, img) VALUES ($1, $2, $3) RETURNING id";
+        const result = await pool.query(sql, [nombre, descripcion, img]);
         if (result.rows.length > 0) {
             return res.status(201).json({ 
                 "message": "Tipo de plaga registrado correctamente",
@@ -51,12 +51,12 @@ export const getIdTipo_plaga = async (req, res) => {
 export const updateTipo_plaga = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion } = req.body;
+        const { nombre, descripcion, img } = req.body;
         if (!nombre) {
             return res.status(400).json({ "message": "El nombre es un campo requerido" });
         }
-        const sql = "UPDATE tipo_plaga SET nombre = $1, descripcion = $2 WHERE id = $3";
-        const result = await pool.query(sql, [nombre, descripcion, id]);
+        const sql = "UPDATE tipo_plaga SET nombre = $1, descripcion = $2, img = $3 WHERE id = $4";
+        const result = await pool.query(sql, [nombre, descripcion, img, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Tipo de plaga actualizado correctamente" });
         }

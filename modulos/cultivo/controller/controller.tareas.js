@@ -2,12 +2,12 @@ import pool from "../../usuarios/database/Conexion.js";
 
 export const postTareas = async (req, res) => {
     try {
-        const { id_cultivo, descripcion, fecha_inicio, fecha_fin, estado } = req.body;
-        if (!id_cultivo || !descripcion || !fecha_inicio || !fecha_fin || !estado) {
+        const { titulo, descripcion, fecha_inicio, fecha_limite, estado, nombre, fk_usuario, fk_cultivo } = req.body;
+        if (!titulo || !descripcion || !fecha_inicio || !fecha_limite || !estado || !fk_usuario || !fk_cultivo) {
             return res.status(400).json({ "message": "Todos los campos son requeridos" });
         }
-        const sql = "INSERT INTO tareas (id_cultivo, descripcion, fecha_inicio, fecha_fin, estado) VALUES ($1, $2, $3, $4, $5) RETURNING id";
-        const result = await pool.query(sql, [id_cultivo, descripcion, fecha_inicio, fecha_fin, estado]);
+        const sql = "INSERT INTO tareas (titulo, descripcion, fecha_inicio, fecha_limite, estado, nombre, fk_usuario, fk_cultivo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id";
+        const result = await pool.query(sql, [titulo, descripcion, fecha_inicio, fecha_limite, estado, nombre, fk_usuario, fk_cultivo]);
         if (result.rows.length > 0) {
             return res.status(201).json({ 
                 "message": "Tarea registrada correctamente",
@@ -51,12 +51,12 @@ export const getIdTareas = async (req, res) => {
 export const updateTareas = async (req, res) => {
     try {
         const { id } = req.params;
-        const { id_cultivo, descripcion, fecha_inicio, fecha_fin, estado } = req.body;
-        if (!id_cultivo || !descripcion || !fecha_inicio || !fecha_fin || !estado) {
+        const { titulo, descripcion, fecha_inicio, fecha_limite, estado, nombre, fk_usuario, fk_cultivo } = req.body;
+        if (!titulo || !descripcion || !fecha_inicio || !fecha_limite || !estado || !fk_usuario || !fk_cultivo) {
             return res.status(400).json({ "message": "Todos los campos son requeridos" });
         }
-        const sql = "UPDATE tareas SET id_cultivo = $1, descripcion = $2, fecha_inicio = $3, fecha_fin = $4, estado = $5 WHERE id = $6";
-        const result = await pool.query(sql, [id_cultivo, descripcion, fecha_inicio, fecha_fin, estado, id]);
+        const sql = "UPDATE tareas SET titulo = $1, descripcion = $2, fecha_inicio = $3, fecha_limite = $4, estado = $5, nombre = $6, fk_usuario = $7, fk_cultivo = $8 WHERE id = $9";
+        const result = await pool.query(sql, [titulo, descripcion, fecha_inicio, fecha_limite, estado, nombre, fk_usuario, fk_cultivo, id]);
         if (result.rowCount > 0) {
             return res.status(200).json({ "message": "Tarea actualizada correctamente" });
         }

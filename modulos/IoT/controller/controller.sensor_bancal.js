@@ -1,4 +1,4 @@
-import pool from "../../usuarios/database/Conexion.js"
+import pool from "../../usuarios/database/Conexion.js";
 
 export const postSensorBancal = async (req, res) => {
     try {
@@ -24,7 +24,7 @@ export const getSensorBancal = async (req, res) => {
                     sb.fk_sensor,
                     sb.fk_bancal,
                     s.nombre AS sensor_nombre,
-                    s.tipo_sensor,
+                    s.fk_tipo_sensor,
                     b.id AS bancal_id,
                     b.fk_lote,
                     b.tamx,
@@ -43,7 +43,7 @@ export const getSensorBancal = async (req, res) => {
                 fk_sensor: s.fk_sensor,
                 fk_bancal: s.fk_bancal,
                 sensor_nombre: s.sensor_nombre,
-                tipo_sensor: s.tipo_sensor,
+                tipo_sensor: s.fk_tipo_sensor,
                 bancal_id: s.bancal_id,
                 fk_lote: s.fk_lote,
                 tamx: s.tamx,
@@ -71,7 +71,7 @@ export const IdSensorBancal = async (req, res) => {
                         sb.fk_bancal, 
                         s.id_sensor, 
                         s.nombre AS nombre_sensor, 
-                        s.tipo_sensor, 
+                        s.fk_tipo_sensor, 
                         s.unidad_medida, 
                         s.medida_min, 
                         s.medida_max, 
@@ -96,7 +96,7 @@ export const IdSensorBancal = async (req, res) => {
                 sensor: {
                     id_sensor: config.id_sensor,
                     nombre: config.nombre_sensor,
-                    tipo_sensor: config.tipo_sensor,
+                    fk_tipo_sensor: config.fk_tipo_sensor,
                     unidad_medida: config.unidad_medida,
                     medida_min: config.medida_min,
                     medida_max: config.medida_max
