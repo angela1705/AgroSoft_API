@@ -1,22 +1,22 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { registrarInventarioProducto, listarInventarioProducto, actualizarInventarioProducto, eliminarInventarioProducto } from "../controllers/inventarioProductoController.js";
+import { registrarRegistroVenta, listarRegistroVenta, actualizarRegistroVenta, eliminarRegistroVenta } from "../controllers/registroVentaController.js";
 
-const rutaInventario = Router();
+const rutaVenta = Router();
 
 /**
  * @swagger
  * tags:
- *   name: Inventario
- *   description: Endpoints para gestionar el inventario de productos
+ *   name: RegistroVentas
+ *   description: Endpoints para gestionar los registros de ventas
  */
 
 /**
  * @swagger
- * /inventario:
+ * /registroventas:
  *   post:
- *     summary: Registrar un nuevo producto en el inventario
- *     tags: [Inventario]
+ *     summary: Registrar un nuevo registro de venta
+ *     tags: [RegistroVentas]
  *     security:
  *       - BearerAuth: []
  *     requestBody:
@@ -26,47 +26,48 @@ const rutaInventario = Router();
  *           schema:
  *             type: object
  *             properties:
- *               fk_cosecha:
- *                 type: integer
- *                 example: 1
  *               fk_venta:
  *                 type: integer
- *                 example: 2
- *               nombre:
- *                 type: string
- *                 example: "Lechuga"
- *               cantidad_disponible:
+ *                 example: 1
+ *               cantidad_vendida:
  *                 type: integer
- *                 example: 100
- *               costo_unitario:
+ *                 example: 50
+ *               precio_unitario:
  *                 type: number
- *                 example: 850.75
+ *                 example: 1200.50
+ *               ingresos_venta:
+ *                 type: number
+ *                 example: 60025.00
+ *               fecha_venta:
+ *                 type: string
+ *                 format: date
+ *                 example: "2024-02-20"
  *     responses:
  *       201:
- *         description: Producto registrado correctamente en el inventario
+ *         description: Registro de venta agregado correctamente
  */
-rutaInventario.post("/inventario", verificarToken, registrarInventarioProducto);
+rutaVenta.post("/registroventas", verificarToken, registrarRegistroVenta);
 
 /**
  * @swagger
- * /inventario:
+ * /registroventas:
  *   get:
- *     summary: Obtener todos los productos en el inventario
- *     tags: [Inventario]
+ *     summary: Obtener todos los registros de ventas
+ *     tags: [RegistroVentas]
  *     security:
  *       - BearerAuth: []
  *     responses:
  *       200:
- *         description: Lista de productos obtenida con éxito
+ *         description: Lista de registros obtenida con éxito
  */
-rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
+rutaVenta.get("/registroventas", verificarToken, listarRegistroVenta);
 
 /**
  * @swagger
- * /inventario/{id}:
+ * /registroventas/{id}:
  *   put:
- *     summary: Actualizar un producto en el inventario por ID
- *     tags: [Inventario]
+ *     summary: Actualizar un registro de venta por ID
+ *     tags: [RegistroVentas]
  *     security:
  *       - BearerAuth: []
  *     parameters:
@@ -75,7 +76,7 @@ rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del producto a actualizar
+ *         description: ID del registro de venta a actualizar
  *     requestBody:
  *       required: true
  *       content:
@@ -83,33 +84,34 @@ rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
  *           schema:
  *             type: object
  *             properties:
- *               fk_cosecha:
- *                 type: integer
- *                 example: 1
  *               fk_venta:
  *                 type: integer
- *                 example: 2
- *               nombre:
- *                 type: string
- *                 example: "Lechuga"
- *               cantidad_disponible:
+ *                 example: 1
+ *               cantidad_vendida:
  *                 type: integer
- *                 example: 120
- *               costo_unitario:
+ *                 example: 60
+ *               precio_unitario:
  *                 type: number
- *                 example: 900.00
+ *                 example: 1300.00
+ *               ingresos_venta:
+ *                 type: number
+ *                 example: 78000.00
+ *               fecha_venta:
+ *                 type: string
+ *                 format: date
+ *                 example: "2024-03-15"
  *     responses:
  *       200:
- *         description: Producto actualizado correctamente
+ *         description: Registro de venta actualizado correctamente
  */
-rutaInventario.put("/inventario/:id", verificarToken, actualizarInventarioProducto);
+rutaVenta.put("/registroventas/:id", verificarToken, actualizarRegistroVenta);
 
 /**
  * @swagger
- * /inventario/{id}:
+ * /registroventas/{id}:
  *   delete:
- *     summary: Eliminar un producto del inventario por ID
- *     tags: [Inventario]
+ *     summary: Eliminar un registro de venta por ID
+ *     tags: [RegistroVentas]
  *     security:
  *       - BearerAuth: []
  *     parameters:
@@ -118,11 +120,11 @@ rutaInventario.put("/inventario/:id", verificarToken, actualizarInventarioProduc
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del producto a eliminar
+ *         description: ID del registro de venta a eliminar
  *     responses:
  *       200:
- *         description: Producto eliminado correctamente
+ *         description: Registro de venta eliminado correctamente
  */
-rutaInventario.delete("/inventario/:id", verificarToken, eliminarInventarioProducto);
+rutaVenta.delete("/registroventas/:id", verificarToken, eliminarRegistroVenta);
 
-export default rutaInventario;
+export default rutaVenta;

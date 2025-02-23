@@ -1,17 +1,24 @@
-import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 import { Router } from "express";
+import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 import { postBancal, getBancal, IdBancal, actualizarBancal } from "../controller/controller.bancal.js";
 
 const RouterBancal = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Bancal
+ *   description: Endpoints para gestionar los bancales
+ */
+
+/**
+ * @swagger
  * /bancal:
  *   post:
- *     summary: Registra un nuevo bancal
+ *     summary: Registrar un nuevo bancal
  *     tags: [Bancal]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -19,17 +26,24 @@ const RouterBancal = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *                 example: "Bancal Norte"
- *               descripcion:
- *                 type: string
- *                 example: "Un bancal para cultivo de maíz"
+ *               fk_lote:
+ *                 type: integer
+ *                 example: 1
+ *               tamx:
+ *                 type: number
+ *                 example: 5.0
+ *               tamy:
+ *                 type: number
+ *                 example: 4.0
+ *               posx:
+ *                 type: number
+ *                 example: 2.0
+ *               posy:
+ *                 type: number
+ *                 example: 3.0
  *     responses:
  *       201:
  *         description: Bancal registrado correctamente
- *       400:
- *         description: Error en los datos proporcionados
  */
 RouterBancal.post("/bancal", verificarToken, postBancal);
 
@@ -37,10 +51,10 @@ RouterBancal.post("/bancal", verificarToken, postBancal);
  * @swagger
  * /bancal:
  *   get:
- *     summary: Obtiene todos los bancales
+ *     summary: Obtener la lista de bancales
  *     tags: [Bancal]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de bancales obtenida correctamente
@@ -54,12 +68,18 @@ RouterBancal.post("/bancal", verificarToken, postBancal);
  *                   id:
  *                     type: integer
  *                     example: 1
- *                   nombre:
- *                     type: string
- *                     example: "Bancal Norte"
- *                   descripcion:
- *                     type: string
- *                     example: "Un bancal para cultivo de maíz"
+ *                   tamx:
+ *                     type: number
+ *                     example: 5.0
+ *                   tamy:
+ *                     type: number
+ *                     example: 4.0
+ *                   posx:
+ *                     type: number
+ *                     example: 2.0
+ *                   posy:
+ *                     type: number
+ *                     example: 3.0
  */
 RouterBancal.get("/bancal", verificarToken, getBancal);
 
@@ -67,22 +87,20 @@ RouterBancal.get("/bancal", verificarToken, getBancal);
  * @swagger
  * /bancal/{id}:
  *   get:
- *     summary: Obtiene un bancal por ID
+ *     summary: Obtener un bancal por ID
  *     tags: [Bancal]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del bancal
+ *         description: ID del bancal a obtener
  *     responses:
  *       200:
- *         description: Datos del bancal obtenidos correctamente
- *       404:
- *         description: Bancal no encontrado
+ *         description: Bancal obtenido correctamente
  */
 RouterBancal.get("/bancal/:id", verificarToken, IdBancal);
 
@@ -90,10 +108,10 @@ RouterBancal.get("/bancal/:id", verificarToken, IdBancal);
  * @swagger
  * /bancal/{id}:
  *   put:
- *     summary: Actualiza los datos de un bancal
+ *     summary: Actualizar un bancal
  *     tags: [Bancal]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -108,17 +126,24 @@ RouterBancal.get("/bancal/:id", verificarToken, IdBancal);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *                 example: "Bancal Sur"
- *               descripcion:
- *                 type: string
- *                 example: "Un bancal para cultivo de frijol"
+ *               fk_lote:
+ *                 type: integer
+ *                 example: 1
+ *               tamx:
+ *                 type: number
+ *                 example: 6.0
+ *               tamy:
+ *                 type: number
+ *                 example: 4.5
+ *               posx:
+ *                 type: number
+ *                 example: 2.5
+ *               posy:
+ *                 type: number
+ *                 example: 3.5
  *     responses:
  *       200:
  *         description: Bancal actualizado correctamente
- *       404:
- *         description: Bancal no encontrado
  */
 RouterBancal.put("/bancal/:id", verificarToken, actualizarBancal);
 

@@ -44,6 +44,9 @@ const rutaBodega = Router();
  *                   ubicacion:
  *                     type: string
  *                     example: "Calle 123, Ciudad"
+ *                   tipo_bodega:
+ *                     type: string
+ *                     example: "Almacén principal"
  */
 rutaBodega.get("/bodega", verificarToken, listarBodega);
 
@@ -68,6 +71,9 @@ rutaBodega.get("/bodega", verificarToken, listarBodega);
  *               ubicacion:
  *                 type: string
  *                 example: "Calle 123, Ciudad"
+ *               tipo_bodega:
+ *                 type: string
+ *                 example: "Almacén principal"
  *     responses:
  *       201:
  *         description: Bodega registrada correctamente
@@ -102,6 +108,9 @@ rutaBodega.post("/bodega", verificarToken, registrarBodega);
  *               ubicacion:
  *                 type: string
  *                 example: "Avenida 456, Ciudad"
+ *               tipo_bodega:
+ *                 type: string
+ *                 example: "Depósito secundario"
  *     responses:
  *       200:
  *         description: Bodega actualizada correctamente
