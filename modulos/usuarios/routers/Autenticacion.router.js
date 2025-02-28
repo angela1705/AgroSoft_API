@@ -23,12 +23,12 @@ const ruta = Router();
  *           schema:
  *             type: object
  *             properties:
- *               usuario:
+ *               identificacion:
  *                 type: string
- *                 example: "admin"
- *               contraseña:
+ *                 example: "123456789"
+ *               password:
  *                 type: string
- *                 example: "123456"
+ *                 example: "contraseñaSegura"
  *     responses:
  *       200:
  *         description: Autenticación exitosa, devuelve el token JWT
@@ -37,11 +37,30 @@ const ruta = Router();
  *             schema:
  *               type: object
  *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Autenticación exitosa"
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     identificacion:
+ *                       type: string
+ *                       example: "123456789"
+ *                     nombre:
+ *                       type: string
+ *                       example: "Juan Perez"
  *                 token:
  *                   type: string
  *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       400:
+ *         description: Identificación y contraseña son obligatorias
  *       401:
- *         description: Credenciales inválidas
+ *         description: Credenciales incorrectas
+ *       500:
+ *         description: Error en el servidor
  */
 ruta.post("/login", CrearToken);
 

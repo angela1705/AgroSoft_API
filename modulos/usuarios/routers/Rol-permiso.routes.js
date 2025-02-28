@@ -33,15 +33,18 @@ const router = Router();
  *               items:
  *                 type: object
  *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   rol_id:
+ *                   fk_rol:
  *                     type: integer
  *                     example: 2
- *                   permiso_id:
+ *                   fk_permiso:
  *                     type: integer
  *                     example: 5
+ *                   nombre_rol:
+ *                     type: string
+ *                     example: "Administrador"
+ *                   nombre_permiso:
+ *                     type: string
+ *                     example: "Editar usuarios"
  */
 router.get('/rol-permisos', listarPermisosRol);
 
@@ -60,10 +63,10 @@ router.get('/rol-permisos', listarPermisosRol);
  *           schema:
  *             type: object
  *             properties:
- *               rol_id:
+ *               fk_rol:
  *                 type: integer
  *                 example: 3
- *               permiso_id:
+ *               fk_permiso:
  *                 type: integer
  *                 example: 7
  *     responses:
@@ -76,7 +79,7 @@ router.post('/rol-permisos', verificarToken, AsignarPermisoRol);
 
 /**
  * @swagger
- * /rol-permisos/{id}:
+ * /rol-permisos/{fk_rol}/{fk_permiso}:
  *   delete:
  *     summary: Elimina un permiso de un rol
  *     tags: [RolPermisos]
@@ -84,17 +87,23 @@ router.post('/rol-permisos', verificarToken, AsignarPermisoRol);
  *       - BearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: fk_rol
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del permiso asignado al rol
+ *         description: ID del rol
+ *       - in: path
+ *         name: fk_permiso
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del permiso
  *     responses:
  *       200:
  *         description: Permiso eliminado con éxito del rol
  *       404:
- *         description: Permiso no encontrado
+ *         description: Relación no encontrada
  */
-router.delete('/rol-permisos/:id', verificarToken, EliminarPermisoRol);
+router.delete('/rol-permisos/:fk_rol/:fk_permiso', verificarToken, EliminarPermisoRol);
 
 export default router;

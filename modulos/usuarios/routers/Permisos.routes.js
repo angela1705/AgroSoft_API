@@ -40,8 +40,11 @@ const router = Router();
  *                   nombre:
  *                     type: string
  *                     example: "Administrar usuarios"
+ *                   descripcion:
+ *                     type: string
+ *                     example: "Permiso para administrar usuarios"
  */
-router.get('/permisos', listarPermisos);
+router.get('/permisos', verificarToken, listarPermisos);
 
 /**
  * @swagger
@@ -61,6 +64,9 @@ router.get('/permisos', listarPermisos);
  *               nombre:
  *                 type: string
  *                 example: "Editar productos"
+ *               descripcion:
+ *                 type: string
+ *                 example: "Permiso para editar productos"
  *     responses:
  *       201:
  *         description: Permiso registrado con éxito
@@ -94,6 +100,9 @@ router.post('/permisos', verificarToken, RegistrarPermisos);
  *               nombre:
  *                 type: string
  *                 example: "Gestionar pedidos"
+ *               descripcion:
+ *                 type: string
+ *                 example: "Permiso para gestionar pedidos"
  *     responses:
  *       200:
  *         description: Permiso actualizado con éxito

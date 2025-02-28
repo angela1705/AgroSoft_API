@@ -37,7 +37,7 @@ const router = Router();
  *                   id:
  *                     type: integer
  *                     example: 1
- *                   nombre:
+ *                   nombre_rol:
  *                     type: string
  *                     example: "Administrador"
  */
@@ -47,7 +47,7 @@ router.get('/roles', listarRoles);
  * @swagger
  * /roles:
  *   post:
- *     summary: Crea un nuevo rol
+ *     summary: Crea un nuevo rol (máximo 5 roles permitidos)
  *     tags: [Roles]
  *     security:
  *       - BearerAuth: []
@@ -58,14 +58,14 @@ router.get('/roles', listarRoles);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               nombre_rol:
  *                 type: string
  *                 example: "Supervisor"
  *     responses:
  *       201:
  *         description: Rol creado con éxito
  *       400:
- *         description: Error en la solicitud
+ *         description: Límite de roles alcanzado o solicitud incorrecta
  */
 router.post('/roles', verificarToken, RegistrarRoles);
 
@@ -91,7 +91,7 @@ router.post('/roles', verificarToken, RegistrarRoles);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               nombre_rol:
  *                 type: string
  *                 example: "Gerente"
  *     responses:

@@ -14,9 +14,50 @@ const router = Router();
 /**
  * @swagger
  * tags:
- *   name: Usuarios
- *   description: API para la gestión de usuarios
+ *   - name: Usuarios
+ *     description: Gestión de usuarios
  */
+
+/**
+ * @swagger
+ * /usuarios:
+ *   post:
+ *     summary: Registra un nuevo usuario
+ *     tags: [Usuarios]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               identificacion:
+ *                 type: string
+ *               nombre:
+ *                 type: string
+ *               apellido:
+ *                 type: string
+ *               fecha_nacimiento:
+ *                 type: string
+ *                 format: date
+ *               telefono:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *               area_desarrollo:
+ *                 type: string
+ *               cargo:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Usuario registrado exitosamente
+ *       400:
+ *         description: Datos faltantes o incorrectos
+ */
+router.post('/usuarios', verificarToken, RegistrarUsuarios);
 
 /**
  * @swagger
@@ -24,8 +65,6 @@ const router = Router();
  *   get:
  *     summary: Obtiene la lista de todos los usuarios
  *     tags: [Usuarios]
- *     security:
- *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de usuarios obtenida con éxito
@@ -38,56 +77,40 @@ const router = Router();
  *                 properties:
  *                   id:
  *                     type: integer
- *                     example: 1
  *                   nombre:
  *                     type: string
- *                     example: Juan Pérez
- *                   correo:
+ *                   email:
  *                     type: string
- *                     example: juan.perez@example.com
  */
 router.get('/usuarios', verificarToken, listarUsuarios);
 
 /**
  * @swagger
- * /usuarios:
- *   post:
- *     summary: Registra un nuevo usuario
+ * /usuarios/{identificacion}:
+ *   get:
+ *     summary: Busca un usuario por su identificación
  *     tags: [Usuarios]
- *     security:
- *       - BearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               nombre:
- *                 type: string
- *                 example: Juan Pérez
- *               correo:
- *                 type: string
- *                 example: juan.perez@example.com
- *               contraseña:
- *                 type: string
- *                 example: "123456"
+ *     parameters:
+ *       - in: path
+ *         name: identificacion
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Identificación del usuario
  *     responses:
- *       201:
- *         description: Usuario registrado con éxito
- *       400:
- *         description: Error en la solicitud
+ *       200:
+ *         description: Usuario encontrado
+ *       404:
+ *         description: Usuario no encontrado
  */
-router.post('/usuarios', verificarToken, RegistrarUsuarios);
+router.get('/usuarios/:identificacion', verificarToken, BuscarUsuarios);
 
 /**
  * @swagger
  * /usuarios/{id}:
  *   put:
- *     summary: Actualiza la información de un usuario por su ID
+ *     summary: Actualiza los datos de un usuario
  *     tags: [Usuarios]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -104,10 +127,10 @@ router.post('/usuarios', verificarToken, RegistrarUsuarios);
  *             properties:
  *               nombre:
  *                 type: string
- *                 example: Juan Pérez
- *               correo:
+ *               apellido:
  *                 type: string
- *                 example: juan.perez@example.com
+ *               email:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Usuario actualizado con éxito
@@ -122,8 +145,6 @@ router.put('/usuarios/:id', verificarToken, ActualizarUsuarios);
  *   delete:
  *     summary: Elimina un usuario por su ID
  *     tags: [Usuarios]
- *     security:
- *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -133,31 +154,10 @@ router.put('/usuarios/:id', verificarToken, ActualizarUsuarios);
  *         description: ID del usuario a eliminar
  *     responses:
  *       200:
- *         description: Usuario eliminado con éxito
+ *         description: Usuario eliminado exitosamente
  *       404:
  *         description: Usuario no encontrado
  */
 router.delete('/usuarios/:id', verificarToken, EliminarUsuarios);
-
-/**
- * @swagger
- * /usuarios/{identificacion}:
- *   get:
- *     summary: Busca un usuario por su identificación
- *     tags: [Usuarios]
- *     parameters:
- *       - in: path
- *         name: identificacion
- *         required: true
- *         schema:
- *           type: string
- *         description: Identificación del usuario a buscar
- *     responses:
- *       200:
- *         description: Usuario encontrado
- *       404:
- *         description: Usuario no encontrado
- */
-router.get('/usuarios/:identificacion', BuscarUsuarios);
 
 export default router;
