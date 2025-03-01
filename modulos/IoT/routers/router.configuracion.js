@@ -1,24 +1,16 @@
-import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { Router } from "express";
-import { postConfiguracion, getConfiguracion, IdConfiguracion, actualizarConfiguracion } from "../controller/controller.configuracion.js";
-
-const RouterConfiguracion = Router();
-
 /**
  * @swagger
  * tags:
  *   name: Configuracion
- *   description: Endpoints para gestionar configuraciones
+ *   description: API para gestionar configuraciones de sensores
  */
 
 /**
  * @swagger
  * /configuracion:
  *   post:
- *     summary: Registrar una nueva configuración
+ *     summary: Registra una nueva configuración
  *     tags: [Configuracion]
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -26,77 +18,66 @@ const RouterConfiguracion = Router();
  *           schema:
  *             type: object
  *             properties:
- *               fk_lote:
+ *               parametros:
+ *                 type: string
+ *               fk_sensores:
  *                 type: integer
- *                 example: 1
- *               tamx:
- *                 type: integer
- *                 example: 10
- *               tamy:
- *                 type: integer
- *                 example: 15
- *               posx:
- *                 type: integer
- *                 example: 5
- *               posy:
- *                 type: integer
- *                 example: 3
  *     responses:
- *       201:
+ *       200:
  *         description: Configuración registrada correctamente
+ *       500:
+ *         description: Error en el servidor
  */
-RouterConfiguracion.post("/configuracion", verificarToken, postConfiguracion);
+router.post('/configuracion', verificarToken, postConfiguracion);
 
 /**
  * @swagger
  * /configuracion:
  *   get:
- *     summary: Obtener la lista de configuraciones
+ *     summary: Obtiene todas las configuraciones
  *     tags: [Configuracion]
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de configuraciones obtenida correctamente
+ *       404:
+ *         description: No hay configuraciones registradas
  */
-RouterConfiguracion.get("/configuracion", verificarToken, getConfiguracion);
+router.get('/configuracion', verificarToken, getConfiguracion);
 
 /**
  * @swagger
  * /configuracion/{id}:
  *   get:
- *     summary: Obtener una configuración por ID
+ *     summary: Obtiene una configuración por su ID
  *     tags: [Configuracion]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID de la configuración a obtener
+ *         description: ID de la configuración
  *     responses:
  *       200:
- *         description: Configuración obtenida correctamente
+ *         description: Configuración encontrada correctamente
+ *       404:
+ *         description: Configuración no encontrada
  */
-RouterConfiguracion.get("/configuracion/:id", verificarToken, IdConfiguracion);
+router.get('/configuracion/:id', verificarToken, IdConfiguracion);
 
 /**
  * @swagger
  * /configuracion/{id}:
  *   put:
- *     summary: Actualizar una configuración
+ *     summary: Actualiza una configuración por su ID
  *     tags: [Configuracion]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID de la configuración a actualizar
+ *         description: ID de la configuración
  *     requestBody:
  *       required: true
  *       content:
@@ -104,25 +85,16 @@ RouterConfiguracion.get("/configuracion/:id", verificarToken, IdConfiguracion);
  *           schema:
  *             type: object
  *             properties:
- *               fk_lote:
+ *               parametros:
+ *                 type: string
+ *               fk_sensores:
  *                 type: integer
- *                 example: 1
- *               tamx:
- *                 type: integer
- *                 example: 12
- *               tamy:
- *                 type: integer
- *                 example: 18
- *               posx:
- *                 type: integer
- *                 example: 6
- *               posy:
- *                 type: integer
- *                 example: 4
  *     responses:
  *       200:
  *         description: Configuración actualizada correctamente
+ *       404:
+ *         description: No se pudo actualizar la configuración
  */
-RouterConfiguracion.put("/configuracion/:id", verificarToken, actualizarConfiguracion);
+router.put('/configuracion/:id', verificarToken, actualizarConfiguracion);
 
 export default RouterConfiguracion;
