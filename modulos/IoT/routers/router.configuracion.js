@@ -1,3 +1,10 @@
+import verificarToken from "../../usuarios/middlewares/verificarToken.js";
+import { Router } from "express";
+import { postConfiguracion, getConfiguracion, IdConfiguracion, actualizarConfiguracion } from "../controller/controller.configuracion.js";
+
+const RouterConfiguracion = Router();
+
+
 /**
  * @swagger
  * tags:
