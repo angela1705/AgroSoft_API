@@ -35,18 +35,21 @@ const rutaSemilleroInsumo = Router();
  *               items:
  *                 type: object
  *                 properties:
- *                   id:
+ *                   id_semillero_insumo:
  *                     type: integer
  *                     example: 1
- *                   fk_semillero:
+ *                   id_semillero:
  *                     type: integer
  *                     example: 2
- *                   fk_insumo:
+ *                   id_insumo:
  *                     type: integer
  *                     example: 5
- *                   cantidad:
+ *                   cantidad_necesaria:
  *                     type: integer
  *                     example: 10
+ *                   id_bodega:
+ *                     type: integer
+ *                     example: 3
  */
 rutaSemilleroInsumo.get("/semillero_insumo", verificarToken, listarSemilleroInsumo);
 
@@ -65,15 +68,18 @@ rutaSemilleroInsumo.get("/semillero_insumo", verificarToken, listarSemilleroInsu
  *           schema:
  *             type: object
  *             properties:
- *               fk_semillero:
+ *               id_semillero:
  *                 type: integer
  *                 example: 2
- *               fk_insumo:
+ *               id_insumo:
  *                 type: integer
  *                 example: 5
- *               cantidad:
+ *               cantidad_necesaria:
  *                 type: integer
  *                 example: 10
+ *               id_bodega:
+ *                 type: integer
+ *                 example: 3
  *     responses:
  *       201:
  *         description: Insumo asignado correctamente al semillero
@@ -102,15 +108,18 @@ rutaSemilleroInsumo.post("/semillero_insumo", verificarToken, registrarSemillero
  *           schema:
  *             type: object
  *             properties:
- *               fk_semillero:
+ *               id_semillero:
  *                 type: integer
  *                 example: 2
- *               fk_insumo:
+ *               id_insumo:
  *                 type: integer
  *                 example: 5
- *               cantidad:
+ *               cantidad_necesaria:
  *                 type: integer
  *                 example: 15
+ *               id_bodega:
+ *                 type: integer
+ *                 example: 3
  *     responses:
  *       200:
  *         description: Asignación de insumo actualizada correctamente

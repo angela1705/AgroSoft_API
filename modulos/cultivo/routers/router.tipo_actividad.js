@@ -4,7 +4,8 @@ import {
     postTipo_actividad, 
     getTipo_actividad, 
     getIdTipo_actividad, 
-    updateTipo_actividad 
+    updateTipo_actividad, 
+    deleteTipo_actividad 
 } from "../controller/controller.tipo_actividad.js";
 
 const RouterTipo_actividad = Router();
@@ -37,6 +38,12 @@ const RouterTipo_actividad = Router();
  *               descripcion:
  *                 type: string
  *                 description: Descripción del tipo de actividad
+ *               duracion_estimada:
+ *                 type: integer
+ *                 description: Duración estimada en minutos
+ *               frecuencia:
+ *                 type: string
+ *                 description: Frecuencia de la actividad
  *     responses:
  *       201:
  *         description: Tipo de actividad creado con éxito
@@ -112,6 +119,12 @@ RouterTipo_actividad.get("/tipo_actividad/:id", verificarToken, getIdTipo_activi
  *               descripcion:
  *                 type: string
  *                 description: Nueva descripción del tipo de actividad
+ *               duracion_estimada:
+ *                 type: integer
+ *                 description: Nueva duración estimada en minutos
+ *               frecuencia:
+ *                 type: string
+ *                 description: Nueva frecuencia de la actividad
  *     responses:
  *       200:
  *         description: Tipo de actividad actualizado con éxito
@@ -121,5 +134,28 @@ RouterTipo_actividad.get("/tipo_actividad/:id", verificarToken, getIdTipo_activi
  *         description: Tipo de actividad no encontrado
  */
 RouterTipo_actividad.put("/tipo_actividad/:id", verificarToken, updateTipo_actividad);
+
+/**
+ * @swagger
+ * /tipo_actividad/{id}:
+ *   delete:
+ *     summary: Elimina un tipo de actividad por ID
+ *     tags: [Tipo de Actividad]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del tipo de actividad a eliminar
+ *     responses:
+ *       200:
+ *         description: Tipo de actividad eliminado con éxito
+ *       404:
+ *         description: Tipo de actividad no encontrado
+ */
+RouterTipo_actividad.delete("/tipo_actividad/:id", verificarToken, deleteTipo_actividad);
 
 export default RouterTipo_actividad;

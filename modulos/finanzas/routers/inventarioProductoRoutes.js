@@ -1,12 +1,6 @@
 import { Router } from "express";
-import {
-    registrarInventarioProducto,
-    listarInventarioProducto,
-    actualizarInventarioProducto,
-    eliminarInventarioProducto,
-} from "../controllers/inventarioProductoController.js";
-
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
+import { registrarInventarioProducto, listarInventarioProducto, actualizarInventarioProducto, eliminarInventarioProducto } from "../controllers/inventarioProductoController.js";
 
 const rutaInventario = Router();
 
@@ -20,44 +14,11 @@ const rutaInventario = Router();
 /**
  * @swagger
  * /inventario:
- *   get:
- *     summary: Obtener la lista de productos en el inventario
- *     tags: [Inventario]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Lista de productos en inventario obtenida correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id_producto:
- *                     type: integer
- *                     example: 1
- *                   nombre:
- *                     type: string
- *                     example: "Tomate"
- *                   cantidad:
- *                     type: integer
- *                     example: 50
- *                   precio:
- *                     type: number
- *                     example: 1200.50
- */
-rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
-
-/**
- * @swagger
- * /inventario:
  *   post:
  *     summary: Registrar un nuevo producto en el inventario
  *     tags: [Inventario]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -65,13 +26,19 @@ rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
  *           schema:
  *             type: object
  *             properties:
+ *               fk_cosecha:
+ *                 type: integer
+ *                 example: 1
+ *               fk_venta:
+ *                 type: integer
+ *                 example: 2
  *               nombre:
  *                 type: string
  *                 example: "Lechuga"
- *               cantidad:
+ *               cantidad_disponible:
  *                 type: integer
  *                 example: 100
- *               precio:
+ *               costo_unitario:
  *                 type: number
  *                 example: 850.75
  *     responses:
@@ -82,15 +49,29 @@ rutaInventario.post("/inventario", verificarToken, registrarInventarioProducto);
 
 /**
  * @swagger
- * /inventario/{id_producto}:
- *   put:
- *     summary: Actualizar un producto en el inventario
+ * /inventario:
+ *   get:
+ *     summary: Obtener todos los productos en el inventario
  *     tags: [Inventario]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de productos obtenida con éxito
+ */
+rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
+
+/**
+ * @swagger
+ * /inventario/{id}:
+ *   put:
+ *     summary: Actualizar un producto en el inventario por ID
+ *     tags: [Inventario]
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_producto
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
@@ -102,32 +83,38 @@ rutaInventario.post("/inventario", verificarToken, registrarInventarioProducto);
  *           schema:
  *             type: object
  *             properties:
+ *               fk_cosecha:
+ *                 type: integer
+ *                 example: 1
+ *               fk_venta:
+ *                 type: integer
+ *                 example: 2
  *               nombre:
  *                 type: string
  *                 example: "Lechuga"
- *               cantidad:
+ *               cantidad_disponible:
  *                 type: integer
  *                 example: 120
- *               precio:
+ *               costo_unitario:
  *                 type: number
  *                 example: 900.00
  *     responses:
  *       200:
  *         description: Producto actualizado correctamente
  */
-rutaInventario.put("/inventario/:id_producto", verificarToken, actualizarInventarioProducto);
+rutaInventario.put("/inventario/:id", verificarToken, actualizarInventarioProducto);
 
 /**
  * @swagger
- * /inventario/{id_producto}:
+ * /inventario/{id}:
  *   delete:
- *     summary: Eliminar un producto del inventario
+ *     summary: Eliminar un producto del inventario por ID
  *     tags: [Inventario]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_producto
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
@@ -136,6 +123,6 @@ rutaInventario.put("/inventario/:id_producto", verificarToken, actualizarInventa
  *       200:
  *         description: Producto eliminado correctamente
  */
-rutaInventario.delete("/inventario/:id_producto", verificarToken, eliminarInventarioProducto);
+rutaInventario.delete("/inventario/:id", verificarToken, eliminarInventarioProducto);
 
 export default rutaInventario;

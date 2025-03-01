@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postControles, getControles, getIdControles, updateControles } from "../controller/controller.controles.js";
+import { postControles, getControles, getIdControles, updateControles, deleteControles } from "../controller/controller.controles.js";
 
 const RouterControles = Router();
 
@@ -26,10 +26,19 @@ const RouterControles = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
  *               descripcion:
  *                 type: string
+ *               fecha_control:
+ *                 type: string
+ *                 format: date
+ *               cantidad_producto:
+ *                 type: integer
+ *               fk_afecciones:
+ *                 type: integer
+ *               fk_tipo_control:
+ *                 type: integer
+ *               fk_productos_control:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Control creado correctamente
@@ -97,10 +106,19 @@ RouterControles.get("/controles/:id", verificarToken, getIdControles);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
  *               descripcion:
  *                 type: string
+ *               fecha_control:
+ *                 type: string
+ *                 format: date
+ *               cantidad_producto:
+ *                 type: integer
+ *               fk_afecciones:
+ *                 type: integer
+ *               fk_tipo_control:
+ *                 type: integer
+ *               fk_productos_control:
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Control actualizado exitosamente
@@ -108,5 +126,27 @@ RouterControles.get("/controles/:id", verificarToken, getIdControles);
  *         description: Error en la solicitud
  */
 RouterControles.put("/controles/:id", verificarToken, updateControles);
+
+/**
+ * @swagger
+ * /controles/{id}:
+ *   delete:
+ *     summary: Elimina un control por ID
+ *     tags: [Controles]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Control eliminado correctamente
+ *       404:
+ *         description: Control no encontrado
+ */
+RouterControles.delete("/controles/:id", verificarToken, deleteControles);
 
 export default RouterControles;

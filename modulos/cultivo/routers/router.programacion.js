@@ -4,7 +4,8 @@ import {
     postProgramacion, 
     getProgramacion, 
     getIdProgramacion, 
-    updateProgramacion 
+    updateProgramacion, 
+    deleteProgramacion 
 } from "../controller/controller.programacion.js";
 
 const RouterProgramacion = Router();
@@ -31,16 +32,19 @@ const RouterProgramacion = Router();
  *           schema:
  *             type: object
  *             properties:
- *               fecha:
+ *               ubicacion:
+ *                 type: string
+ *                 description: Ubicación de la actividad
+ *               hora_prog:
+ *                 type: string
+ *                 description: Hora programada de la actividad
+ *               estado:
+ *                 type: string
+ *                 description: Estado de la actividad
+ *               fecha_prog:
  *                 type: string
  *                 format: date
  *                 description: Fecha programada para la actividad
- *               actividad:
- *                 type: string
- *                 description: Nombre de la actividad
- *               responsable:
- *                 type: string
- *                 description: Persona encargada de la actividad
  *     responses:
  *       201:
  *         description: Programación creada con éxito
@@ -67,7 +71,7 @@ RouterProgramacion.get("/programacion", verificarToken, getProgramacion);
 
 /**
  * @swagger
- * /programacion/{id}:
+ * /programacion/{id_programacion}:
  *   get:
  *     summary: Obtiene una programación por ID
  *     tags: [Programación]
@@ -75,7 +79,7 @@ RouterProgramacion.get("/programacion", verificarToken, getProgramacion);
  *       - BearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: id_programacion
  *         required: true
  *         schema:
  *           type: string
@@ -86,11 +90,11 @@ RouterProgramacion.get("/programacion", verificarToken, getProgramacion);
  *       404:
  *         description: Programación no encontrada
  */
-RouterProgramacion.get("/programacion/:id", verificarToken, getIdProgramacion);
+RouterProgramacion.get("/programacion/:id_programacion", verificarToken, getIdProgramacion);
 
 /**
  * @swagger
- * /programacion/{id}:
+ * /programacion/{id_programacion}:
  *   put:
  *     summary: Actualiza una programación por ID
  *     tags: [Programación]
@@ -98,7 +102,7 @@ RouterProgramacion.get("/programacion/:id", verificarToken, getIdProgramacion);
  *       - BearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: id_programacion
  *         required: true
  *         schema:
  *           type: string
@@ -110,16 +114,19 @@ RouterProgramacion.get("/programacion/:id", verificarToken, getIdProgramacion);
  *           schema:
  *             type: object
  *             properties:
- *               fecha:
+ *               ubicacion:
+ *                 type: string
+ *                 description: Ubicación actualizada
+ *               hora_prog:
+ *                 type: string
+ *                 description: Hora actualizada de la actividad
+ *               estado:
+ *                 type: string
+ *                 description: Estado actualizado
+ *               fecha_prog:
  *                 type: string
  *                 format: date
  *                 description: Fecha actualizada de la actividad
- *               actividad:
- *                 type: string
- *                 description: Actividad actualizada
- *               responsable:
- *                 type: string
- *                 description: Responsable actualizado
  *     responses:
  *       200:
  *         description: Programación actualizada con éxito
@@ -128,6 +135,29 @@ RouterProgramacion.get("/programacion/:id", verificarToken, getIdProgramacion);
  *       404:
  *         description: Programación no encontrada
  */
-RouterProgramacion.put("/programacion/:id", verificarToken, updateProgramacion);
+RouterProgramacion.put("/programacion/:id_programacion", verificarToken, updateProgramacion);
+
+/**
+ * @swagger
+ * /programacion/{id_programacion}:
+ *   delete:
+ *     summary: Elimina una programación por ID
+ *     tags: [Programación]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id_programacion
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de la programación a eliminar
+ *     responses:
+ *       200:
+ *         description: Programación eliminada con éxito
+ *       404:
+ *         description: Programación no encontrada
+ */
+RouterProgramacion.delete("/programacion/:id_programacion", verificarToken, deleteProgramacion);
 
 export default RouterProgramacion;

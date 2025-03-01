@@ -4,7 +4,8 @@ import {
     postResiduos, 
     getResiduos, 
     getIdResiduos, 
-    updateResiduos 
+    updateResiduos, 
+    deleteResiduos 
 } from "../controller/controller.residuos.js";
 
 const RouterResiduos = Router();
@@ -31,15 +32,28 @@ const RouterResiduos = Router();
  *           schema:
  *             type: object
  *             properties:
+ *               fk_cultivo:
+ *                 type: integer
+ *                 description: ID del cultivo asociado
+ *               fk_tipo:
+ *                 type: integer
+ *                 description: ID del tipo de residuo
+ *               nombre:
+ *                 type: string
+ *                 description: Nombre del residuo
+ *               descripcion:
+ *                 type: string
+ *                 description: Descripción del residuo
+ *               fecha:
+ *                 type: string
+ *                 format: date
+ *                 description: Fecha de generación del residuo
  *               tipo:
  *                 type: string
  *                 description: Tipo de residuo
  *               cantidad:
  *                 type: number
  *                 description: Cantidad de residuos en kg
- *               metodo_disposicion:
- *                 type: string
- *                 description: Método de disposición del residuo
  *     responses:
  *       201:
  *         description: Residuo creado con éxito
@@ -109,15 +123,28 @@ RouterResiduos.get("/residuos/:id", verificarToken, getIdResiduos);
  *           schema:
  *             type: object
  *             properties:
+ *               fk_cultivo:
+ *                 type: integer
+ *                 description: ID del cultivo asociado
+ *               fk_tipo:
+ *                 type: integer
+ *                 description: ID del tipo de residuo
+ *               nombre:
+ *                 type: string
+ *                 description: Nombre del residuo actualizado
+ *               descripcion:
+ *                 type: string
+ *                 description: Descripción del residuo actualizado
+ *               fecha:
+ *                 type: string
+ *                 format: date
+ *                 description: Fecha de actualización del residuo
  *               tipo:
  *                 type: string
  *                 description: Tipo de residuo actualizado
  *               cantidad:
  *                 type: number
  *                 description: Cantidad de residuos actualizada en kg
- *               metodo_disposicion:
- *                 type: string
- *                 description: Método de disposición actualizado
  *     responses:
  *       200:
  *         description: Residuo actualizado con éxito
@@ -127,5 +154,28 @@ RouterResiduos.get("/residuos/:id", verificarToken, getIdResiduos);
  *         description: Residuo no encontrado
  */
 RouterResiduos.put("/residuos/:id", verificarToken, updateResiduos);
+
+/**
+ * @swagger
+ * /residuos/{id}:
+ *   delete:
+ *     summary: Elimina un residuo por ID
+ *     tags: [Residuos]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del residuo a eliminar
+ *     responses:
+ *       200:
+ *         description: Residuo eliminado con éxito
+ *       404:
+ *         description: Residuo no encontrado
+ */
+RouterResiduos.delete("/residuos/:id", verificarToken, deleteResiduos);
 
 export default RouterResiduos;

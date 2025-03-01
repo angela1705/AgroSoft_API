@@ -1,70 +1,24 @@
 import { Router } from "express";
-import {
-    registrarRegistroVenta,
-    listarRegistroVenta,
-    actualizarRegistroVenta,
-    eliminarRegistroVenta,
-} from "../controllers/registroVentaController.js";
-
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
+import { registrarRegistroVenta, listarRegistroVenta, actualizarRegistroVenta, eliminarRegistroVenta } from "../controllers/registroVentaController.js";
 
 const rutaVenta = Router();
 
 /**
  * @swagger
  * tags:
- *   name: Ventas
- *   description: Endpoints para gestionar las ventas de productos
+ *   name: RegistroVentas
+ *   description: Endpoints para gestionar los registros de ventas
  */
 
 /**
  * @swagger
- * /ventas:
- *   get:
- *     summary: Obtener la lista de ventas registradas
- *     tags: [Ventas]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Lista de ventas obtenida correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id_venta:
- *                     type: integer
- *                     example: 1
- *                   producto:
- *                     type: string
- *                     example: "Tomates"
- *                   cantidad:
- *                     type: integer
- *                     example: 50
- *                   precio_unitario:
- *                     type: number
- *                     example: 2.5
- *                   total:
- *                     type: number
- *                     example: 125.00
- *                   fecha:
- *                     type: string
- *                     format: date
- *                     example: "2024-02-12"
- */
-rutaVenta.get("/ventas", verificarToken, listarRegistroVenta);
-
-/**
- * @swagger
- * /ventas:
+ * /registroventas:
  *   post:
- *     summary: Registrar una nueva venta
- *     tags: [Ventas]
+ *     summary: Registrar un nuevo registro de venta
+ *     tags: [RegistroVentas]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -72,43 +26,57 @@ rutaVenta.get("/ventas", verificarToken, listarRegistroVenta);
  *           schema:
  *             type: object
  *             properties:
- *               producto:
- *                 type: string
- *                 example: "Tomates"
- *               cantidad:
+ *               fk_venta:
+ *                 type: integer
+ *                 example: 1
+ *               cantidad_vendida:
  *                 type: integer
  *                 example: 50
  *               precio_unitario:
  *                 type: number
- *                 example: 2.5
- *               total:
+ *                 example: 1200.50
+ *               ingresos_venta:
  *                 type: number
- *                 example: 125.00
- *               fecha:
+ *                 example: 60025.00
+ *               fecha_venta:
  *                 type: string
  *                 format: date
- *                 example: "2024-02-12"
+ *                 example: "2024-02-20"
  *     responses:
  *       201:
- *         description: Venta registrada correctamente
+ *         description: Registro de venta agregado correctamente
  */
-rutaVenta.post("/ventas", verificarToken, registrarRegistroVenta);
+rutaVenta.post("/registroventas", verificarToken, registrarRegistroVenta);
 
 /**
  * @swagger
- * /ventas/{id_venta}:
- *   put:
- *     summary: Actualizar los datos de una venta
- *     tags: [Ventas]
+ * /registroventas:
+ *   get:
+ *     summary: Obtener todos los registros de ventas
+ *     tags: [RegistroVentas]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de registros obtenida con éxito
+ */
+rutaVenta.get("/registroventas", verificarToken, listarRegistroVenta);
+
+/**
+ * @swagger
+ * /registroventas/{id}:
+ *   put:
+ *     summary: Actualizar un registro de venta por ID
+ *     tags: [RegistroVentas]
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_venta
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID de la venta a actualizar
+ *         description: ID del registro de venta a actualizar
  *     requestBody:
  *       required: true
  *       content:
@@ -116,47 +84,47 @@ rutaVenta.post("/ventas", verificarToken, registrarRegistroVenta);
  *           schema:
  *             type: object
  *             properties:
- *               producto:
- *                 type: string
- *                 example: "Tomates"
- *               cantidad:
+ *               fk_venta:
+ *                 type: integer
+ *                 example: 1
+ *               cantidad_vendida:
  *                 type: integer
  *                 example: 60
  *               precio_unitario:
  *                 type: number
- *                 example: 2.5
- *               total:
+ *                 example: 1300.00
+ *               ingresos_venta:
  *                 type: number
- *                 example: 150.00
- *               fecha:
+ *                 example: 78000.00
+ *               fecha_venta:
  *                 type: string
  *                 format: date
- *                 example: "2024-02-13"
+ *                 example: "2024-03-15"
  *     responses:
  *       200:
- *         description: Venta actualizada correctamente
+ *         description: Registro de venta actualizado correctamente
  */
-rutaVenta.put("/ventas/:id_venta", verificarToken, actualizarRegistroVenta);
+rutaVenta.put("/registroventas/:id", verificarToken, actualizarRegistroVenta);
 
 /**
  * @swagger
- * /ventas/{id_venta}:
+ * /registroventas/{id}:
  *   delete:
- *     summary: Eliminar un registro de venta
- *     tags: [Ventas]
+ *     summary: Eliminar un registro de venta por ID
+ *     tags: [RegistroVentas]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_venta
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID de la venta a eliminar
+ *         description: ID del registro de venta a eliminar
  *     responses:
  *       200:
- *         description: Venta eliminada correctamente
+ *         description: Registro de venta eliminado correctamente
  */
-rutaVenta.delete("/ventas/:id_venta", verificarToken, eliminarRegistroVenta);
+rutaVenta.delete("/registroventas/:id", verificarToken, eliminarRegistroVenta);
 
 export default rutaVenta;

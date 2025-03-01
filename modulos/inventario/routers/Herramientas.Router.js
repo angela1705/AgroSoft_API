@@ -41,9 +41,15 @@ const rutaHerramienta = Router();
  *                   nombre:
  *                     type: string
  *                     example: "Martillo"
- *                   cantidad:
+ *                   descripcion:
+ *                     type: string
+ *                     example: "Herramienta de golpe"
+ *                   unidades:
  *                     type: integer
  *                     example: 10
+ *                   fk_lote:
+ *                     type: integer
+ *                     example: 2
  */
 rutaHerramienta.get("/herramientas", verificarToken, listarHerramientas);
 
@@ -62,10 +68,16 @@ rutaHerramienta.get("/herramientas", verificarToken, listarHerramientas);
  *           schema:
  *             type: object
  *             properties:
+ *               fk_lote:
+ *                 type: integer
+ *                 example: 2
  *               nombre:
  *                 type: string
  *                 example: "Martillo"
- *               cantidad:
+ *               descripcion:
+ *                 type: string
+ *                 example: "Herramienta de golpe"
+ *               unidades:
  *                 type: integer
  *                 example: 10
  *     responses:
@@ -96,10 +108,16 @@ rutaHerramienta.post("/herramientas", verificarToken, registrarHerramienta);
  *           schema:
  *             type: object
  *             properties:
+ *               fk_lote:
+ *                 type: integer
+ *                 example: 3
  *               nombre:
  *                 type: string
  *                 example: "Destornillador"
- *               cantidad:
+ *               descripcion:
+ *                 type: string
+ *                 example: "Herramienta para tornillos"
+ *               unidades:
  *                 type: integer
  *                 example: 15
  *     responses:

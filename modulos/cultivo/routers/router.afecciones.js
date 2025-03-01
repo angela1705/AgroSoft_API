@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postAfecciones, getAfecciones, getIdAfecciones, updateAfecciones } from "../controller/controller.afecciones.js";
+import { postAfecciones, getAfecciones, getIdAfecciones, updateAfecciones, deleteAfecciones } from "../controller/controller.afecciones.js";
 
 const RouterAfecciones = Router();
 
@@ -26,10 +26,15 @@ const RouterAfecciones = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               prioridad:
  *                 type: string
- *               descripcion:
+ *               fecha_encuentro:
  *                 type: string
+ *                 format: date
+ *               fk_plantacion:
+ *                 type: integer
+ *               fk_plaga:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Afección creada correctamente
@@ -67,7 +72,7 @@ RouterAfecciones.get("/afecciones", verificarToken, getAfecciones);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     responses:
  *       200:
  *         description: Datos de la afección
@@ -89,7 +94,7 @@ RouterAfecciones.get("/afecciones/:id", verificarToken, getIdAfecciones);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -97,10 +102,15 @@ RouterAfecciones.get("/afecciones/:id", verificarToken, getIdAfecciones);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               prioridad:
  *                 type: string
- *               descripcion:
+ *               fecha_encuentro:
  *                 type: string
+ *                 format: date
+ *               fk_plantacion:
+ *                 type: integer
+ *               fk_plaga:
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Afección actualizada exitosamente
@@ -108,5 +118,27 @@ RouterAfecciones.get("/afecciones/:id", verificarToken, getIdAfecciones);
  *         description: Error en la solicitud
  */
 RouterAfecciones.put("/afecciones/:id", verificarToken, updateAfecciones);
+
+/**
+ * @swagger
+ * /afecciones/{id}:
+ *   delete:
+ *     summary: Elimina una afección por ID
+ *     tags: [Afecciones]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Afección eliminada correctamente
+ *       404:
+ *         description: No se pudo eliminar la afección
+ */
+RouterAfecciones.delete("/afecciones/:id", verificarToken, deleteAfecciones);
 
 export default RouterAfecciones;

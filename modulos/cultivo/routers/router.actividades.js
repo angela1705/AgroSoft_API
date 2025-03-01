@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postActividades, getActividades, getIdActividades, updateActividades } from "../controller/controller.actividades.js";
+import { postActividades, getActividades, getIdActividades, updateActividades, deleteActividades } from "../controller/controller.actividades.js";
 
 const RouterActividades = Router();
 
@@ -26,10 +26,25 @@ const RouterActividades = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               fk_cultivo:
+ *                 type: integer
+ *               fk_usuario:
+ *                 type: integer
+ *               fk_insumo:
+ *                 type: integer
+ *               fk_programacion:
+ *                 type: integer
+ *               fk_tipo_actividad:
+ *                 type: integer
+ *               titulo:
  *                 type: string
  *               descripcion:
  *                 type: string
+ *               fecha:
+ *                 type: string
+ *                 format: date
+ *               cantidad_producto:
+ *                 type: number
  *     responses:
  *       201:
  *         description: Actividad creada correctamente
@@ -49,8 +64,8 @@ RouterActividades.post("/actividades", verificarToken, postActividades);
  *     responses:
  *       200:
  *         description: Lista de actividades
- *       401:
- *         description: No autorizado
+ *       404:
+ *         description: No hay registros de actividades
  */
 RouterActividades.get("/actividades", verificarToken, getActividades);
 
@@ -67,7 +82,7 @@ RouterActividades.get("/actividades", verificarToken, getActividades);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     responses:
  *       200:
  *         description: Datos de la actividad
@@ -89,7 +104,7 @@ RouterActividades.get("/actividades/:id", verificarToken, getIdActividades);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -97,16 +112,53 @@ RouterActividades.get("/actividades/:id", verificarToken, getIdActividades);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               fk_cultivo:
+ *                 type: integer
+ *               fk_usuario:
+ *                 type: integer
+ *               fk_insumo:
+ *                 type: integer
+ *               fk_programacion:
+ *                 type: integer
+ *               fk_tipo_actividad:
+ *                 type: integer
+ *               titulo:
  *                 type: string
  *               descripcion:
  *                 type: string
+ *               fecha:
+ *                 type: string
+ *                 format: date
+ *               cantidad_producto:
+ *                 type: number
  *     responses:
  *       200:
  *         description: Actividad actualizada exitosamente
- *       400:
- *         description: Error en la solicitud
+ *       404:
+ *         description: No se pudo actualizar la actividad
  */
 RouterActividades.put("/actividades/:id", verificarToken, updateActividades);
+
+/**
+ * @swagger
+ * /actividades/{id}:
+ *   delete:
+ *     summary: Elimina una actividad por ID
+ *     tags: [Actividades]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Actividad eliminada correctamente
+ *       404:
+ *         description: No se pudo eliminar la actividad
+ */
+RouterActividades.delete("/actividades/:id", verificarToken, deleteActividades);
 
 export default RouterActividades;

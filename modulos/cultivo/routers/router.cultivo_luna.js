@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postCultivo_luna, getCultivo_luna, getIdCultivo_luna, updateCultivo_luna } from "../controller/controller.cultivo_luna.js";
+import { postCultivo_luna, getCultivo_luna, getIdCultivo_luna, updateCultivo_luna, deleteCultivo_luna } from "../controller/controller.cultivo_luna.js";
 
 const RouterCultivo_luna = Router();
 
@@ -26,13 +26,10 @@ const RouterCultivo_luna = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *               fase_lunar:
- *                 type: string
- *               fecha:
- *                 type: string
- *                 format: date
+ *               fk_cultivo:
+ *                 type: integer
+ *               fk_fase_lunar:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Cultivo Luna registrado correctamente
@@ -70,7 +67,7 @@ RouterCultivo_luna.get("/cultivo_luna", verificarToken, getCultivo_luna);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     responses:
  *       200:
  *         description: Datos del Cultivo Luna
@@ -92,7 +89,7 @@ RouterCultivo_luna.get("/cultivo_luna/:id", verificarToken, getIdCultivo_luna);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -100,13 +97,10 @@ RouterCultivo_luna.get("/cultivo_luna/:id", verificarToken, getIdCultivo_luna);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *               fase_lunar:
- *                 type: string
- *               fecha:
- *                 type: string
- *                 format: date
+ *               fk_cultivo:
+ *                 type: integer
+ *               fk_fase_lunar:
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Cultivo Luna actualizado exitosamente
@@ -114,5 +108,27 @@ RouterCultivo_luna.get("/cultivo_luna/:id", verificarToken, getIdCultivo_luna);
  *         description: Error en la solicitud
  */
 RouterCultivo_luna.put("/cultivo_luna/:id", verificarToken, updateCultivo_luna);
+
+/**
+ * @swagger
+ * /cultivo_luna/{id}:
+ *   delete:
+ *     summary: Elimina un registro de Cultivo Luna por ID
+ *     tags: [Cultivo_Luna]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Cultivo Luna eliminado correctamente
+ *       404:
+ *         description: No se pudo eliminar Cultivo Luna
+ */
+RouterCultivo_luna.delete("/cultivo_luna/:id", verificarToken, deleteCultivo_luna);
 
 export default RouterCultivo_luna;

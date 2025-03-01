@@ -1,6 +1,12 @@
 import { Router } from "express";
+import {
+    registrarSemillero,
+    listarSemilleros,
+    actualizarSemillero,
+    eliminarSemillero,
+} from "../controllers/Semillero.Controller.js";
+
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { registrarSemillero, listarSemilleros, actualizarSemillero, eliminarSemillero } from "../controllers/Semillero.Controller.js";
 
 const rutaSemillero = Router();
 
@@ -32,12 +38,29 @@ const rutaSemillero = Router();
  *                   id:
  *                     type: integer
  *                     example: 1
- *                   nombre:
+ *                   unidad_medida:
  *                     type: string
- *                     example: "Semillero de Innovación"
+ *                     example: "Kilogramos"
+ *                   fecha_siembra:
+ *                     type: string
+ *                     format: date
+ *                     example: "2024-01-15"
+ *                   fecha_estimada:
+ *                     type: string
+ *                     format: date
+ *                     example: "2024-06-15"
+ *                   especie:
+ *                     type: string
+ *                     example: "Tomate"
  *                   descripcion:
  *                     type: string
- *                     example: "Grupo de investigación sobre tecnología"
+ *                     example: "Planta de tomate roja"
+ *                   img:
+ *                     type: string
+ *                     example: "https://imagen.com/tomate.jpg"
+ *                   tiempo_crecimiento:
+ *                     type: integer
+ *                     example: 150
  */
 rutaSemillero.get("/semilleros", verificarToken, listarSemilleros);
 
@@ -56,12 +79,20 @@ rutaSemillero.get("/semilleros", verificarToken, listarSemilleros);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               fk_especie:
+ *                 type: integer
+ *                 example: 1
+ *               unidad_medida:
  *                 type: string
- *                 example: "Semillero de Innovación"
- *               descripcion:
+ *                 example: "Kilogramos"
+ *               fecha_siembra:
  *                 type: string
- *                 example: "Grupo de investigación sobre tecnología"
+ *                 format: date
+ *                 example: "2024-01-15"
+ *               fecha_estimada:
+ *                 type: string
+ *                 format: date
+ *                 example: "2024-06-15"
  *     responses:
  *       201:
  *         description: Semillero registrado correctamente
@@ -90,12 +121,20 @@ rutaSemillero.post("/semilleros", verificarToken, registrarSemillero);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               fk_especie:
+ *                 type: integer
+ *                 example: 2
+ *               unidad_medida:
  *                 type: string
- *                 example: "Semillero de IA"
- *               descripcion:
+ *                 example: "Litros"
+ *               fecha_siembra:
  *                 type: string
- *                 example: "Grupo de investigación sobre Inteligencia Artificial"
+ *                 format: date
+ *                 example: "2024-02-20"
+ *               fecha_estimada:
+ *                 type: string
+ *                 format: date
+ *                 example: "2024-07-20"
  *     responses:
  *       200:
  *         description: Semillero actualizado correctamente

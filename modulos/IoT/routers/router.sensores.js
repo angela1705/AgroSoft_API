@@ -1,24 +1,23 @@
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 import { Router } from "express";
 import { postSensores, getSensores, IdSensor, actualizarSensor } from "../controller/controller.sensores.js";
-
 const RouterSensor = Router();
 
 /**
  * @swagger
  * tags:
- *   name: Sensores
- *   description: API para la gestión de sensores
+ *   name: Sensor
+ *   description: Endpoints para gestionar los sensores
  */
 
 /**
  * @swagger
  * /sensor:
  *   post:
- *     summary: Registra un nuevo sensor
- *     tags: [Sensores]
+ *     summary: Registrar un nuevo sensor
+ *     tags: [Sensor]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -29,20 +28,21 @@ const RouterSensor = Router();
  *               nombre:
  *                 type: string
  *                 example: "Sensor de temperatura"
- *               tipo:
+ *               tipo_sensor:
+ *                 type: integer
+ *                 example: 1
+ *               unidad_medida:
  *                 type: string
- *                 example: "Temperatura"
- *               ubicacion:
- *                 type: string
- *                 example: "Invernadero 1"
- *               valor:
- *                 type: number
- *                 example: 25.7
+ *                 example: "Celsius"
+ *               medida_min:
+ *                 type: integer
+ *                 example: -10
+ *               medida_max:
+ *                 type: integer
+ *                 example: 50
  *     responses:
  *       201:
  *         description: Sensor registrado correctamente
- *       400:
- *         description: Error en los datos proporcionados
  */
 RouterSensor.post("/sensor", verificarToken, postSensores);
 
@@ -50,35 +50,13 @@ RouterSensor.post("/sensor", verificarToken, postSensores);
  * @swagger
  * /sensor:
  *   get:
- *     summary: Obtiene todos los sensores
- *     tags: [Sensores]
+ *     summary: Obtener la lista de sensores
+ *     tags: [Sensor]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de sensores obtenida correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   nombre:
- *                     type: string
- *                     example: "Sensor de temperatura"
- *                   tipo:
- *                     type: string
- *                     example: "Temperatura"
- *                   ubicacion:
- *                     type: string
- *                     example: "Invernadero 1"
- *                   valor:
- *                     type: number
- *                     example: 25.7
  */
 RouterSensor.get("/sensor", verificarToken, getSensores);
 
@@ -86,22 +64,20 @@ RouterSensor.get("/sensor", verificarToken, getSensores);
  * @swagger
  * /sensor/{id}:
  *   get:
- *     summary: Obtiene un sensor por ID
- *     tags: [Sensores]
+ *     summary: Obtener un sensor por ID
+ *     tags: [Sensor]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del sensor
+ *         description: ID del sensor a obtener
  *     responses:
  *       200:
  *         description: Sensor obtenido correctamente
- *       404:
- *         description: Sensor no encontrado
  */
 RouterSensor.get("/sensor/:id", verificarToken, IdSensor);
 
@@ -109,10 +85,10 @@ RouterSensor.get("/sensor/:id", verificarToken, IdSensor);
  * @swagger
  * /sensor/{id_sensor}:
  *   put:
- *     summary: Actualiza un sensor
- *     tags: [Sensores]
+ *     summary: Actualizar un sensor
+ *     tags: [Sensor]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id_sensor
@@ -130,20 +106,21 @@ RouterSensor.get("/sensor/:id", verificarToken, IdSensor);
  *               nombre:
  *                 type: string
  *                 example: "Sensor de humedad"
- *               tipo:
+ *               tipo_sensor:
+ *                 type: integer
+ *                 example: 2
+ *               unidad_medida:
  *                 type: string
- *                 example: "Humedad"
- *               ubicacion:
- *                 type: string
- *                 example: "Invernadero 2"
- *               valor:
- *                 type: number
- *                 example: 70.2
+ *                 example: "%"
+ *               medida_min:
+ *                 type: integer
+ *                 example: 0
+ *               medida_max:
+ *                 type: integer
+ *                 example: 100
  *     responses:
  *       200:
  *         description: Sensor actualizado correctamente
- *       404:
- *         description: Sensor no encontrado
  */
 RouterSensor.put("/sensor/:id_sensor", verificarToken, actualizarSensor);
 

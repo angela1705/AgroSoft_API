@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postCosechas, getCosechas, getIdCosechas, updateCosechas } from "../controller/controller.cosechas.js";
+import { postCosechas, getCosechas, getIdCosechas, updateCosechas, deleteCosechas } from "../controller/controller.cosechas.js";
 
 const RouterCosechas = Router();
 
@@ -26,13 +26,13 @@ const RouterCosechas = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
  *               fecha:
  *                 type: string
  *                 format: date
- *               cantidad:
+ *               unidades_medida:
  *                 type: number
+ *               fk_cultivo:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Cosecha registrada correctamente
@@ -52,8 +52,8 @@ RouterCosechas.post("/cosechas", verificarToken, postCosechas);
  *     responses:
  *       200:
  *         description: Lista de cosechas
- *       401:
- *         description: No autorizado
+ *       404:
+ *         description: No hay registros de cosechas
  */
 RouterCosechas.get("/cosechas", verificarToken, getCosechas);
 
@@ -70,7 +70,7 @@ RouterCosechas.get("/cosechas", verificarToken, getCosechas);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     responses:
  *       200:
  *         description: Datos de la cosecha
@@ -92,7 +92,7 @@ RouterCosechas.get("/cosechas/:id", verificarToken, getIdCosechas);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -100,13 +100,13 @@ RouterCosechas.get("/cosechas/:id", verificarToken, getIdCosechas);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
  *               fecha:
  *                 type: string
  *                 format: date
- *               cantidad:
+ *               unidades_medida:
  *                 type: number
+ *               fk_cultivo:
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Cosecha actualizada exitosamente
@@ -114,5 +114,27 @@ RouterCosechas.get("/cosechas/:id", verificarToken, getIdCosechas);
  *         description: Error en la solicitud
  */
 RouterCosechas.put("/cosechas/:id", verificarToken, updateCosechas);
+
+/**
+ * @swagger
+ * /cosechas/{id}:
+ *   delete:
+ *     summary: Elimina una cosecha por ID
+ *     tags: [Cosechas]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Cosecha eliminada correctamente
+ *       404:
+ *         description: No se pudo eliminar la cosecha
+ */
+RouterCosechas.delete("/cosechas/:id", verificarToken, deleteCosechas);
 
 export default RouterCosechas;

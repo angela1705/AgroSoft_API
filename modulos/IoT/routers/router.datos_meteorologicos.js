@@ -1,22 +1,24 @@
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 import { Router } from "express";
-import { 
-    postDatoMeteorologico, 
-    getDatosMeteorologicos, 
-    IdDatoMeteorologico, 
-    actualizarDatoMeteorologico 
-} from "../controller/controller_datos.meteorologicos.js";
+import { postDatoMeteorologico, getDatosMeteorologicos, IdDatoMeteorologico, actualizarDatoMeteorologico } from "../controller/controller.datos_meteorologicos.js";
 
 const RouterDatosMeteorologicos = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Datos Meteorologicos
+ *   description: Endpoints para gestionar datos meteorológicos
+ */
+
+/**
+ * @swagger
  * /datosmeteorologicos:
  *   post:
- *     summary: Registra un nuevo dato meteorológico
- *     tags: [Datos Meteorológicos]
+ *     summary: Registrar un nuevo dato meteorológico
+ *     tags: [Datos Meteorologicos]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -24,20 +26,22 @@ const RouterDatosMeteorologicos = Router();
  *           schema:
  *             type: object
  *             properties:
- *               temperatura:
+ *               fecha_hora:
+ *                 type: string
+ *                 format: date-time
+ *                 example: "2024-02-22T14:00:00Z"
+ *               tipo_dato:
+ *                 type: string
+ *                 example: "temperatura"
+ *               valor:
  *                 type: number
  *                 example: 25.5
- *               humedad:
- *                 type: number
- *                 example: 60
- *               presion:
- *                 type: number
- *                 example: 1013
+ *               fk_sensor_bancal:
+ *                 type: integer
+ *                 example: 2
  *     responses:
  *       201:
  *         description: Dato meteorológico registrado correctamente
- *       400:
- *         description: Error en los datos proporcionados
  */
 RouterDatosMeteorologicos.post("/datosmeteorologicos", verificarToken, postDatoMeteorologico);
 
@@ -45,32 +49,13 @@ RouterDatosMeteorologicos.post("/datosmeteorologicos", verificarToken, postDatoM
  * @swagger
  * /datosmeteorologicos:
  *   get:
- *     summary: Obtiene todos los datos meteorológicos
- *     tags: [Datos Meteorológicos]
+ *     summary: Obtener la lista de datos meteorológicos
+ *     tags: [Datos Meteorologicos]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de datos meteorológicos obtenida correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   temperatura:
- *                     type: number
- *                     example: 25.5
- *                   humedad:
- *                     type: number
- *                     example: 60
- *                   presion:
- *                     type: number
- *                     example: 1013
  */
 RouterDatosMeteorologicos.get("/datosmeteorologicos", verificarToken, getDatosMeteorologicos);
 
@@ -78,22 +63,20 @@ RouterDatosMeteorologicos.get("/datosmeteorologicos", verificarToken, getDatosMe
  * @swagger
  * /datosmeteorologicos/{id_dato_meteorologico}:
  *   get:
- *     summary: Obtiene un dato meteorológico por ID
- *     tags: [Datos Meteorológicos]
+ *     summary: Obtener un dato meteorológico por ID
+ *     tags: [Datos Meteorologicos]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id_dato_meteorologico
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del dato meteorológico
+ *         description: ID del dato meteorológico a obtener
  *     responses:
  *       200:
- *         description: Datos meteorológicos obtenidos correctamente
- *       404:
- *         description: Dato meteorológico no encontrado
+ *         description: Dato meteorológico obtenido correctamente
  */
 RouterDatosMeteorologicos.get("/datosmeteorologicos/:id_dato_meteorologico", verificarToken, IdDatoMeteorologico);
 
@@ -101,10 +84,10 @@ RouterDatosMeteorologicos.get("/datosmeteorologicos/:id_dato_meteorologico", ver
  * @swagger
  * /datosmeteorologicos/{id_dato_meteorologico}:
  *   put:
- *     summary: Actualiza un dato meteorológico
- *     tags: [Datos Meteorológicos]
+ *     summary: Actualizar un dato meteorológico
+ *     tags: [Datos Meteorologicos]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id_dato_meteorologico
@@ -119,20 +102,22 @@ RouterDatosMeteorologicos.get("/datosmeteorologicos/:id_dato_meteorologico", ver
  *           schema:
  *             type: object
  *             properties:
- *               temperatura:
+ *               fecha_hora:
+ *                 type: string
+ *                 format: date-time
+ *                 example: "2024-02-22T15:30:00Z"
+ *               tipo_dato:
+ *                 type: string
+ *                 example: "humedad"
+ *               valor:
  *                 type: number
- *                 example: 26.0
- *               humedad:
- *                 type: number
- *                 example: 65
- *               presion:
- *                 type: number
- *                 example: 1012
+ *                 example: 60.2
+ *               fk_sensor_bancal:
+ *                 type: integer
+ *                 example: 3
  *     responses:
  *       200:
  *         description: Dato meteorológico actualizado correctamente
- *       404:
- *         description: Dato meteorológico no encontrado
  */
 RouterDatosMeteorologicos.put("/datosmeteorologicos/:id_dato_meteorologico", verificarToken, actualizarDatoMeteorologico);
 

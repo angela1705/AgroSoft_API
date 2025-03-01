@@ -38,10 +38,14 @@ const rutaBodegaHerramienta = Router();
  *                   id_bodegaHerramienta:
  *                     type: integer
  *                     example: 1
- *                   nombre:
- *                     type: string
- *                     example: "Martillo"
- *                   cantidad:
+ *                   id_bodega:
+ *                     type: integer
+ *                     example: 2
+ *                   id_herramienta:
+ *                     type: integer
+ *                     example: 3
+
+*                   cantidad_disponible:
  *                     type: integer
  *                     example: 10
  */
@@ -62,10 +66,13 @@ rutaBodegaHerramienta.get("/bodega_herramienta", verificarToken, listarBodegaHer
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *                 example: "Martillo"
- *               cantidad:
+ *               id_bodega:
+ *                 type: integer
+ *                 example: 2
+ *               id_herramienta:
+ *                 type: integer
+ *                 example: 3
+ *               cantidad_disponible:
  *                 type: integer
  *                 example: 10
  *     responses:
@@ -96,10 +103,13 @@ rutaBodegaHerramienta.post("/bodega_herramienta", verificarToken, registrarBodeg
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *                 example: "Destornillador"
- *               cantidad:
+ *               id_bodega:
+ *                 type: integer
+ *                 example: 2
+ *               id_herramienta:
+ *                 type: integer
+ *                 example: 3
+ *               cantidad_disponible:
  *                 type: integer
  *                 example: 15
  *     responses:

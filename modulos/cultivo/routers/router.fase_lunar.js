@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postFase_lunar, getFase_lunar, getIdFase_lunar, updateFase_lunar } from "../controller/controller.fase_lunar.js";
+import { postFase_lunar, getFase_lunar, getIdFase_lunar, updateFase_lunar, deleteFase_lunar } from "../controller/controller.fase_lunar.js";
 
 const RouterFase_lunar = Router();
 
@@ -30,6 +30,9 @@ const RouterFase_lunar = Router();
  *                 type: string
  *               descripcion:
  *                 type: string
+ *               fecha:
+ *                 type: string
+ *                 format: date
  *     responses:
  *       201:
  *         description: Fase lunar registrada correctamente
@@ -101,6 +104,9 @@ RouterFase_lunar.get("/fase_lunar/:id", verificarToken, getIdFase_lunar);
  *                 type: string
  *               descripcion:
  *                 type: string
+ *               fecha:
+ *                 type: string
+ *                 format: date
  *     responses:
  *       200:
  *         description: Fase lunar actualizada correctamente
@@ -108,5 +114,27 @@ RouterFase_lunar.get("/fase_lunar/:id", verificarToken, getIdFase_lunar);
  *         description: Error en la solicitud
  */
 RouterFase_lunar.put("/fase_lunar/:id", verificarToken, updateFase_lunar);
+
+/**
+ * @swagger
+ * /fase_lunar/{id}:
+ *   delete:
+ *     summary: Elimina una fase lunar por ID
+ *     tags: [Fase Lunar]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Fase lunar eliminada correctamente
+ *       404:
+ *         description: No se pudo eliminar la fase lunar
+ */
+RouterFase_lunar.delete("/fase_lunar/:id", verificarToken, deleteFase_lunar);
 
 export default RouterFase_lunar;

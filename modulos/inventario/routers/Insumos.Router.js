@@ -1,27 +1,33 @@
 import { Router } from "express";
-import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { listarInsumos, registrarInsumo, actualizarInsumo, eliminarInsumo } from "../controllers/Insumos.Controller.js";
+import {
+    registrarHerramienta,
+    listarHerramientas,
+    actualizarHerramienta,
+    eliminarHerramienta,
+} from "../controllers/Herramientas.Controller.js";
 
-const rutaInsumos = Router();
+import verificarToken from "../../usuarios/middlewares/verificarToken.js";
+
+const rutaHerramienta = Router();
 
 /**
  * @swagger
  * tags:
- *   name: Insumos
- *   description: Endpoints para la gestión de insumos
+ *   name: Herramientas
+ *   description: Endpoints para gestionar herramientas
  */
 
 /**
  * @swagger
- * /insumos:
+ * /herramientas:
  *   get:
- *     summary: Obtener la lista de insumos
- *     tags: [Insumos]
+ *     summary: Obtener la lista de herramientas
+ *     tags: [Herramientas]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista de insumos obtenida correctamente
+ *         description: Lista de herramientas obtenida correctamente
  *         content:
  *           application/json:
  *             schema:
@@ -29,24 +35,30 @@ const rutaInsumos = Router();
  *               items:
  *                 type: object
  *                 properties:
- *                   id_insumo:
+ *                   id:
  *                     type: integer
  *                     example: 1
  *                   nombre:
  *                     type: string
- *                     example: "Cemento"
- *                   cantidad:
+ *                     example: "Martillo"
+ *                   descripcion:
+ *                     type: string
+ *                     example: "Herramienta de golpe"
+ *                   unidades:
  *                     type: integer
- *                     example: 100
+ *                     example: 10
+ *                   fk_lote:
+ *                     type: integer
+ *                     example: 2
  */
-rutaInsumos.get("/insumos", verificarToken, listarInsumos);
+rutaHerramienta.get("/herramientas", verificarToken, listarHerramientas);
 
 /**
  * @swagger
- * /insumos:
+ * /herramientas:
  *   post:
- *     summary: Registrar un nuevo insumo
- *     tags: [Insumos]
+ *     summary: Registrar una nueva herramienta
+ *     tags: [Herramientas]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -56,33 +68,39 @@ rutaInsumos.get("/insumos", verificarToken, listarInsumos);
  *           schema:
  *             type: object
  *             properties:
+ *               fk_lote:
+ *                 type: integer
+ *                 example: 2
  *               nombre:
  *                 type: string
- *                 example: "Cemento"
- *               cantidad:
+ *                 example: "Martillo"
+ *               descripcion:
+ *                 type: string
+ *                 example: "Herramienta de golpe"
+ *               unidades:
  *                 type: integer
- *                 example: 100
+ *                 example: 10
  *     responses:
  *       201:
- *         description: Insumo registrado correctamente
+ *         description: Herramienta registrada correctamente
  */
-rutaInsumos.post("/insumos", verificarToken, registrarInsumo);
+rutaHerramienta.post("/herramientas", verificarToken, registrarHerramienta);
 
 /**
  * @swagger
- * /insumos/{id_insumo}:
+ * /herramientas/{id}:
  *   put:
- *     summary: Actualizar los datos de un insumo
- *     tags: [Insumos]
+ *     summary: Actualizar los datos de una herramienta
+ *     tags: [Herramientas]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_insumo
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del insumo a actualizar
+ *         description: ID de la herramienta a actualizar
  *     requestBody:
  *       required: true
  *       content:
@@ -90,37 +108,43 @@ rutaInsumos.post("/insumos", verificarToken, registrarInsumo);
  *           schema:
  *             type: object
  *             properties:
+ *               fk_lote:
+ *                 type: integer
+ *                 example: 3
  *               nombre:
  *                 type: string
- *                 example: "Arena"
- *               cantidad:
+ *                 example: "Destornillador"
+ *               descripcion:
+ *                 type: string
+ *                 example: "Herramienta para tornillos"
+ *               unidades:
  *                 type: integer
- *                 example: 50
+ *                 example: 15
  *     responses:
  *       200:
- *         description: Insumo actualizado correctamente
+ *         description: Herramienta actualizada correctamente
  */
-rutaInsumos.put("/insumos/:id_insumo", verificarToken, actualizarInsumo);
+rutaHerramienta.put("/herramientas/:id", verificarToken, actualizarHerramienta);
 
 /**
  * @swagger
- * /insumos/{id_insumo}:
+ * /herramientas/{id}:
  *   delete:
- *     summary: Eliminar un insumo
- *     tags: [Insumos]
+ *     summary: Eliminar una herramienta
+ *     tags: [Herramientas]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_insumo
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del insumo a eliminar
+ *         description: ID de la herramienta a eliminar
  *     responses:
  *       200:
- *         description: Insumo eliminado correctamente
+ *         description: Herramienta eliminada correctamente
  */
-rutaInsumos.delete("/insumos/:id_insumo", verificarToken, eliminarInsumo);
+rutaHerramienta.delete("/herramientas/:id", verificarToken, eliminarHerramienta);
 
-export default rutaInsumos;
+export default rutaHerramienta;

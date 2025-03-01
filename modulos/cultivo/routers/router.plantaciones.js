@@ -1,6 +1,6 @@
 import { Router } from "express";
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { postPlantaciones, getPlantaciones, getIdPlantaciones, updatePlantaciones } from "../controller/controller.plantaciones.js";
+import { postPlantaciones, getPlantaciones, getIdPlantaciones, updatePlantaciones, deletePlantaciones } from "../controller/controller.plantaciones.js";
 
 const RouterPlantaciones = Router();
 
@@ -26,10 +26,10 @@ const RouterPlantaciones = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *               ubicacion:
- *                 type: string
+ *               fk_cultivo:
+ *                 type: integer
+ *               fk_bancal:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Plantación creada con éxito
@@ -67,7 +67,7 @@ RouterPlantaciones.get("/plantaciones", verificarToken, getPlantaciones);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     responses:
  *       200:
  *         description: Plantación encontrada con éxito
@@ -89,7 +89,7 @@ RouterPlantaciones.get("/plantaciones/:id", verificarToken, getIdPlantaciones);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -97,10 +97,10 @@ RouterPlantaciones.get("/plantaciones/:id", verificarToken, getIdPlantaciones);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *               ubicacion:
- *                 type: string
+ *               fk_cultivo:
+ *                 type: integer
+ *               fk_bancal:
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Plantación actualizada con éxito
@@ -108,5 +108,27 @@ RouterPlantaciones.get("/plantaciones/:id", verificarToken, getIdPlantaciones);
  *         description: Error en la solicitud
  */
 RouterPlantaciones.put("/plantaciones/:id", verificarToken, updatePlantaciones);
+
+/**
+ * @swagger
+ * /plantaciones/{id}:
+ *   delete:
+ *     summary: Elimina una plantación por ID
+ *     tags: [Plantaciones]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Plantación eliminada con éxito
+ *       404:
+ *         description: No se pudo eliminar la plantación
+ */
+RouterPlantaciones.delete("/plantaciones/:id", verificarToken, deletePlantaciones);
 
 export default RouterPlantaciones;

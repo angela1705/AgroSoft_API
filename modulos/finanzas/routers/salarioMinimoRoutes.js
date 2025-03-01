@@ -1,60 +1,24 @@
 import { Router } from "express";
-import {
-    registrarSalario,
-    listarSalarios,
-    actualizarSalario,
-    eliminarSalario,
-} from "../controllers/salarioMinimoController.js";
-
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
+import { registrarInventarioProducto, listarInventarioProducto, actualizarInventarioProducto, eliminarInventarioProducto } from "../controllers/inventarioProductoController.js";
 
-const rutaSalario = Router();
+const rutaInventario = Router();
 
 /**
  * @swagger
  * tags:
- *   name: Salarios
- *   description: Endpoints para gestionar los salarios mínimos
+ *   name: Inventario
+ *   description: Endpoints para gestionar el inventario de productos
  */
 
 /**
  * @swagger
- * /salarios:
- *   get:
- *     summary: Obtener la lista de salarios mínimos registrados
- *     tags: [Salarios]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Lista de salarios obtenida correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id_salario:
- *                     type: integer
- *                     example: 1
- *                   monto:
- *                     type: number
- *                     example: 1160000.00
- *                   año:
- *                     type: integer
- *                     example: 2024
- */
-rutaSalario.get("/salarios", verificarToken, listarSalarios);
-
-/**
- * @swagger
- * /salarios:
+ * /inventario:
  *   post:
- *     summary: Registrar un nuevo salario mínimo
- *     tags: [Salarios]
+ *     summary: Registrar un nuevo producto en el inventario
+ *     tags: [Inventario]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -62,33 +26,60 @@ rutaSalario.get("/salarios", verificarToken, listarSalarios);
  *           schema:
  *             type: object
  *             properties:
- *               monto:
- *                 type: number
- *                 example: 1160000.00
- *               año:
+ *               fk_cosecha:
  *                 type: integer
- *                 example: 2024
+ *                 example: 1
+ *               fk_venta:
+ *                 type: integer
+ *                 example: 2
+ *               nombre:
+ *                 type: string
+ *                 example: "Lechuga"
+ *               cantidad_disponible:
+ *                 type: integer
+ *                 example: 100
+ *               valor:
+ *                 type: number
+ *                 example: 850.75
+ *               fecha_aplicacion:
+ *                 type: string
+ *                 format: date
+ *                 example: "2024-01-01"
  *     responses:
  *       201:
- *         description: Salario registrado correctamente
+ *         description: Producto registrado correctamente en el inventario
  */
-rutaSalario.post("/salarios", verificarToken, registrarSalario);
+rutaInventario.post("/inventario", verificarToken, registrarInventarioProducto);
 
 /**
  * @swagger
- * /salarios/{id_salario}:
- *   put:
- *     summary: Actualizar los datos de un salario mínimo
- *     tags: [Salarios]
+ * /inventario:
+ *   get:
+ *     summary: Obtener todos los productos en el inventario
+ *     tags: [Inventario]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de productos obtenida con éxito
+ */
+rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
+
+/**
+ * @swagger
+ * /inventario/{id}:
+ *   put:
+ *     summary: Actualizar un producto en el inventario por ID
+ *     tags: [Inventario]
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_salario
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del salario a actualizar
+ *         description: ID del producto a actualizar
  *     requestBody:
  *       required: true
  *       content:
@@ -96,37 +87,50 @@ rutaSalario.post("/salarios", verificarToken, registrarSalario);
  *           schema:
  *             type: object
  *             properties:
- *               monto:
- *                 type: number
- *                 example: 1200000.00
- *               año:
+ *               fk_cosecha:
  *                 type: integer
- *                 example: 2025
+ *                 example: 1
+ *               fk_venta:
+ *                 type: integer
+ *                 example: 2
+ *               nombre:
+ *                 type: string
+ *                 example: "Lechuga"
+ *               cantidad_disponible:
+ *                 type: integer
+ *                 example: 120
+ *               valor:
+ *                 type: number
+ *                 example: 900.00
+ *               fecha_aplicacion:
+ *                 type: string
+ *                 format: date
+ *                 example: "2025-01-01"
  *     responses:
  *       200:
- *         description: Salario actualizado correctamente
+ *         description: Producto actualizado correctamente
  */
-rutaSalario.put("/salarios/:id_salario", verificarToken, actualizarSalario);
+rutaInventario.put("/inventario/:id", verificarToken, actualizarInventarioProducto);
 
 /**
  * @swagger
- * /salarios/{id_salario}:
+ * /inventario/{id}:
  *   delete:
- *     summary: Eliminar un salario mínimo registrado
- *     tags: [Salarios]
+ *     summary: Eliminar un producto del inventario por ID
+ *     tags: [Inventario]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_salario
+ *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del salario a eliminar
+ *         description: ID del producto a eliminar
  *     responses:
  *       200:
- *         description: Salario eliminado correctamente
+ *         description: Producto eliminado correctamente
  */
-rutaSalario.delete("/salarios/:id_salario", verificarToken, eliminarSalario);
+rutaInventario.delete("/inventario/:id", verificarToken, eliminarInventarioProducto);
 
-export default rutaSalario;
+export default rutaInventario;

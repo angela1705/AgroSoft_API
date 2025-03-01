@@ -1,17 +1,23 @@
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
 import { Router } from "express";
 import { postSensorBancal, getSensorBancal, IdSensorBancal, actualizarSensorBancal } from "../controller/controller.sensor_bancal.js"; 
-
 const RouterSensorBancal = Router();
+
+/**
+ * @swagger
+ * tags:
+ *   name: SensorBancal
+ *   description: Endpoints para gestionar la relación entre sensores y bancales
+ */
 
 /**
  * @swagger
  * /sensorbancal:
  *   post:
- *     summary: Registra un nuevo sensor en el bancal
- *     tags: [Sensor Bancal]
+ *     summary: Registrar un nuevo sensor en un bancal
+ *     tags: [SensorBancal]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -19,23 +25,15 @@ const RouterSensorBancal = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *                 example: "Sensor de humedad"
- *               tipo:
- *                 type: string
- *                 example: "Humedad"
- *               ubicacion:
- *                 type: string
- *                 example: "Bancal 1"
- *               valor:
- *                 type: number
- *                 example: 45.6
+ *               fk_sensor:
+ *                 type: integer
+ *                 example: 1
+ *               fk_bancal:
+ *                 type: integer
+ *                 example: 2
  *     responses:
  *       201:
- *         description: Sensor registrado correctamente
- *       400:
- *         description: Error en los datos proporcionados
+ *         description: Sensor registrado correctamente en el bancal
  */
 RouterSensorBancal.post("/sensorbancal", verificarToken, postSensorBancal);
 
@@ -43,35 +41,13 @@ RouterSensorBancal.post("/sensorbancal", verificarToken, postSensorBancal);
  * @swagger
  * /sensorbancal:
  *   get:
- *     summary: Obtiene todos los sensores en los bancales
- *     tags: [Sensor Bancal]
+ *     summary: Obtener la lista de sensores y sus bancales asociados
+ *     tags: [SensorBancal]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista de sensores obtenida correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   nombre:
- *                     type: string
- *                     example: "Sensor de humedad"
- *                   tipo:
- *                     type: string
- *                     example: "Humedad"
- *                   ubicacion:
- *                     type: string
- *                     example: "Bancal 1"
- *                   valor:
- *                     type: number
- *                     example: 45.6
+ *         description: Lista de sensores y bancales obtenida correctamente
  */
 RouterSensorBancal.get("/sensorbancal", verificarToken, getSensorBancal);
 
@@ -79,22 +55,20 @@ RouterSensorBancal.get("/sensorbancal", verificarToken, getSensorBancal);
  * @swagger
  * /sensorbancal/{id}:
  *   get:
- *     summary: Obtiene un sensor de bancal por ID
- *     tags: [Sensor Bancal]
+ *     summary: Obtener la relación de un sensor con un bancal por ID
+ *     tags: [SensorBancal]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del sensor
+ *         description: ID de la relación sensor-bancal a obtener
  *     responses:
  *       200:
- *         description: Sensor obtenido correctamente
- *       404:
- *         description: Sensor no encontrado
+ *         description: Relación obtenida correctamente
  */
 RouterSensorBancal.get("/sensorbancal/:id", verificarToken, IdSensorBancal);
 
@@ -102,17 +76,17 @@ RouterSensorBancal.get("/sensorbancal/:id", verificarToken, IdSensorBancal);
  * @swagger
  * /sensorbancal/{id}:
  *   put:
- *     summary: Actualiza un sensor de bancal
- *     tags: [Sensor Bancal]
+ *     summary: Actualizar la relación de un sensor con un bancal
+ *     tags: [SensorBancal]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del sensor a actualizar
+ *         description: ID de la relación a actualizar
  *     requestBody:
  *       required: true
  *       content:
@@ -120,23 +94,15 @@ RouterSensorBancal.get("/sensorbancal/:id", verificarToken, IdSensorBancal);
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
- *                 type: string
- *                 example: "Sensor de temperatura"
- *               tipo:
- *                 type: string
- *                 example: "Temperatura"
- *               ubicacion:
- *                 type: string
- *                 example: "Bancal 2"
- *               valor:
- *                 type: number
- *                 example: 22.3
+ *               fk_sensor:
+ *                 type: integer
+ *                 example: 3
+ *               fk_bancal:
+ *                 type: integer
+ *                 example: 4
  *     responses:
  *       200:
- *         description: Sensor actualizado correctamente
- *       404:
- *         description: Sensor no encontrado
+ *         description: Relación actualizada correctamente
  */
 RouterSensorBancal.put("/sensorbancal/:id", verificarToken, actualizarSensorBancal);
 

@@ -6,12 +6,19 @@ const RouterConfiguracion = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Configuracion
+ *   description: Endpoints para gestionar configuraciones
+ */
+
+/**
+ * @swagger
  * /configuracion:
  *   post:
- *     summary: Registra una nueva configuración
- *     tags: [Configuración]
+ *     summary: Registrar una nueva configuración
+ *     tags: [Configuracion]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -19,17 +26,24 @@ const RouterConfiguracion = Router();
  *           schema:
  *             type: object
  *             properties:
- *               clave:
- *                 type: string
- *                 example: "modo_operacion"
- *               valor:
- *                 type: string
- *                 example: "produccion"
+ *               fk_lote:
+ *                 type: integer
+ *                 example: 1
+ *               tamx:
+ *                 type: integer
+ *                 example: 10
+ *               tamy:
+ *                 type: integer
+ *                 example: 15
+ *               posx:
+ *                 type: integer
+ *                 example: 5
+ *               posy:
+ *                 type: integer
+ *                 example: 3
  *     responses:
  *       201:
  *         description: Configuración registrada correctamente
- *       400:
- *         description: Error en los datos proporcionados
  */
 RouterConfiguracion.post("/configuracion", verificarToken, postConfiguracion);
 
@@ -37,29 +51,13 @@ RouterConfiguracion.post("/configuracion", verificarToken, postConfiguracion);
  * @swagger
  * /configuracion:
  *   get:
- *     summary: Obtiene todas las configuraciones
- *     tags: [Configuración]
+ *     summary: Obtener la lista de configuraciones
+ *     tags: [Configuracion]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de configuraciones obtenida correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   clave:
- *                     type: string
- *                     example: "modo_operacion"
- *                   valor:
- *                     type: string
- *                     example: "produccion"
  */
 RouterConfiguracion.get("/configuracion", verificarToken, getConfiguracion);
 
@@ -67,22 +65,20 @@ RouterConfiguracion.get("/configuracion", verificarToken, getConfiguracion);
  * @swagger
  * /configuracion/{id}:
  *   get:
- *     summary: Obtiene una configuración por ID
- *     tags: [Configuración]
+ *     summary: Obtener una configuración por ID
+ *     tags: [Configuracion]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID de la configuración
+ *         description: ID de la configuración a obtener
  *     responses:
  *       200:
- *         description: Datos de la configuración obtenidos correctamente
- *       404:
- *         description: Configuración no encontrada
+ *         description: Configuración obtenida correctamente
  */
 RouterConfiguracion.get("/configuracion/:id", verificarToken, IdConfiguracion);
 
@@ -90,10 +86,10 @@ RouterConfiguracion.get("/configuracion/:id", verificarToken, IdConfiguracion);
  * @swagger
  * /configuracion/{id}:
  *   put:
- *     summary: Actualiza los datos de una configuración
- *     tags: [Configuración]
+ *     summary: Actualizar una configuración
+ *     tags: [Configuracion]
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -108,17 +104,24 @@ RouterConfiguracion.get("/configuracion/:id", verificarToken, IdConfiguracion);
  *           schema:
  *             type: object
  *             properties:
- *               clave:
- *                 type: string
- *                 example: "modo_operacion"
- *               valor:
- *                 type: string
- *                 example: "mantenimiento"
+ *               fk_lote:
+ *                 type: integer
+ *                 example: 1
+ *               tamx:
+ *                 type: integer
+ *                 example: 12
+ *               tamy:
+ *                 type: integer
+ *                 example: 18
+ *               posx:
+ *                 type: integer
+ *                 example: 6
+ *               posy:
+ *                 type: integer
+ *                 example: 4
  *     responses:
  *       200:
  *         description: Configuración actualizada correctamente
- *       404:
- *         description: Configuración no encontrada
  */
 RouterConfiguracion.put("/configuracion/:id", verificarToken, actualizarConfiguracion);
 
