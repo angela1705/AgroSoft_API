@@ -4,7 +4,6 @@ import { postConfiguracion, getConfiguracion, IdConfiguracion, actualizarConfigu
 
 const RouterConfiguracion = Router();
 
-
 /**
  * @swagger
  * tags:
@@ -35,7 +34,7 @@ const RouterConfiguracion = Router();
  *       500:
  *         description: Error en el servidor
  */
-router.post('/configuracion', verificarToken, postConfiguracion);
+RouterConfiguracion.post('/configuracion', verificarToken, postConfiguracion);
 
 /**
  * @swagger
@@ -49,7 +48,7 @@ router.post('/configuracion', verificarToken, postConfiguracion);
  *       404:
  *         description: No hay configuraciones registradas
  */
-router.get('/configuracion', verificarToken, getConfiguracion);
+RouterConfiguracion.get('/configuracion', verificarToken, getConfiguracion);
 
 /**
  * @swagger
@@ -70,7 +69,7 @@ router.get('/configuracion', verificarToken, getConfiguracion);
  *       404:
  *         description: Configuración no encontrada
  */
-router.get('/configuracion/:id', verificarToken, IdConfiguracion);
+RouterConfiguracion.get('/configuracion/:id', verificarToken, IdConfiguracion);
 
 /**
  * @swagger
@@ -102,6 +101,6 @@ router.get('/configuracion/:id', verificarToken, IdConfiguracion);
  *       404:
  *         description: No se pudo actualizar la configuración
  */
-router.put('/configuracion/:id', verificarToken, actualizarConfiguracion);
+RouterConfiguracion.put('/configuracion/:id', verificarToken, actualizarConfiguracion);
 
 export default RouterConfiguracion;
