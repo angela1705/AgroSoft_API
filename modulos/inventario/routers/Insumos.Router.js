@@ -1,66 +1,40 @@
 import { Router } from "express";
-import {
-    registrarHerramienta,
-    listarHerramientas,
-    actualizarHerramienta,
-    eliminarHerramienta,
-} from "../controllers/Herramientas.Controller.js";
-
 import verificarToken from "../../usuarios/middlewares/verificarToken.js";
+import { listarInsumos, registrarInsumo, actualizarInsumo, eliminarInsumo } from "../controllers/Insumos.Controller.js";
 
-const rutaHerramienta = Router();
+const rutaInsumos = Router();
 
 /**
  * @swagger
  * tags:
- *   name: Herramientas
- *   description: Endpoints para gestionar herramientas
+ *   name: Insumos
+ *   description: API para la gestión de insumos
  */
 
 /**
  * @swagger
- * /herramientas:
+ * /insumos:
  *   get:
- *     summary: Obtener la lista de herramientas
- *     tags: [Herramientas]
+ *     summary: Obtener todos los insumos
+ *     tags: [Insumos]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     responses:
  *       200:
- *         description: Lista de herramientas obtenida correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   nombre:
- *                     type: string
- *                     example: "Martillo"
- *                   descripcion:
- *                     type: string
- *                     example: "Herramienta de golpe"
- *                   unidades:
- *                     type: integer
- *                     example: 10
- *                   fk_lote:
- *                     type: integer
- *                     example: 2
+ *         description: Lista de insumos obtenida correctamente
+ *       500:
+ *         description: Error en el servidor
  */
-rutaHerramienta.get("/herramientas", verificarToken, listarHerramientas);
+rutaInsumos.get("/insumos", verificarToken, listarInsumos);
 
 /**
  * @swagger
- * /herramientas:
+ * /insumos:
  *   post:
- *     summary: Registrar una nueva herramienta
- *     tags: [Herramientas]
+ *     summary: Registrar un nuevo insumo
+ *     tags: [Insumos]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -68,39 +42,41 @@ rutaHerramienta.get("/herramientas", verificarToken, listarHerramientas);
  *           schema:
  *             type: object
  *             properties:
- *               fk_lote:
- *                 type: integer
- *                 example: 2
  *               nombre:
  *                 type: string
- *                 example: "Martillo"
+ *                 description: Nombre del insumo
  *               descripcion:
  *                 type: string
- *                 example: "Herramienta de golpe"
- *               unidades:
- *                 type: integer
- *                 example: 10
+ *                 description: Descripción del insumo
+ *               precio:
+ *                 type: number
+ *                 description: Precio del insumo
+ *               unidad_medida:
+ *                 type: string
+ *                 description: Unidad de medida
  *     responses:
- *       201:
- *         description: Herramienta registrada correctamente
+ *       200:
+ *         description: Insumo registrado correctamente
+ *       500:
+ *         description: Error en el servidor
  */
-rutaHerramienta.post("/herramientas", verificarToken, registrarHerramienta);
+rutaInsumos.post("/insumos", verificarToken, registrarInsumo);
 
 /**
  * @swagger
- * /herramientas/{id}:
+ * /insumos/{id}:
  *   put:
- *     summary: Actualizar los datos de una herramienta
- *     tags: [Herramientas]
+ *     summary: Actualizar un insumo
+ *     tags: [Insumos]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: id
+ *         in: path
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID de la herramienta a actualizar
+ *         description: ID del insumo a actualizar
  *     requestBody:
  *       required: true
  *       content:
@@ -108,43 +84,47 @@ rutaHerramienta.post("/herramientas", verificarToken, registrarHerramienta);
  *           schema:
  *             type: object
  *             properties:
- *               fk_lote:
- *                 type: integer
- *                 example: 3
  *               nombre:
  *                 type: string
- *                 example: "Destornillador"
  *               descripcion:
  *                 type: string
- *                 example: "Herramienta para tornillos"
- *               unidades:
- *                 type: integer
- *                 example: 15
+ *               precio:
+ *                 type: number
+ *               unidad_medida:
+ *                 type: string
  *     responses:
  *       200:
- *         description: Herramienta actualizada correctamente
+ *         description: Insumo actualizado correctamente
+ *       404:
+ *         description: Insumo no encontrado
+ *       500:
+ *         description: Error en el servidor
  */
-rutaHerramienta.put("/herramientas/:id", verificarToken, actualizarHerramienta);
+rutaInsumos.put("/insumos/:id", verificarToken, actualizarInsumo);
 
 /**
  * @swagger
- * /herramientas/{id}:
+ * /insumos/{id}:
  *   delete:
- *     summary: Eliminar una herramienta
- *     tags: [Herramientas]
+ *     summary: Eliminar un insumo
+ *     tags: [Insumos]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: id
+ *         in: path
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID de la herramienta a eliminar
+ *         description: ID del insumo a eliminar
  *     responses:
  *       200:
- *         description: Herramienta eliminada correctamente
+ *         description: Insumo eliminado correctamente
+ *       404:
+ *         description: Insumo no encontrado
+ *       500:
+ *         description: Error en el servidor
  */
-rutaHerramienta.delete("/herramientas/:id", verificarToken, eliminarHerramienta);
+rutaInsumos.delete("/insumos/:id", verificarToken, eliminarInsumo);
 
-export default rutaHerramienta;
+export default rutaInsumos;
