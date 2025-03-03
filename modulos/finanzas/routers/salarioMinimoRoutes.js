@@ -1,22 +1,46 @@
 import { Router } from "express";
-import verificarToken from "../../usuarios/middlewares/verificarToken.js";
-import { registrarInventarioProducto, listarInventarioProducto, actualizarInventarioProducto, eliminarInventarioProducto } from "../controllers/inventarioProductoController.js";
+import {
+    registrarSalario,
+    listarSalarios,
+    actualizarSalario,
+    eliminarSalario,
+} from "../controllers/salarioMinimoController.js";
 
-const rutaInventario = Router();
+import verificarToken from "../../usuarios/middlewares/verificarToken.js";
+
+const rutaSalario = Router();
 
 /**
  * @swagger
  * tags:
- *   name: Inventario
- *   description: Endpoints para gestionar el inventario de productos
+ *   name: Salarios
+ *   description: API para la gestión del salario mínimo
  */
 
 /**
  * @swagger
- * /inventario:
+ * /salarios:
+ *   get:
+ *     summary: Obtener todos los salarios mínimos registrados
+ *     tags: [Salarios]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de salarios obtenida correctamente
+ *       404:
+ *         description: No hay registros de salarios
+ *       500:
+ *         description: Error en el servidor
+ */
+rutaSalario.get("/salarios", verificarToken, listarSalarios);
+
+/**
+ * @swagger
+ * /salarios:
  *   post:
- *     summary: Registrar un nuevo producto en el inventario
- *     tags: [Inventario]
+ *     summary: Registrar un nuevo salario mínimo
+ *     tags: [Salarios]
  *     security:
  *       - BearerAuth: []
  *     requestBody:
@@ -26,60 +50,38 @@ const rutaInventario = Router();
  *           schema:
  *             type: object
  *             properties:
- *               fk_cosecha:
- *                 type: integer
- *                 example: 1
- *               fk_venta:
- *                 type: integer
- *                 example: 2
- *               nombre:
- *                 type: string
- *                 example: "Lechuga"
- *               cantidad_disponible:
- *                 type: integer
- *                 example: 100
  *               valor:
  *                 type: number
- *                 example: 850.75
+ *                 description: Valor del salario mínimo
  *               fecha_aplicacion:
  *                 type: string
  *                 format: date
- *                 example: "2024-01-01"
+ *                 description: Fecha de aplicación del salario
  *     responses:
  *       201:
- *         description: Producto registrado correctamente en el inventario
+ *         description: Salario registrado correctamente
+ *       400:
+ *         description: Salario no registrado
+ *       500:
+ *         description: Error en el servidor
  */
-rutaInventario.post("/inventario", verificarToken, registrarInventarioProducto);
+rutaSalario.post("/salarios", verificarToken, registrarSalario);
 
 /**
  * @swagger
- * /inventario:
- *   get:
- *     summary: Obtener todos los productos en el inventario
- *     tags: [Inventario]
- *     security:
- *       - BearerAuth: []
- *     responses:
- *       200:
- *         description: Lista de productos obtenida con éxito
- */
-rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
-
-/**
- * @swagger
- * /inventario/{id}:
+ * /salarios/{id}:
  *   put:
- *     summary: Actualizar un producto en el inventario por ID
- *     tags: [Inventario]
+ *     summary: Actualizar un salario mínimo
+ *     tags: [Salarios]
  *     security:
  *       - BearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: id
+ *         in: path
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del producto a actualizar
+ *         description: ID del salario a actualizar
  *     requestBody:
  *       required: true
  *       content:
@@ -87,50 +89,44 @@ rutaInventario.get("/inventario", verificarToken, listarInventarioProducto);
  *           schema:
  *             type: object
  *             properties:
- *               fk_cosecha:
- *                 type: integer
- *                 example: 1
- *               fk_venta:
- *                 type: integer
- *                 example: 2
- *               nombre:
- *                 type: string
- *                 example: "Lechuga"
- *               cantidad_disponible:
- *                 type: integer
- *                 example: 120
  *               valor:
  *                 type: number
- *                 example: 900.00
  *               fecha_aplicacion:
  *                 type: string
  *                 format: date
- *                 example: "2025-01-01"
  *     responses:
  *       200:
- *         description: Producto actualizado correctamente
+ *         description: Salario actualizado correctamente
+ *       404:
+ *         description: Salario no encontrado
+ *       500:
+ *         description: Error en el servidor
  */
-rutaInventario.put("/inventario/:id", verificarToken, actualizarInventarioProducto);
+rutaSalario.put("/salarios/:id", verificarToken, actualizarSalario);
 
 /**
  * @swagger
- * /inventario/{id}:
+ * /salarios/{id}:
  *   delete:
- *     summary: Eliminar un producto del inventario por ID
- *     tags: [Inventario]
+ *     summary: Eliminar un salario mínimo
+ *     tags: [Salarios]
  *     security:
  *       - BearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: id
+ *         in: path
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del producto a eliminar
+ *         description: ID del salario a eliminar
  *     responses:
  *       200:
- *         description: Producto eliminado correctamente
+ *         description: Salario eliminado correctamente
+ *       404:
+ *         description: Salario no encontrado
+ *       500:
+ *         description: Error en el servidor
  */
-rutaInventario.delete("/inventario/:id", verificarToken, eliminarInventarioProducto);
+rutaSalario.delete("/salarios/:id", verificarToken, eliminarSalario);
 
-export default rutaInventario;
+export default rutaSalario;
